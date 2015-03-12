@@ -15,7 +15,7 @@ author :
   email : rfarouni@gmail.com
   github : rfarouni
   twitter : rfarouni
-  feedburner : feedname
+  mendeley: rick-farouni
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
@@ -72,8 +72,8 @@ JB :
   archive_path: /archive.html
   categories_path : /categories.html
   tags_path : /tags.html
-  atom_path : /atom.xml
-  rss_path : /rss.xml
+ # atom_path : /atom.xml
+  #rss_path : /rss.xml
 
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
@@ -127,4 +127,16 @@ JB :
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
+
+  markdown: kramdown
+
+exclude:
+  - Rakefile
+
+ # - _posts/*.Rmd
+ # - _posts/source
+ # - build.R
+ # - _cache
+ # - deploy.sh
+ # - fig.yml
   

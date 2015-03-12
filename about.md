@@ -5,38 +5,29 @@ description: ""
 ---
 {% include JB/setup %}
 
-Heading
- =======
- 
- Sub-heading
- -----------
- 
- ### Another deeper heading
- 
- Paragraphs are separated
- by a blank line.
- 
- Let 2 spaces at the end of a line to do a  
- line break
- 
- Text attributes *italic*, **bold**,
- `monospace`, ~~strikethrough~~ .
- 
- A [link](http://example.com).
- <<<   No space between ] and (  >>>
+This is a paragraph element before a codeblocked block of C code.
 
- Shopping list:
- 
-   * apples
-   * oranges
-   * pears
- 
- Numbered list:
- 
-   1. apples
-   2. oranges
-   3. pears
- 
- The rain---not the reign---in
- Spain.
+    int main(void) {
+        printf("Hello world!");
+        return 0;
+    }
+{:lang="c"}
 
+And an equation
+
+$$
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$

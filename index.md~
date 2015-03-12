@@ -12,14 +12,13 @@ Complete usage and documentation available at: [Current Reading List](http://www
 
 In `_config.yml` remember to specify your own data:
     
-    title : My Blog
+    title : My Blog =)
     
     author : 
-      name : Rick Farouni
-      email : rfarouni@gmail.com
+      name : Name Lastname
+      email : blah@email.test
       github : username
       twitter : username
-      facebook : username
 
 The theme should reference these variables whenever needed.
     
