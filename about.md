@@ -7,13 +7,15 @@ description: ""
 
 This is a paragraph element before a codeblocked block of C code.
 
+{% highlight c %}
     int main(void) {
         printf("Hello world!");
         return 0;
     }
-{:lang="c"}
+{% endhighlight %}
 
 And an equation
+
 
 $$
 \begin{align*}
@@ -31,3 +33,4 @@ $$
     \end{array} \right)
 \end{align*}
 $$
+

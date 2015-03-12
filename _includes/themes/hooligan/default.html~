@@ -98,7 +98,7 @@
                 {% endif %}
                 {% if site.author.mendeley %}
                 <li>
-                  <a href="http://www.mendeley.com/profiles/{{site.author.mendeley}}" target="_blank"><img src="/assets/img/icon-mendeley.png" />
+                  <a href="http://www.mendeley.com/profiles/{{site.author.mendeley}}" target="_blank"><img src="/assets/img/icon-mendeley.png"  style="color:#46c0fb;"/>
                     <span class="hidden-desktop">Mendeley</span>
                   </a>
                 </li>

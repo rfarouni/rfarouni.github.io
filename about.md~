@@ -15,7 +15,7 @@ This is a paragraph element before a codeblocked block of C code.
 
 And an equation
 
-{: }
+{% highlight latex %}
 $$
 \begin{align*}
   & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
@@ -32,4 +32,4 @@ $$
     \end{array} \right)
 \end{align*}
 $$
-{:}
+{% endhighlight %}
