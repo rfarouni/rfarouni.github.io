@@ -1,7 +1,8 @@
 ---
 layout: page
-title: "About"
-description: ""
+title: Code and Notebooks
+header: Code and Notebooks
+group: navigation
 ---
 {% include JB/setup %}
 
@@ -33,4 +34,6 @@ $$
     \end{array} \right)
 \end{align*}
 $$
+
+
 

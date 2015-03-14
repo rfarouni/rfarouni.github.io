@@ -1,9 +1,31 @@
 ---
 layout: page
-title: Homepage
-tagline: Supporting tagline
+title: About me
+tagline: 
 ---
 {% include JB/setup %}
+
+## Welcome
+
+<img src="assets/img/rick.jpg" style="float:right; margin: 10px 10px;"/>
+I am a third-year PhD student in quantitative psychology at the Ohio State University. 
+
+This blog contains sample posts which help stage pages and blog data.
+
+ I enjoy questions of ["Pasteur's Quadrant"](http://en.wikipedia.org/wiki/Pasteur%27s_quadrant), basic
+
+
+
+
+
+
+
+<!--
+### Projects
+[nonparametric Bayesian](/projects/nonparametric-bayes.html)
+approaches to management, quantifying the value of information
+
+-->
 
 
 Complete usage and documentation available at: [Current Reading List](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
@@ -12,13 +34,14 @@ Complete usage and documentation available at: [Current Reading List](http://www
 
 In `_config.yml` remember to specify your own data:
     
-    title : My Blog =)
+    title : My Blog
     
     author : 
-      name : Name Lastname
-      email : blah@email.test
+      name : Rick Farouni
+      email : rfarouni@gmail.com
       github : username
       twitter : username
+      facebook : username
 
 The theme should reference these variables whenever needed.
     

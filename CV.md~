@@ -6,7 +6,7 @@ group: navigation
 ---
 
 {% include JB/setup %}
------------------------------------------------------
+
 <div>
 <body>
 <p></i><a href="/assets/files/CV.pdf"  

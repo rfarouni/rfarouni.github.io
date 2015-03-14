@@ -1,9 +1,37 @@
 ---
 layout: page
-title: Homepage
-tagline: Supporting tagline
+title: About me
+tagline: 
 ---
 {% include JB/setup %}
+
+## Welcome
+
+<img src="assets/img/rick.jpg" style="float:right; margin: 10px 10px;"/>
+I am a third-year PhD student in quantitative psychology at the Ohio State University. 
+
+This blog contains sample posts which help stage pages and blog data.
+
+ I enjoy questions of ["Pasteur's Quadrant"](http://en.wikipedia.org/wiki/Pasteur%27s_quadrant), basic
+
+
+
+### Skills
+
+* **Analytic methods**: Dynamical systems, 
+* **Numerical methods**: High-performance computing,
+* **Data Science methods**:  (XML, regexp, semantic/linked data). Software development practices, authoring R packages, data management.
+
+I also enjoy exposure to
+
+
+
+<!--
+### Projects
+[nonparametric Bayesian](/projects/nonparametric-bayes.html)
+approaches to management, quantifying the value of information
+
+-->
 
 
 Complete usage and documentation available at: [Current Reading List](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)

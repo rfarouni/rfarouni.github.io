@@ -1,42 +1,42 @@
 ---
 layout: page
-title: Research
-tagline: Supporting tagline
+title: Code and Notebooks
+header: Code and Notebooks
 group: navigation
 ---
-
 {% include JB/setup %}
-<img src="assets/img/wadirum.png" style="float:right; margin: 10px 10px;"/>
- I enjoy questions of ["Pasteur's Quadrant"](http://en.wikipedia.org/wiki/Pasteur%27s_quadrant), basic
+
+This is a paragraph element before a codeblocked block of C code.
+
+{% highlight c %}
+    int main(void) {
+        printf("Hello world!");
+        return 0;
+    }
+{% endhighlight %}
+
+And an equation
 
 
+$$
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
 
 
-[nonparametric Bayesian](/projects/nonparametric-bayes.html)
-approaches to management, quantifying the value of information
-
-
-<!--
-### Projects
-
-
--->
-
-
-------------------------------------------------------------------------------
-
-
-### Skills
-
-* **Analytic methods**: Dynamical systems, 
-* **Numerical methods**: High-performance computing,
-* **Data Science methods**:  (XML, regexp, semantic/linked data). Software development practices, authoring R packages, data management.
-
-I also enjoy exposure to
-
-
-
-### Perspectives 
+### Notebooks 
 
 My somewhat uncommon approach to my own research ocassionally attracts attention of those outside my own field.  I have recently been interviewed by various journals asking to share my perspective and motivation.
 
