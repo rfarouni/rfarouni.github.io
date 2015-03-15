@@ -1,19 +1,7 @@
 ---
-layout: page
-title: Site Info
-group: navigation
+layout: default
+title: About this Website
 ---
-
-------------------
-
-List of All Pages
-=======================
-<div>
-<ul>
-{% assign pages_list = site.pages %}
-{% include JB/pages_list %}
-</ul>
-</div>
 
 ------------------
 
@@ -71,5 +59,6 @@ Copyrights & License
       </div>
 </footer>
 </div>
+
 
 

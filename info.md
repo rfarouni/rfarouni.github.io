@@ -1,6 +1,6 @@
 ---
-layout: page
-title: Info
+layout: default
+title: Site Info
 group: navigation
 ---
 
