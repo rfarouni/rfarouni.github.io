@@ -7,15 +7,15 @@ tagline:
 
 ## Welcome
 
-<img src="assets/img/rick.png" style="float:right; margin: 3px 20px;"/>
+<img src="assets/img/rick.png" style="float:right; margin: 20px 20px;"/>
 
-I am currently a third-year PhD student in quantitative psychology at the Ohio State University. I mainly interested in the application of statistical methods to the analysis of behavioral and neural data. 
+I am currently a third-year PhD student in quantitative psychology at the Ohio State University. I mainly interested in the application of statistical methods to the analysis of behavioral and neural data. I am also a supporter of reproducible research and open access science. This website contains posts, code and links to several resources that I hope you might find useful and interesting.  
 
-I am also an advocate of reproducible research and open access science. This website contains posts, code and links to several resources that I hope you might find useful and interesting.  
+You can find my most recent resume onn this [page](/CV.html).
 
 
 
-  <div class="row">
+  <div class="row" >
     <div class="col-md-5 col-md-offset-1">
       <dl class="dl-horizontal">
         <dt><i class="icon-envelope-alt"></i> Contact:</dt>
@@ -25,16 +25,19 @@ I am also an advocate of reproducible research and open access science. This web
         <span property="schema:address"
         typeof="http://schema.org/PostalAddress" vocab=
         "http://schema.org/PostalAddress/"><span property=
-        "streetAddress">Department of Psychology, The Ohio State University,  1835 Neil Avenue</span>, <span
-        property=  "addressLocality">Columbus</span>, <span property=
+        "streetAddress">Department of Psychology,<br> The Ohio State University,<br>  1835 Neil Avenue</span>, <span
+        property=  "addressLocality">Columbus</span>, <br> <span property=
         "addressRegion">OH</span> <span property=
         "postalCode">43210</span>, <span property=
         "addressCountry">USA</span></span> </dd>
         <dt><i ></i> Orcid ID:</dt>
-        <dd><a href="https://orcid.org/0000-0002-3454-2946">0000-0002-3454-2946</a></dd>
+        <dd><a href="https://orcid.org/0000-0002-3454-2946" target="_blank">0000-0002-3454-2946</a></dd>
     </dl>
-    </div>
+    </div> <br> <br>
   </div>
+
+
+
 <div align="center">
 <a href="https://github.com/{{ site.author.github }}" class="zocial github icon" target="_blank">
                     <span class="hidden-desktop">Github</span>
@@ -49,7 +52,11 @@ I am also an advocate of reproducible research and open access science. This web
  
 </div>
 
+
+
 ---------------
+
+
 
 ## My Research Interests
 
@@ -76,9 +83,7 @@ I am also an advocate of reproducible research and open access science. This web
 ## Reading Lists
 
 
-I have compiled lists of important journal papers on the topics mentioned above. The lists can be accessed on Mendeley <a href="http://www.mendeley.com/profiles/{{site.author.mendeley}}" target="_blank"><img src="/assets/img/icon-mendeley.png"  style="background-color:#ffffff;"/>
-                    <span class="hidden-desktop">Mendeley</span>
-                  </a>.
+I have compiled lists of important journal papers on the topics mentioned above. The lists can be accessed on Mendeley.
 
 
 
@@ -91,10 +96,12 @@ I have compiled lists of important journal papers on the topics mentioned above.
 
 * [*Multivariate Analysis of Neural Activity Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
 
+---------------
 
 Copyrights & License
 -------------------- 
 
+Click on this [link](README.html) for information about how the website was created.
 
 <div>
 <footer>
@@ -106,6 +113,9 @@ Copyrights & License
       </div>
 </footer>
 </div>
+
+---------------
+
 
 
 

@@ -1,6 +1,6 @@
 ---
 layout: page
-title : Posts
+title : Blog Posts
 header : Posts
 group: navigation
 ---
@@ -16,6 +16,9 @@ group: navigation
 ---
 
 
+
+
+<!--
 Categories
 =======================
 <div>
@@ -34,7 +37,7 @@ Categories
 
 ------------------
 
-<!--
+
 Posts by Date
 --------------
 <div>

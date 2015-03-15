@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Code
-header: Projects' Code
+title: Code Notebooks
+header: Code Notebooks
 group: navigation
 ---
 {% include JB/setup %}
@@ -29,6 +29,8 @@ Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/asset
 # Code Written in Python
 
 	- related posts
+
+
 
 
 				

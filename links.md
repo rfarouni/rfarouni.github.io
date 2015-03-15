@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Links
+title: Useful Links
 group: navigation
 ---
-Research Tools for Reproducible Research
+Reproducible Research
 =======================
 
 
@@ -27,7 +27,7 @@ Research Tools for Reproducible Research
 
 -----------------------------------------------------------------------------
 
-Other Tools
+Research Tools
 ====================================
 * [D3.js](http://d3js.org/){:target="_blank"} is a JavaScript library for producing dynamic, interactive data visualizations in web browsers. 
 
