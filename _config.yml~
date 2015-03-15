@@ -8,13 +8,14 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Rick's Webpage
+title : Rick Farouni
 tagline: Random Measures and Invariant Representations   
 author :
   name : Rick Farouni
   email : rfarouni@gmail.com
   github : rfarouni
   twitter : rfarouni
+  facebook : rfarouni
   mendeley: rick-farouni
 
 # The production_url is only used when full-domain names are needed
@@ -79,19 +80,7 @@ JB :
   # Set 'provider' to the comment provider you want to use.
   # Set 'provider' to false to turn commenting off globally.
   #
-  comments :
-    provider : disqus
-    disqus :
-      short_name : jekyllbootstrap
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
-    facebook :
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
+ 
    
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
@@ -114,7 +103,7 @@ JB :
   # Set 'provider' to the sharing provider you want to use.
   # Set 'provider' to false to turn sharing off globally.
   #
-  sharing :
+  sharing : facebook
     provider : false
     
   # Settings for all other include helpers can be defined by creating 

@@ -1,0 +1,1 @@
+load("shinystan_object.RData")
