@@ -7,15 +7,27 @@ tagline:
 
 ## Welcome
 
-<img src="assets/img/rick.png" style="float:right; margin: 10px 10px;"/>
+<table border="0" align="right">
+<tr>
+<td><img src="assets/img/rick.png" style=" margin: 20px 15px;"></td>
+</tr>
+<tr>
+<td> &nbsp; &nbsp; &nbsp; &nbsp; <a href="https://github.com/{{ site.author.github }}" class="zocial github icon" target="_blank">
+                    <span class="hidden-desktop">Github</span>
+                  </a>
+             
+                  <a href="https://twitter.com/{{ site.author.twitter }}" class="zocial twitter icon" target="_blank">
+                    <span class="hidden-desktop">Twitter</span>
+                  </a>
+                               <a href="http://www.facebook.com/{{ site.author.facebook }}" class="zocial facebook icon" target="_blank">
+                    <span class="hidden-desktop">Facebook</span>
+                  </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="25"></iframe></td>
+</tr>
+</table>
+I am currently a third-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in the multivariate statistical analysis of psychological research data, with a special emphasis on hierarchical and nonparametric Bayesian modeling of neuroimaging data. I am also a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in science. This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
+To find more about me, you can view my most recent resume on this [page](/CV.html){:target="_blank"}.
 
-I am currently a third-year PhD student in quantitative psychology at the Ohio State University. I mainly interested in the application of statistical methods to the analysis of behavioral and neural data. I am also a supporter of reproducible research and open access science. This website contains posts, code and links to several resources that I hope you might find useful and interesting.  
-
-You can find my most recent resume onn this [page](/CV.html).
-
-
-
-  <div class="row" >
+><div class="row" ><br>
     <div class="col-md-5 col-md-offset-1">
       <dl class="dl-horizontal">
         <dt><i class="icon-envelope-alt"></i> Contact:</dt>
@@ -31,28 +43,7 @@ You can find my most recent resume onn this [page](/CV.html).
         "postalCode">43210</span>, <span property=
         "addressCountry">USA</span></span> </dd>
         <dt><i ></i> Orcid ID:</dt>
-        <dd><a href="https://orcid.org/0000-0002-3454-2946" target="_blank">0000-0002-3454-2946</a></dd>
-    </dl>
-    </div> <br> <br>
-  </div>
-
-
-
-<div align="center">
-<a href="https://github.com/{{ site.author.github }}" class="zocial github icon" target="_blank">
-                    <span class="hidden-desktop">Github</span>
-                  </a>
-             
-                  <a href="https://twitter.com/{{ site.author.twitter }}" class="zocial twitter icon" target="_blank">
-                    <span class="hidden-desktop">Twitter</span>
-                  </a>
-                               <a href="http://www.facebook.com/{{ site.author.facebook }}" class="zocial facebook icon" target="_blank">
-                    <span class="hidden-desktop">Facebook</span>
-                  </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="25"></iframe>
- 
-</div>
-
-
+        <dd><a href="https://orcid.org/0000-0002-3454-2946" target="_blank">0000-0002-3454-2946</a></dd></dl> </div> </div>
 
 ---------------
 
@@ -88,34 +79,19 @@ I have compiled lists of important journal papers on the topics mentioned above.
 
 
 
-* [*Nonparameteric Bayes Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
+* [*Nonparameteric Bayes Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
 
-* [*Multimodal Integration Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
+* [*Multimodal Integration Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
 
-* [*Invariant Visual Object Recognition Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
+* [*Invariant Visual Object Recognition Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
 
-* [*Multivariate Analysis of Neural Activity Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/)
-
----------------
-
-Copyrights & License
--------------------- 
-
-Click on this [link](README.html) for information about how the website was created.
-
-<div>
-<footer>
-      <div class="container">
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
-          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>, 
-          <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>, and      <a property="http://creativecommons.org/ns#attributionURL" href="http://carlboettiger.info">http://carlboettiger.info</a>
-        </p>
-      </div>
-</footer>
-</div>
+* [*Multivariate Analysis of Neural Activity Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
 
 ---------------
 
+##About the Website
+
+Click on this [link](README.html){:target="_blank"} for information about how the website was created.
 
 
 
