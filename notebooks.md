@@ -14,22 +14,6 @@ group: navigation
   Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/_pages/BayesianIRT.html)
 <br>
 
-
-
-
-
-
-<hr>
-<section>
-   <h1>Complete list</h1>
-<ul>
-  {% assign pages_list = site.pages %}
-  {% assign group = 'notebook' %}
-  {% include JB/pages_list %}
-</ul>
-</section>
-<hr>	
-
 <br>
 <br>
 <br>		
