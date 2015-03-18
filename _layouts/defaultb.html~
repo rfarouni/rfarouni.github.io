@@ -1,0 +1,31 @@
+
+---
+layout: default
+---
+{% include JB/setup %}
+
+
+
+<html >
+  <head>
+       <link rel="stylesheet" media="screen, projection" href="/assets/themes/hooligan/css/screen.css" type="text/css">  
+  </head>
+  <body>
+
+    <!--div class="wrapper content"-->
+      {{ content }}
+    <!--/div-->
+    
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+

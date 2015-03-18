@@ -1,0 +1,130 @@
+---
+layout: page
+title : Blog posts
+header : Posts
+group: navigation
+---
+{% include JB/setup %}
+
+<div>
+<table border="0" align="right">
+<tr>
+<td><form action="http://www.google.com/cse" id="cse-search-box">
+  <p>
+    <input type="hidden" name="cx" value="015077698314123965974:-r7xbwrv0ai" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" id="cse-search-field" placeholder="Search" />
+  </p>
+</form>
+<script type="text/javascript" src="http://www.google.com/cse/cse.js?cx=015077698314123965974:-r7xbwrv0ai;lang=en"></script>
+<script type="text/javascript">
+var search_field = document.getElementById('cse-search-field');
+search_field.style.background = null;
+if (window.rsmsHostIsIOS) {
+  search_field.type = 'search';
+} else {
+  search_field.select();
+  search_field.focus();
+}
+search_field.addEventListener('blur', function (ev) {
+  this.style.background = null;
+});
+</script></td>
+</tr>
+</table>
+<style type="text/css">
+#cse-search-field {
+  width: 70%;
+  font-size: inherit;
+  font-family: helvetica, sans-serif;
+  padding:0.5em 1em;
+}
+#cse-search-field {
+  border:2px solid #ddd;
+  border-radius: 90px;
+}
+#cse-search-field:focus {
+  outline:none;
+  border-color: #2299ff;
+}
+html.ios #cse-search-field {
+  padding:0.5em 1em;
+  -webkit-appearance: none;
+}
+html.ios #cse-search-button {
+  display: none;
+}
+</style>
+</div>
+
+
+<div class="posts">
+    {% for post in site.posts limit: 7 %} 
+<li>
+    <h2>{{ post.title }}</h2>
+    <div class="post">
+    {{ post.content }}
+    </div>
+</li>
+<div class="row" align="float:right">
+<div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>{{ post.date | date_to_long_string }}</span></div>
+    </section>
+    {% if post.category %}
+      <section>
+        <h4>Category</h4>
+        <span class="category">
+          {{ post.category }}
+        </span>
+      </section>
+    {% endif %}     
+    {% unless post.tags == empty %}
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
+          {% assign tags_list = post.tags %}
+          {% include JB/tags_list %}
+        </ul>
+      </section>
+    {% endunless %}         
+  </div>
+  </div> 
+ {% if post.content %}
+{% include disqus.html %}
+{% endif %} 
+    {% endfor %}
+</div>
+
+ 
+
+
+
+
+<!--
+Categories
+=======================
+<div>
+<ul class="tag_box inline">
+  {% assign categories_list = site.categories %}
+  {% include JB/categories_list %}
+</ul>
+{% for category in site.categories %} 
+  <h2 id="{{ category[0] }}-ref">{{ category[0] | join: "/" }}</h2>
+  <ul>
+    {% assign pages_list = category[1] %}  
+    {% include JB/pages_list %}
+  </ul>
+{% endfor %}
+</div>
+
+------------------
+
+
+Posts by Date
+--------------
+<div>
+
+</div>
+-->

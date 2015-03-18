@@ -28,6 +28,10 @@ author :
 #
 production_url : http://username.github.io
 
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
 JB :
@@ -114,7 +118,7 @@ JB :
 
 exclude:
   - Rakefile
-
+  - assets/projects
  # - _posts/*.Rmd
  # - _posts/source
  # - build.R

@@ -96,13 +96,6 @@
                   </a>
                 </li>
                 {% endif %}
-                {% if site.author.mendeley %}
-                <li>
-                  <a href="http://www.mendeley.com/profiles/{{site.author.mendeley}}" target="_blank"><img src="/assets/img/icon-mendeley.png"  style="background-color:#46c0fb;"/>
-                    <span class="hidden-desktop">Mendeley</span>
-                  </a>
-                </li>
-                {% endif %}
               </ul>
             </div>
           </div>
@@ -120,9 +113,10 @@
 
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{{ ASSET_PATH }}/js/jquery.min.js"><\/script>')</script>
     <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ ASSET_PATH }}/js/infinite-jekyll.js"></script>
 
     {% include JB/analytics %}
   </body>

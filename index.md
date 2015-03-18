@@ -61,7 +61,7 @@ To find more about me, you can view my most recent resume on this [page](/CV.htm
 
 * **Methodological**
 
-		- Multivariate Statistical Analysis of fMRI Activation Patterns,
+		- Multivariate Statistical Analysis of fMRI Activation Patterns
 		- Mutlimodal Integration of Functional Neuroimaging Data (e.g.fMRI, EEG, MEG) in a generative Bayesian Hierarchical Model
 
 * **Substantive**  
