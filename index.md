@@ -13,15 +13,15 @@ tagline:
 </tr>
 <tr>
 <td> &nbsp; &nbsp; &nbsp; &nbsp; <a href="https://github.com/{{ site.author.github }}" class="zocial github icon" target="_blank">
-                    <span class="hidden-desktop">Github</span>
+                    
                   </a>
              
                   <a href="https://twitter.com/{{ site.author.twitter }}" class="zocial twitter icon" target="_blank">
-                    <span class="hidden-desktop">Twitter</span>
+              
                   </a>
                                <a href="http://www.facebook.com/{{ site.author.facebook }}" class="zocial facebook icon" target="_blank">
-                    <span class="hidden-desktop">Facebook</span>
-                  </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="25"></iframe></td>
+            
+                  </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="23"></iframe></td>
 </tr>
 </table>
 I am currently a third-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in multivariate statistical analysis of psychological research data, with a special emphasis on hierarchical and nonparametric Bayesian modeling of neuroimaging data. I am also a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in science. This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
