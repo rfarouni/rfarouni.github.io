@@ -421,39 +421,6 @@ math,.MathJax_SVG svg > g,
   stroke: #333 
 }
 
-.infinite-spinner {
-  display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 40px;
-  background-color: #333;
-  margin: 60px auto;
-  
-  -webkit-animation: scaleout 1.0s infinite ease-in-out;
-  animation: scaleout 1.0s infinite ease-in-out;
-}
-
-@-webkit-keyframes scaleout {
-  0% { -webkit-transform: scale(0.0) }
-  100% {
-    -webkit-transform: scale(1.0);
-    opacity: 0;
-  }
-}
-
-@keyframes scaleout {
-  0% {
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 100% {
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-    opacity: 0;
-  }
-}
-
-
-
 /* main content */
 div.content.b {
   background:white;
@@ -631,7 +598,7 @@ a.post-excerpt {
       overflow-y: hidden;
       float:left;
       border:none;
-      margin-bottom:10px;
+      margin-bottom:120px;
       background:#444;
       /*-webkit-transform: translate3d(0,100px,0);*/
 
@@ -766,6 +733,33 @@ div.post {
   div.post iframe[width="640"] {
     zoom:0.87;
   }
+
+/* --------------------------------------------------------------------------------------------- */
+/* google search widget */
+
+
+#cse-search-field {
+  width: 30%;
+  float: right;
+  font-size: inherit;
+  font-family: helvetica, sans-serif;
+  padding:0.5em 0.5em;
+}
+#cse-search-field {
+  border:2px solid #ddd;
+  border-radius: 90px;
+}
+#cse-search-field:focus {
+  outline:none;
+  border-color: #2299ff;
+}
+html.ios #cse-search-field {
+  padding:.5em 1em;
+  -webkit-appearance: none;
+}
+html.ios #cse-search-button {
+  display: none;
+}
 
 
 

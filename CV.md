@@ -2,6 +2,7 @@
 layout: page
 title: Curriculum Vitae
 tagline: last updated 03/14/2015
+group: navigation
 ---
 
 {% include JB/setup %}

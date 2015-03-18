@@ -5,14 +5,12 @@ header : Posts
 group: navigation
 ---
 
-
-
 <div class="page-header-wrapper">
 	<div class="page-header">
-<table border="0"  style="width:100%">
+<h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+<!-- <table border="0"  style="width:100%">
 <tr>
-<td>
-  	<h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+<td> 	
 </td>
 <td>
 <form action="http://www.google.com/cse" id="cse-search-box">
@@ -22,6 +20,10 @@ group: navigation
     <input type="text" name="q" id="cse-search-field" placeholder="Search" />
   </p>
 </form>
+
+</td>
+</tr>
+</table>
 <script type="text/javascript" src="http://www.google.com/cse/cse.js?cx=015077698314123965974:-r7xbwrv0ai;lang=en"></script>
 <script type="text/javascript">
 var search_field = document.getElementById('cse-search-field');
@@ -35,35 +37,7 @@ if (window.rsmsHostIsIOS) {
 search_field.addEventListener('blur', function (ev) {
   this.style.background = null;
 });
-</script>
-
-</td>
-</tr>
-</table>
-<style type="text/css">
-#cse-search-field {
-  width: 30%;
-  float: right;
-  font-size: inherit;
-  font-family: helvetica, sans-serif;
-  padding:0.5em 0.5em;
-}
-#cse-search-field {
-  border:2px solid #ddd;
-  border-radius: 90px;
-}
-#cse-search-field:focus {
-  outline:none;
-  border-color: #2299ff;
-}
-html.ios #cse-search-field {
-  padding:.5em 1em;
-  -webkit-appearance: none;
-}
-html.ios #cse-search-button {
-  display: none;
-}
-</style>
+</script> -->
 </div >
 </div >
 
@@ -91,12 +65,10 @@ html.ios #cse-search-button {
     </a>{% endfor %}
     <div class="breaker"></div>
     <div class="end">
-{% include footer.html %}
 <!--    <a href="/archive/">More...</a> -->
     </div>
   </div>
 </div>
-
 <script type="text/javascript">
 (function(f){
   var onload = function(f) {

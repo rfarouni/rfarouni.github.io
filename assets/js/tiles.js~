@@ -1,76 +1,5 @@
----
-layout: default
-title : Blog Posts
-header : Posts
-group: navigation
----
-
-<div class="page-header-wrapper">
-	<div class="page-header">
-<h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
-<!-- <table border="0"  style="width:100%">
-<tr>
-<td> 	
-</td>
-<td>
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <p>
-    <input type="hidden" name="cx" value="015077698314123965974:-r7xbwrv0ai" />
-    <input type="hidden" name="ie" value="UTF-8" />
-    <input type="text" name="q" id="cse-search-field" placeholder="Search" />
-  </p>
-</form>
-
-</td>
-</tr>
-</table>
-<script type="text/javascript" src="http://www.google.com/cse/cse.js?cx=015077698314123965974:-r7xbwrv0ai;lang=en"></script>
-<script type="text/javascript">
-var search_field = document.getElementById('cse-search-field');
-search_field.style.background = null;
-if (window.rsmsHostIsIOS) {
-  search_field.type = 'search';
-} else {
-  search_field.select();
-  search_field.focus();
-}
-search_field.addEventListener('blur', function (ev) {
-  this.style.background = null;
-});
-</script> -->
-</div >
-</div >
-
-
-<div class="posts">
-  <div class="content.b full-bleed" id="recent-posts">
-  {% for post in site.posts limit:25 %}<a
-    href="{{ post.url }}" class="post-excerpt{% if post.photo_url %} photo{% endif %}">
-      <div class="padded-content">
-        <div class="title">{{ post.title }}</div>
-      {% if post.photo_url %}
-        <div class="image" style="background-image:url('{{ post.photo_url }}')"></div>
-      {% else %}
-        <!-- <div class="title">{{ post.title }}</div> -->
-        <info datetime="{{ page.date | date: "%Y-%m-%d" }}">
-          {{ post.date | date: "%b %Y" }}
-        </info>
-        {% if post.description %}
-        <span class="body">{{ post.description | strip_html }}</span>
-        {% else %}
-        <span class="body">{{ post.excerpt | strip_html }}</span>
-        {% endif %}
-      {% endif %}<!-- post.photo_url -->
-      </div>
-    </a>{% endfor %}
-    <div class="breaker"></div>
-    <div class="end">
-<!--    <a href="/archive/">More...</a> -->
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-(function(f){
+$(function(){
+  (function(f){
   var onload = function(f) {
     if (window.addEventListener) {
       window.addEventListener('DOMContentLoaded', f, false);
@@ -167,8 +96,6 @@ search_field.addEventListener('blur', function (ev) {
   }
 
 });
-</script>
-
-
-
- 
+	
+});
+});

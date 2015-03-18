@@ -1,0 +1,27 @@
+---
+layout: page
+title : Archive
+header : Post Archive
+
+---
+{% include JB/setup %}
+<hr>
+<section>
+   <h1>Notebooks</h1>
+<ul>
+  {% assign pages_list = site.pages %}
+  {% assign group = 'notebook' %}
+  {% include JB/pages_list %}
+</ul>
+</section>
+
+<br> <br> <br>
+<hr>
+<section>
+   <h1>Posts</h1>
+{% assign posts_collate = site.posts %}
+{% include JB/posts_collate %}
+</section>
+<hr>
+
+

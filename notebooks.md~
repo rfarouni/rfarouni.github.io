@@ -1,36 +1,35 @@
 ---
 layout: page
-title: Code Notebooks
-header: Code Notebooks
+title: Interactive Notebooks
+header: REPL Notebooks
 group: navigation
 ---
 {% include JB/setup %}
 
 
-## Notebooks 
+
 
 # Code Written in R
 
-Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/pages/BayesianIRT.html)
-
-
-	- related posts
-
-
-		
-	
-# Code Written in Matlab
-
-	- related posts
-
-			
-
-
-# Code Written in Python
-
-	- related posts
+  Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/_pages/BayesianIRT.html)
 
 
 
 
-				
+
+
+
+<hr>
+<section>
+   <h1>Complete list</h1>
+<ul>
+  {% assign pages_list = site.pages %}
+  {% assign group = 'notebook' %}
+  {% include JB/pages_list %}
+</ul>
+</section>
+<hr>	
+
+<br>
+<br>
+<br>		

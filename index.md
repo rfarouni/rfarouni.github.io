@@ -24,7 +24,7 @@ tagline:
                   </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="25"></iframe></td>
 </tr>
 </table>
-I am currently a third-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in the multivariate statistical analysis of psychological research data, with a special emphasis on hierarchical and nonparametric Bayesian modeling of neuroimaging data. I am also a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in science. This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
+I am currently a third-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in multivariate statistical analysis of psychological research data, with a special emphasis on hierarchical and nonparametric Bayesian modeling of neuroimaging data. I am also a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in science. This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
 To find more about me, you can view my most recent resume on this [page](/CV.html){:target="_blank"}.
 
 ><div class="row" ><br>
