@@ -761,6 +761,18 @@ html.ios #cse-search-button {
   display: none;
 }
 
+input.gsc-input, .gsc-input-box, .gsc-input-box-hover, .gsc-input-box-focus, .gsc-search-button 
+{
+  box-sizing: content-box;
+  line-height: normal;
+}
+
+.gsc-tabsArea div 
+{
+  /*By default, Google custom search CSS sets it as AUTO, which shows scroll bars*/
+  overflow: visible; 
+}
+
 
 
 

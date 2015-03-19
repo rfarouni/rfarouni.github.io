@@ -60,9 +60,7 @@ theme :
                 {% assign group = 'navigation' %}
                 {% include JB/pages_list %}
               </ul>
-<form class="navbar-search ">
-  <input type="text" class="search-query" placeholder="Search">
-</form>
+
               <ul class="nav pull-right social visible-desktop">
                 <li class="divider-vertical"></li>
                 {% if site.author.github %}
@@ -108,6 +106,11 @@ theme :
                 </li>
                 {% endif %}
               </ul>
+              <form action="http://www.google.com/cse" class="navbar-search pull-right">   
+                 <input type="hidden" name="cx" value="015077698314123965974:-r7xbwrv0ai" />
+                 <input type="hidden" name="ie" value="UTF-8" />
+                 <input type="text"  name="q" class="search-query" placeholder="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -128,7 +131,6 @@ theme :
 
   </body>
 </html>
-
 
 
 
