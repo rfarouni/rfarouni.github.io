@@ -739,11 +739,11 @@ div.post {
 
 
 #cse-search-field {
-  width: 30%;
+  width: 40%;
   float: right;
   font-size: inherit;
   font-family: helvetica, sans-serif;
-  padding:0.5em 0.5em;
+  padding:.3em .5em;
 }
 #cse-search-field {
   border:2px solid #ddd;
@@ -754,11 +754,23 @@ div.post {
   border-color: #2299ff;
 }
 html.ios #cse-search-field {
-  padding:.5em 1em;
+  padding:.5em .5em;
   -webkit-appearance: none;
 }
 html.ios #cse-search-button {
   display: none;
+}
+
+input.gsc-input, .gsc-input-box, .gsc-input-box-hover, .gsc-input-box-focus, .gsc-search-button 
+{
+  box-sizing: content-box;
+  line-height: normal;
+}
+
+.gsc-tabsArea div 
+{
+  /*By default, Google custom search CSS sets it as AUTO, which shows scroll bars*/
+  overflow: visible; 
 }
 
 
