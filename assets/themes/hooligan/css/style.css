@@ -405,6 +405,7 @@ div.sidebar section img.icon {
   border-radius: 5px;
 }
 
+/*
 math, .MathJax {
     background-color: "#FFFF88",
     color:   "#CC0000",
@@ -419,7 +420,7 @@ math,.MathJax_SVG svg > g,
 .MathJax_SVG_Display svg > g { 
   fill: #333; 
   stroke: #333 
-}
+}*/
 
 /* main content */
 div.content.b {
@@ -739,11 +740,11 @@ div.post {
 
 
 #cse-search-field {
-  width: 40%;
+  width: 80%;
   float: right;
   font-size: inherit;
   font-family: helvetica, sans-serif;
-  padding:.2em .5em;
+  padding:.5em 1em;
 }
 #cse-search-field {
   border:2px solid #ddd;

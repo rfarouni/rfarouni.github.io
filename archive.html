@@ -6,9 +6,31 @@ header : Post Archive
 
 {% include JB/setup %}
 
-<hr>
 <section>
    <h1>Posts in Chronological Order</h1>
+<div class="container">
+              <form action="http://www.google.com/cse" class="navbar-search pull-right" id="cse-search-box">   
+  <p>
+    <input type="hidden" name="cx" value="015077698314123965974:-r7xbwrv0ai" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" id="cse-search-field" placeholder="Search" />
+  </p>
+              </form>
+<script type="text/javascript" src="http://www.google.com/cse/cse.js?cx=015077698314123965974:-r7xbwrv0ai;lang=en"></script>
+<script type="text/javascript">
+var search_field = document.getElementById('cse-search-field');
+search_field.style.background = null;
+if (window.rsmsHostIsIOS) {
+  search_field.type = 'search';
+} else {
+  search_field.select();
+  search_field.focus();
+}
+search_field.addEventListener('blur', function (ev) {
+  this.style.background = null;
+});
+</script>
+</div>
 {% assign posts_collate = site.posts %}
 {% include JB/posts_collate %}
 </section>
@@ -33,3 +55,7 @@ header : Post Archive
 </ul>
 </section>
 <hr>
+
+
+
+
