@@ -4,6 +4,11 @@ title : Blog Posts
 header : Posts
 group: navigation
 ---
+
+
+
+	"'There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened.'-Douglas Adams, The Hitchhiker's Guide to the Galaxy"
+
 <div class="page-header-wrapper">
 	<div class="page-header">
 <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
