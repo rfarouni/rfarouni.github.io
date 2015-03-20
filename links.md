@@ -2,7 +2,7 @@
 layout: page
 title: Useful Links
 group: navigation
-tagline: “No one should approach the temple of science with the soul of a money changer" - Sir Thomas Browne
+tagline: 
 ---
 Reproducible Research
 =======================
