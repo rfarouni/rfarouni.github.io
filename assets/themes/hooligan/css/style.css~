@@ -558,7 +558,7 @@ a.post-excerpt {
     }*/
     a.post-excerpt.photo div.title {
       padding:10px 10px;
-      font-size: 120%;
+      font-size: 150%;
       font-weight: 100;
       color: #201F1D;
       /*background:rgba(255,200,0,0.1);*/
