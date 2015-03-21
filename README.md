@@ -37,13 +37,11 @@ geographically and geopolitically distributed network of redundant archive nodes
 Building from source
 ====================
 
-_Note:_  If you are new
-to Jekyll, consider starting with a basic Jekyll template such as
-[jekyll-bootstrap](http://jekyllbootstrap.com/) which is much
-easier to modify than this repository.
+Note: If you are new to Jekyll, consider starting with a basic Jekyll template such as
+[jekyll-bootstrap](http://jekyllbootstrap.com/) which is much easier to modify than this repository.
 
 
-Also, some elements of the website were adapted from <a property="http://creativecommons.org/ns#attributionURL" href="http://carlboettiger.info">Carl Boettiger website</a>. The blog posts tiling design was adapted form <a property="http://creativecommons.org/ns#attributionURL" href="http://rsms.me"> Rasmus Andersson.
+Also, some elements of the website were adapted from <a property="http://creativecommons.org/ns#attributionURL" href="http://carlboettiger.info">Carl Boettiger's website</a>. The blog posts tiling design was adapted form <a property="http://creativecommons.org/ns#attributionURL" href="http://rsms.me"> Rasmus Andersson.
 
 
 -----------------------------------------------------------------------------------------------------------
