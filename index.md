@@ -71,24 +71,6 @@ To find more about me, you can view my most recent resume on this [page](/CV.htm
 
 ---------------
 
-## Reading Lists
-
-
-I have compiled lists of important journal papers on the topics mentioned above. The lists can be accessed on Mendeley.
-
-
-
-
-* [*Nonparameteric Bayes Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
-
-* [*Multimodal Integration Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
-
-* [*Invariant Visual Object Recognition Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
-
-* [*Multivariate Analysis of Neural Activity Reading List*](http://www.mendeley.com/groups/6795211/nonparametric-bayes/){:target="_blank"}
-
----------------
-
 ## Archive
 
 A list of all pages and posts can be accessed [here](archive.html){:target="_blank"}.
