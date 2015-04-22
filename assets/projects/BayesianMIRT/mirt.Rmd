@@ -1,0 +1,306 @@
+---
+author: "Rick Farouni"
+date: "04/20/2015"
+output: 
+  html_document:
+    theme: united
+    highlight: pygments
+    self_contained: no
+header-includes:
+   - \usepackage{amsmath}
+title: "Fitting a Multidimensional Item-Response Theory Model in Stan"
+bibliography: bibfile.bib
+csl: apa.csl
+---
+
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bsY}{\boldsymbol{Y}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bsX}{\boldsymbol{X}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bvtheta}{\boldsymbol{\vartheta}}
+\newcommand{\Btheta}{\boldsymbol{\Theta}}
+\newcommand{\bepsilon}{\boldsymbol{\varepsilon}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bmu}{\boldsymbol{\mu}} 
+\newcommand{\balpha}{\boldsymbol{\alpha}} 
+\newcommand{\bbeta}{\boldsymbol{\beta}} 
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\Var}{\mathrm{Var}}
+\DeclareMathOperator*{\Cov}{\mathrm{Cov}}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\Diag}{Diag}
+
+## Model Specification
+In a **Multidimensional Item-Response Theory** (MIRT) model, the probability of generating a particular response can be viewed as driven by the interaction of the characteristics of the person and the characteristics of the item. For example, for person $p$ and test item $i$, we can have $D$ **latent factors** represented by the vector $\btheta_p$, interact with $D$ test **item discrimination** parameters, represented by $\balpha_i$, and one \emph{item intercept} parameter $\beta_i$ to determine the probability of correct response. The discrimination vector $\balpha_i$ for item $i$ is related to the power of the  response in classifying respondent's $p$ corresponding characteristics (Note that the dimensions of  $\btheta_p$ and $\balpha_i$ should match).  Now, assuming a Generalized Linear model [@McCullagh1989] formulation, we can set up, using the logistic link, the pointwise data model for each \ $pi$ in three steps.
+
+1. Let $y_{pi}\vert\pi_{pi}\sim \operatorname{Bernoulli} \left(\pi_{pi}\right)$ with $\E(y_{pi} )=\pi_{pi}$
+2. Let the linear predictor be $\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i}$
+3. Let the link function be the defined as $\logit(\pi_{pi})=\log\left( \frac{\pi_{pi}}{1-\pi_{pi}} \right)$ 
+
+The *link function*, the logit, relates the linear predictor to the mean response so that the mean function is then
+
+$$
+\pi_{pi} = \logit^{-1}\Bigl(\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i} \Bigr) = {\Bigl(1 + \operatorname{exp}\bigl(-\left( \balpha^{\intercal}_{i}\btheta_{p}+\beta_{i}\right)\bigr)\Bigr)}^{-1} 
+$$
+
+And the resulting sampling distribution for each response $pi$ is given by
+
+$$\begin{align}
+p(y_{pi}\vert\btheta_p,\balpha_p,\beta_i)= {\biggl[\logit^{-1}\Bigl(\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i} \Bigr)\biggr]}^{y_{pi}} {\biggl[1 - \logit^{-1}\Bigl(\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i} \Bigr)\biggr]}^{1-y_{pi}}
+\end{align}$$
+
+
+### The Joint Probability Distribution
+
+For a general model that assumes local and experimental independence, the posterior distribution of the parameters $\boldsymbol{\Theta},\balpha,\bbeta$ and the hyperparamters $\tilde{\btheta},\tilde{\balpha},\tilde{\bbeta}$ given the data is proportional to the product of the likelihood $p(\by\mid\boldsymbol{\Theta},\balpha,\bbeta)$, the prior distribution $p(\boldsymbol{\Theta},\balpha,\bbeta\mid\tilde{\btheta},\tilde{\balpha},\tilde{\bbeta})$, and the hyperprior distribution $p(\tilde{\btheta},\tilde{\balpha},\tilde{\bbeta})$. By factoring, we can then obtain the posterior distribution of all the parameters given the data
+
+$$\begin{align}
+p(\boldsymbol{\Theta},\balpha,\bbeta,\tilde{\btheta},\tilde{\balpha},\tilde{\bbeta}\mid \by)
+\propto &\biggl[ \prod_{p=1}^P\ \prod_{i=1}^I\ p(y_{pi}\vert\btheta_p,\balpha_i,\beta_i) p(\btheta_p \mid \tilde{\btheta})p(\balpha_i \mid \tilde{\balpha})p(\beta_i \mid \tilde{\bbeta})\biggr]p(\tilde{\btheta})p(\tilde{\balpha})p(\tilde{\bbeta})
+\end{align}$$
+
+
+### Identification Constraints
+
+The model as it stands is not identified. For multidimensional item response theory models, @Rivers2003 provided a rank condition for identification under certain assumptions. The \emph{rank condition} (Theorem 5 in the paper) states that a $D$ dimensional model is identified if and only if 
+$$\begin{align}
+\mathscr{H}^{\intercal}_\theta \bigl(\tilde{\Theta} \otimes \textbf{I}_D \bigr) \quad\text{has rank  } D(D+1)
+\end{align}$$
+where $\mathscr{H}^{\intercal}_\theta$ is a matrix of partial derivatives of the restrictions in the form of \ $\textbf{h}(\btheta)=\boldsymbol{0}$ and $\tilde{\Theta}$ is the matrix of latent trait factors augmented by the vector $\mathbf{1}$.  To identify a $D$ dimensional IRT model with an identity covariance matrix, $\bPhi=\mathbf{I}$, he has shown that we need an additional $\frac{D(D-1)}{2}$ constraints on $\mathbf{A}$ that satisfy the rank conditions. That is, for a 2-dimensional orthogonal model, we need 1 additional constraint on $\mathbf{A}$, and for a 3-dimensional model, we need 3 additional constraints. For our model, We could choose as a starting point the following prior specification as identification constraints:
+
+$$\begin{align*}
+&\btheta_p \sim \mathit{Normal}_d(\boldsymbol{0},\, \textbf{I}) \quad \text{for }  p=1,2,...,P \\
+&\balpha_i \sim \mathit{LogNormal}_d(\boldsymbol\mu_{\balpha},\,\boldsymbol\Sigma_{\alpha}) \quad \text{for }  i=1,2,...,I \\
+&\beta_i \sim \mathit{Normal}(\mu_{\beta},\,\sigma^2_{\beta}) \quad \text{for } i=1,2,...,I
+\end{align*}$$
+
+Since we know that the signs of the parameters are restricted to be positive, we can satisfy the polarity constraint condition by using a prior distribution with a positive domain such as the \textit{LogNormal}, where $\boldsymbol\Sigma_{\alpha}$ is a diagonal convariance matrix with diagonal elements $\sigma^2_{\alpha^{(d)}}$ for $d=1,2,...,D$ and the remaining, off-diagonal, elements are 0. 
+
+This prior on $\btheta_p $ fixes the scale and location of the parameter space but still leaves the model unidentified. In particular,  we still need $\frac{D(D-1)}{2}$ zero constraints on $\mathbf{A}$ that satisfy the \emph{rank condition} to locally identify the model. Note that in a Bayesian model, zero constraints can also be specified by assigning a very strong prior with mean zero and variance very close to zero to the variable(s) of interest. In addition, we still need to take care of the polarity restrictions on some elements of $\mathbf{A}$. For example, in Bayesian factor analysis, the positive lower triangular identification scheme is an identification strategy that depends of the uniqueness property of the QR decomposition [@Geweke1996]. The scheme is commonly used in Bayesian Factor Analysis and it requires that $\bPhi=\mathbf{I}$ and $\mathbf{A}$  be a lower triangular matrix with a positive diagonal elements (i.e., $\alpha_{i,i} > 0$) as such
+
+$$\begin{align*}
+\mathbf{A} =\begin{bmatrix}
+\alpha_{1,1} &      0   &  0    &  0    & 0  \\
+\alpha_{2,1} & \alpha_{2,2} &   0    &  0    & 0   \\
+\alpha_{d,1} & \alpha_{d,2} & \ddots &   0   & 0   \\
+\vdots  & \vdots  & \ddots & \ddots    & 0   \\
+\alpha_{D,1} & \alpha_{D,2} &        &           & \alpha_{D,D}\\
+\vdots  & \vdots  & \ddots & \ddots    &    \\
+\alpha_{I,1} & \alpha_{I,2} & \ldots & \alpha_{I,D-1} & \alpha_{I,D}
+\end{bmatrix}\\
+\end{align*}$$
+
+Alternatively, we can make the assignment of our theoretically informed constraints on a firmer ground by incorporating our prior knowledge in the specification of the priors. The prior knowledge can be included in the form of item-level covariates that replace some, or all, of the $D$ location hyperparameters $\mu_{\alpha^{(d)}}$ as such
+
+$$\begin{align*}
+\balpha_i \sim &\mathit{Normal}_d( \mathbf{x}_{\balpha_{i}} \boldsymbol{\gamma_\alpha},\,\boldsymbol\Sigma_{\alpha})\quad  \text{for }  i=1,2,...,I
+\end{align*}$$
+
+here $\mathbf{x}_{\balpha_{i}}$ refers to the row covariate vectors associated with  $\balpha_{i}$ and $\boldsymbol{\gamma_\alpha}$ is the corresponding regression coefficient vector. For an example of such an approach,  [@Adams1997]used person demographic variables as covariates for the population parameters. Also see [@Gelman2007] for an example of a general multilevel Bayesian IRT model with population level explanatory variables.
+
+### Assignment of Hyperpriors 
+
+Given that we don't have any information about whether the population parameters are positive or negative, we have good reason to assign weakly informative hyperpriors that are centered at zero. For the $\alpha$ location parameters, we assign Cauchy priors with the scale parameter set to 1, and for the $\alpha$ standard deviation parameters, we assign half-Cauchy priors with the scale parameter set to 1. For identification reasons, we assign constained hyperpriors so that that the density of the resulting lognormal does not restrict the probability mass to concentrate heavily around a particular value. Compare the following plots for different values of hyperparameters:
+
+
+
+```{r,message=FALSE}
+library("rbokeh")
+figure(ylab="LogNormal(x)") %>% 
+  ly_curve(dlnorm(x, 0, .3), 0, 7, n = 2001,color = "blue")  %>% 
+  ly_curve(dlnorm(x, 0.1, .3), 0, 7, n = 2001, color = "red") %>% 
+  ly_curve(dlnorm(x, 0.5, .3), 0, 7, n = 2001,color = "yellow") %>% 
+  ly_curve(dlnorm(x, 0.8, .3), 0, 7, n = 2001,color= "green") %>%  y_axis( label="LogNormal(x)")
+```
+
+
+For the $\beta$ location parameter, we assign a Cauchy prior with the scale parameter set to 1, and for the $\beta$ standard deviation parameters, we assigna  half-Cauchy prior with the scale parameter set to 2. For the scale parameter of the $\alpha$'s, we set $\sigma_{\alpha}$ to a small value, 0.3.  The Cauchy distribution was chosen because we would like to restrict the parameters away from large values but at the same time we would like to allow the possibility of large values if the data dominates in the tail region of the prior [@Gelman2006]. 
+
+$$\begin{align*}
+\mu_{\alpha} \sim& \textrm{Half-Cauchy}(0,0.5)  \\
+\mu_{\beta} \sim &\textrm{Cauchy}(0,1) \\
+\sigma_{\beta} \sim &\textrm{Half-Cauchy}(0,2)
+\end{align*}$$
+
+## Stan Model Code
+
+```{r,eval=FALSE}
+  data {
+  int<lower=1> J;                // number of students
+  int<lower=1> K;                // number of questions
+  int<lower=1> N;                // number of observations
+  int<lower=1,upper=J> jj[N];    // student for observation n
+  int<lower=1,upper=K> kk[N];    // question for observation n
+  int<lower=0,upper=1> y[N];     // correctness of observation n
+  int<lower=1> D;                // number of latent dimensions
+}
+transformed data {
+  int<lower=1> L;
+  L<- D*(K-D)+D*(D+1)/2;  // number of non-zero loadings
+}
+parameters {    
+  matrix[J,D] theta;         //person parameter matrix
+  vector<lower=0>[L] alpha_l;   //first column discrimination matrix
+  vector[K] beta;	       // vector of thresholds
+  real<lower=0> mu_alpha;      // scale prior 
+  real mu_beta;                 //location prior
+  real<lower=0> sigma_beta;     //scale prior
+}
+transformed parameters{
+  matrix[D,K] alpha; // connstrain the upper traingular elements to zero 
+  for(i in 1:K){
+    for(j in (i+1):D){
+      alpha[j,i] <- 0;
+    }
+  } 
+{
+  int index;
+  for (j in 1:D) {
+    for (i in j:K) {
+      index <- index + 1;
+      alpha[j,i] <- alpha_l[index];
+    } 
+  }
+}
+}
+model {
+// the hyperpriors 
+   mu_alpha~ cauchy(0, 0.5);
+   mu_beta ~ cauchy(0, 2);
+   sigma_beta ~ cauchy(0,1);
+// the priors 
+  to_vector(theta) ~ normal(0,1); 
+  alpha_l ~ lognormal(mu_alpha,0.3);
+  beta ~ normal(mu_beta,sigma_beta);
+// the likelihood 
+{
+  vector[N] nu;  //vector of predictor terms
+  for (i in 1:N) 
+    nu[i] <- theta[jj[i]]*col(alpha,kk[i])+ beta[kk[i]]; 
+  y ~ bernoulli_logit(nu); 
+}
+}
+```
+##Simulate Data
+
+To simulate and fit the data for a 2 dimensional model using R, we first set the random-number generator seed in order to make the results reproducible.
+
+```{r}
+set.seed(42)
+#specify the true parameter values 
+D <-2
+J <- 800 
+K <- 25
+N <-J*K
+mu_theta    <- c(0,0)
+sigma_theta <- c(1,1)
+mu_beta     <- -.5
+sigma_beta  <-1
+theta_1  <- rnorm(J, mu_theta[1],sigma_theta[1] )
+theta_2  <- rnorm(J, mu_theta[2],sigma_theta[2] )
+alpha1 <- sort(runif(K,.2,1.5),decreasing = TRUE)
+alpha2 <- sort(runif(K,0.2,1.5))
+alpha2[1]<-0
+beta   <- rnorm(K,mu_beta,sigma_beta)
+```
+
+Next we plot the sample data distribution of the two latent dimensions for the 800 persons.
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+figure() %>% ly_hexbin(theta_1 , theta_2)
+```
+You can hover on the cells to find out the count frequency of persons. Now we simulate the probabilities given the item and person
+```{r}
+prob <- matrix(0,nrow=J,ncol=K)
+for (j in 1:J)
+  for (k in 1:K)
+    prob[j,k] <- plogis(alpha1[k]*theta_1[j] +alpha2[k]*theta_2[j]+ beta[k])
+```
+Let's plot the marginal distribution of the probabilities to make sure that there aren't too many probabilities at either extreme (i.e. 0 or 1).
+```{r,echo=FALSE,,warning=FALSE,message=FALSE}
+figure(width = 600, height = 400) %>% ly_hist(as.vector(prob), breaks = 40, freq = TRUE)
+```
+Now we convert the probabilities to dichotomous responses and put the data into a long-form dataset
+```{r} 
+y<-rbinom(N,1,as.vector(prob))
+jj <- rep(1,K)%x%c(1:J)
+kk <- c(1:K)%x%rep(1,J)
+data <-data.frame(Response=y, Item=kk, Person=jj)
+head(data)
+```
+Next, we examine the observed simulated data, by plotting the observed number of correct responses for each item ordered by the true difficulty of items
+
+```{r,,message=FALSE} 
+df.agg.itm<-aggregate(Response~Item,data=data, sum)
+df.agg.itm$Threshold<-round(beta,2)
+df.agg.itm<-df.agg.itm[order(beta),]
+df.agg.itm$Item_Order<-1:K
+figure(ylab="Number of Correct Responses") %>%
+ly_points(Item_Order,Response, data = df.agg.itm,hover = c(Threshold,Item))
+```
+
+We do the same thing for persons ordered by their rank on the theta_1 latent factor
+```{r,message=FALSE} 
+df.agg.per<-aggregate(Response~Person,data=data, sum)
+df.agg.per$Propensity1<-round(theta_1,2)
+df.agg.per$Propensity2<-round(theta_2,2)
+df.agg.per<-df.agg.per[order(theta_1),]
+df.agg.per$Person_Order<-1:J
+figure(width = 900, height = 450,ylab="Number of Correct Responses") %>% 
+ly_points(Person_Order,Response, data = df.agg.per,size = 4,hover = c(Person,Propensity1,Propensity2)) 
+
+```
+
+
+Now we are ready to fit the model. We load the rstan package and the parallel package 
+```{r, message=FALSE}
+library("rstan")
+library("parallel")
+source("stan.R")
+
+mirt.data <-list(J=J,K=K,N=N,jj=jj,kk=kk,y=y,D=D)
+mirt.model<- stan("mirt.stan", data = mirt.data ,chains =0)
+
+Nchains <- 4
+Niter <- 300
+t_start <- proc.time()[3]
+fit<-stan(fit = mirt.model, data =mirt.data, pars=c("alpha","beta","mu_alpha","mu_beta","sigma_beta"),
+          iter=Niter,
+          chains = Nchains)
+t_end <- proc.time()[3]
+t_elapsed <- t_end - t_start
+```
+
+Let's see how long each iteration took and compare the true parameters with the model fit
+```{r, comment= ""}
+(time <- t_elapsed / Nchains / (Niter/2))
+(true.param<-round(data.frame(alpha1,alpha2,beta),2))
+```
+Here is the model fit
+```{r, comment= ""}
+print(fit,probs = c(0.5))
+```
+
+From the output, we can see that have some evidence that the assigned lognormal prior and hyperpriors identifies the model. Nontheless it's very important to note that the choice of the hypepriors and values of the hyperparameters need to be tweaked carefully so the the HMC sampler doesn't wander off sampling from other posterior modes. 
+
+
+***
+This webpage was created using the *R Markdown* authoring format and was generated using *knitr* dynamic report engine.
+
+(C\) 2015 Rick Farouni 
+
+***
+
+### References
+
+
+
+
+

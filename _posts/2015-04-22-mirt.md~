@@ -1,16 +1,17 @@
 ---
 layout: post
-title: "BayesianIRT"
-description: "Fitting a 2PL Item Response Theory Model in Stan"
+title: "BayesianMIRT"
+description: "Fitting a Multi-dimensional Item Response Theory Model in Stan"
 category: code
 tags: [IRT,Stan]
 ---
 {% include JB/setup %}
 
+For a full page version, please click [here](/assets/projects/BayesianMIRT/BayesianMIRT.html)
 
 <div style='position: relative; width: 100%; height: 0px; padding-bottom: 95%;'>
 <iframe style='position: absolute; left: 0px; top: 0px; width: 100%; height: 100%'
         frameborder="0" 
-       src="/assets/projects/BayesianIRT/BayesianIRT.html"></iframe>
+       src="/assets/projects/BayesianMIRT/BayesianMIRT.html"></iframe>
 </div>
 

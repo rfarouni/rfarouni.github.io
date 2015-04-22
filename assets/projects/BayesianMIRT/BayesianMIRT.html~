@@ -3905,7 +3905,7 @@ Samples were drawn using NUTS(diag_e) at Wed Apr 22 01:54:54 2015.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
-<p>From the output, we can see that we have some evidence that the assigned lognormal prior and hyperpriors identifies the model. Nontheless, it’s very important to note that the choice of the hypepriors and values of the hyperparameters need to be tweaked carefully so that the HMC sampler doesn’t wander off sampling from other posterior modes. I suspect that with different intialial values the sampler would end up exploring a different posterior mode</p>
+<p>From the output, we can see that have some evidence that the assigned lognormal prior and hyperpriors identifies the model. Nontheless it’s very important to note that the choice of the hypepriors and values of the hyperparameters need to be tweaked carefully so the the HMC sampler doesn’t wander off sampling from other posterior modes.</p>
 <hr />
 <p>This webpage was created using the <em>R Markdown</em> authoring format and was generated using <em>knitr</em> dynamic report engine.</p>
 <p>(C) 2015 Rick Farouni</p>
