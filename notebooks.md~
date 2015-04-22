@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Interactive Notebooks
-tagline: “No one should approach the temple of science with the soul of a money changer" - Sir Thomas Browne
+tagline: 
 header: REPL Notebooks
 group: navigation
 ---
@@ -12,9 +12,9 @@ group: navigation
 
 # Code Written in R
 
-  Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/_pages/BayesianIRT.html)
+ 1. Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/_pages/BayesianIRT.html)
 <br>
-
+ 2. Code to fit a hierarchical Bayesian 2PL Multidimensional IRT model in stan: [Bayesian MIRT](/assets/projects/BayesianMIRT/BayesianMIRT.html)
 <br>
 <br>
 <br>		

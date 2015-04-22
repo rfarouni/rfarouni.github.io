@@ -118,6 +118,7 @@ JB :
 
 exclude:
   - Rakefile
+  - assets/projects
  # - _posts/*.Rmd
  # - _posts/source
  # - build.R

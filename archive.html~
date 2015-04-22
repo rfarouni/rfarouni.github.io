@@ -37,7 +37,6 @@ search_field.addEventListener('blur', function (ev) {
 <br> <br> <br>
 <hr>
 
-<!--
 <section>
    <h1>Complete List of Notebooks</h1>
 <ul>
@@ -47,7 +46,7 @@ search_field.addEventListener('blur', function (ev) {
 </ul>
 </section>
 <br> <br> <br>
-<hr>-->
+<hr>
 <section>
    <h1>List of All Pages</h1>
 <ul>
