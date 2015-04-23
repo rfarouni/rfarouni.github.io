@@ -11,7 +11,9 @@
 <meta name="author" content="Rick Farouni" />
 
 <meta name="date" content="2015-04-20" />
-
+<br>
+<br>
+<br>
 <title>Fitting a Multidimensional Item-Response Theory Model in Stan</title>
 
 <script src="mirt_files/jquery-1.11.0/jquery.min.js"></script>
@@ -73,7 +75,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h4 class="date"><em>04/20/2015</em></h4>
 </div>
 
-
+<hr>
 <div id="model-specification" class="section level2">
 <h2>Model Specification</h2>
 <p>In a <strong>Multidimensional Item-Response Theory</strong> (MIRT) model, the probability of generating a particular response can be viewed as driven by the interaction of the characteristics of the person and the characteristics of the item. For example, for person <span class="math">\(p\)</span> and test item <span class="math">\(i\)</span>, we can have <span class="math">\(D\)</span> <strong>latent factors</strong> represented by the vector <span class="math">\({\boldsymbol{\theta}}_p\)</span>, interact with <span class="math">\(D\)</span> test <strong>item discrimination</strong> parameters, represented by <span class="math">\({\boldsymbol{\alpha}}_i\)</span>, and one  parameter <span class="math">\(\beta_i\)</span> to determine the probability of correct response. The discrimination vector <span class="math">\({\boldsymbol{\alpha}}_i\)</span> for item <span class="math">\(i\)</span> is related to the power of the response in classifying respondent’s <span class="math">\(p\)</span> corresponding characteristics (Note that the dimensions of <span class="math">\({\boldsymbol{\theta}}_p\)</span> and <span class="math">\({\boldsymbol{\alpha}}_i\)</span> should match). Now, assuming a Generalized Linear model <span class="citation">(McCullagh &amp; Nelder, 1989)</span> formulation, we can set up, using the logistic link, the pointwise data model for each  <span class="math">\(pi\)</span> in three steps.</p>
@@ -3905,7 +3907,7 @@ Samples were drawn using NUTS(diag_e) at Wed Apr 22 01:54:54 2015.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
-<p>From the output, we can see that have some evidence that the assigned lognormal prior and hyperpriors identifies the model. Nontheless it’s very important to note that the choice of the hypepriors and values of the hyperparameters need to be tweaked carefully so the the HMC sampler doesn’t wander off sampling from other posterior modes.</p>
+<p>From the output, we can see that we have some evidence that the assigned lognormal prior and hyperpriors identifies the model. Nontheless, it’s very important to note that the choice of the hypepriors and values of the hyperparameters need to be tweaked carefully so that the HMC sampler doesn’t wander off sampling from other posterior modes. I suspect that with different intialial values the sampler would end up exploring a different posterior mode</p>
 <hr />
 <p>This webpage was created using the <em>R Markdown</em> authoring format and was generated using <em>knitr</em> dynamic report engine.</p>
 <p>(C) 2015 Rick Farouni</p>
@@ -3918,6 +3920,10 @@ convergence, Rhat=1).</code></pre>
 <p>Geweke, J., &amp; Zhou, G. (1996). Measuring the pricing error of the arbitrage pricing theory. <em>Review of Financial Studies</em>, <em>9</em>, 557–587.</p>
 <p>McCullagh, P., &amp; Nelder, J. A. (1989). <em>Generalized linear models</em>. Chapman; Hall.</p>
 <p>Rivers, D. (2003). Identification of multidimensional spatial voting models. <em>Typescript.Stanford University</em>.</p>
+<hr>
+<br>
+<br>
+
 </div>
 </div>
 

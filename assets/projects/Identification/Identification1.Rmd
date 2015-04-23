@@ -1,0 +1,145 @@
+---
+
+
+title: "Model Identification in IRT and Factor Analysis Models"
+author: "Rick Farouni"
+date: "04/23/2015"
+output: 
+  html_document:
+    theme: united
+    highlight: pygments
+bibliography: bibfile.bib
+---
+
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bsY}{\boldsymbol{Y}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bsX}{\boldsymbol{X}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bvtheta}{\boldsymbol{\vartheta}}
+\newcommand{\Btheta}{\boldsymbol{\Theta}}
+\newcommand{\bepsilon}{\boldsymbol{\varepsilon}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bmu}{\boldsymbol{\mu}} 
+\newcommand{\balpha}{\boldsymbol{\alpha}} 
+\newcommand{\bbeta}{\boldsymbol{\beta}} 
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\Var}{\mathrm{Var}}
+\DeclareMathOperator*{\Cov}{\mathrm{Cov}}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\Diag}{Diag}
+
+
+## Identification of the Likelihood
+
+Conider the sampling distribution for a response $pi$ in a multidimensional IRT model given by
+$$
+\begin{align}\label{MIRTlike}
+p(y_{pi}\vert\btheta_p,\balpha_p,\beta_i)= {\biggl[\logit^{-1}\Bigl(\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i} \Bigr)\biggr]}^{y_{pi}} {\biggl[1 - \logit^{-1}\Bigl(\balpha^{\intercal}_{i}\btheta_{p}+\beta_{i} \Bigr)\biggr]}^{1-y_{pi}}
+\end{align} 
+$$
+
+The multiple unobservable parameters in the equation induce the problem of identification in the general data model.
+$$
+ \prod_{p=1}^P\ \prod_{i=1}^I\ p(y_{pi}\vert\btheta_p,\balpha_i,\beta_i)
+$$
+
+Identification can be dealt with by specifying additional assumptions and constraints that render the model estimable. In general, we say that a statistical model is \textit{identifiable} if distinct parameter values generate different joint probability distributions. In a Bayesian framework however, this definition needs to be qualified by stressing that identification is a property of the likelihood only. More specifically, according to @Gelman2014, a model is 'underidentified if the likelihood $p(\boldsymbol{\xi}\mid \by)$ is equal for a range of values of $\boldsymbol{\xi}$'. The likelihood of a multidimensional IRT model can be underidentified for the following five reasons: additive aliasing, multiplicative aliasing, reflective invariance, label switching, and rotation invariance.
+
+### Additive and Multiplicative Aliasing
+
+For the sake of illustration, consider a 1-dimensional IRT model with the linear predictor
+
+$$
+\begin{align*}
+\eta_{pi}=\alpha_{i}(\theta_{p}- \beta_{i})
+\end{align*}
+$$
+
+If we add a constant $c_1$ to both $\theta_{p}$ and $\beta_i$ for all $p$'s, the likelihood still remains the same. Similarly, if we divide each $\alpha_{i}$ by another constant $c_2$ and multiply every pair $(\theta_{p}- \beta_{i})$ by the same constant, the likelihood also remains the same. That is, for any values of the constants $c_1$ and $c_2$, we have 
+
+$$
+\begin{align*}
+p\left(y_{pi}\vert\theta_p,\alpha_i,\beta_i\right)=p\left(y_{pi}\vert (c_2\times(\theta_p+c_1)),\frac{\alpha_i}{c_2},(c_2\times(\beta_i+c_1))\right)
+\end{align*}
+$$
+
+One common method to mitigate this type of invariance works by assigning $\btheta_{p}$ a very strong prior [@Bafumi2005], a fixed population distribution that can determine the location and scale of the parameter space for the entire likelihood function $p(\by\vert\btheta,\balpha,\boldsymbol\beta)$. The constraint is simply 
+
+$$
+\begin{align*}
+&\btheta_p \sim \mathcal{Normal}_d(\textbf{0},\, \boldsymbol I) \quad \text{for }   p=1,2,. . .,P 
+\end{align*}
+$$
+ 
+### Reflection Invariance
+If we multiply all the $\alpha_{i}$'s, $\theta_{p}$'s, and $\beta_{i}$'s by -1, we can still obtain the same likelihood. The resulting likelihood for a model that doesn't add additional constraints will have a bi-modal density, with one mode obtained at positive parameter values and the reflected second mode obtained at the same but negative values. 
+In the case of D dimensions, there are a total of $2^D$ possible sign reversals. For example, in two dimensions, the following are equivalent
+
+$$
+\begin{align*}
+&\theta^{(1)}\alpha^{(1)}+\alpha^{(2)}\theta^{(2)}\\
+&(-\theta^{(1)})(-\alpha^{(1)})+(-\alpha^{(2)})(-\theta^{(2)})\\
+&\theta^{(1)}\alpha^{(1)}+(-\alpha^{(2)})(-\theta^{(2)})\\
+&(-\theta^{(1)})(-\alpha^{(1)})+\alpha^{(2)}\theta^{(2)}
+\end{align*}
+$$
+
+In the case of $D=1$, the solution to this problem is straightforward. The invariance is eliminated by choosing a direction. For example, in educational testing, the discrimination parameter is always assumed to be positive since a negative value implies that persons with high propensity would have a lower probability of answering correctly. Therefore, for the one dimensional IRT model, restricting one parameter $\alpha_{i}> 0$ and assigning a standard normal prior to $\btheta_{p}$ identifies the model. Alternatively, assigning the $\alpha_{i}$'s a lognormal prior can resolve reflection invariance
+$$
+\begin{align*}
+\balpha_i \sim & \mathit{LogNormal}(\boldsymbol\mu_{\balpha},\,\boldsymbol\Sigma_{\alpha}) \quad \text{for }  i=1,2,. . .,I
+\end{align*}
+$$
+
+There are other ways to specify a well-defined direction. For example, we can pin the first person's propensity $\theta_{1}$ to 0 and pin the first item discrimination parameter  $\alpha_{1}$ to 1. Now, the propensity of the other persons can be measured relative to the propensity of the first person and the discrimination of the other items, relative to the discrimination of the first item. 
+
+### Aliasing due to Label Switching
+
+However, once we move to higher dimensions, there is an additional source of aliasing that needs to be addressed, known in the context of mixture models as \emph{label switching}. The indeterminacy stems from our ability to swap the labels (i.e.,  1 and 2) of $\theta^{(1)}\alpha^{(1)}$ and $\alpha^{(2)}\theta^{(2)}$ without changing the likelihood. In $D$ dimensions, there are $D!$ ways to switch the labels of the parameter vectors without changing the likelihood. Note that label switching can be thought of as a reflection against the $45^{\circ}$ diagonal mirror line that swaps the axes. 
+
+In the general case of $D$ dimensions, label switching combined with sign reversals produce a likelihood with $2^D \times D!$ modes.  In the case of a two-dimensional model, the resulting likelihood has $2^2 \times 2=8$ symmetric modes. Figure \ref{posterior modes}, which is a re-creation of a similar figure in a political science paper by [@Jackman2001], illustrates what happens to these 8 modes when the data become less informative. As can be seen in the figure, the distributions become gradually less peaked and, in the limit, when the components overlap, the posterior tends to resemble the prior distribution. It should be emphasized that when the prior distribution is flat, identifiability can be a problem no matter whether we choose to conduct a frequentist or Bayesian analysis. However, working within a Bayesian framework gives us the choice to use weakly informative priors to help us better explore such problematic posterior distributions.
+
+
+ ![](plot.png)
+**Figure 1:** *The marginal posterior distribution of a two-dimensional parameter under different conditions of data informativeness: As the data becomes less informative and noisy, the components of the posterior distribution become increasingly indistinguishable*
+
+
+
+### Rotation Invariance
+
+Consider another concrete example. A simple two-dimensional model with item discrimination and person parameters only, so that for a particular person $p'$, the linear predictors are as follows:
+
+$$
+\begin{align*}
+\eta_{p'1}=&\theta^{(1)}_{p'}\alpha^{(1)}_1+\theta^{(2)}_{p'}\alpha^{(2)}_1\\
+\eta_{p'2}=&\theta^{(1)}_{p'}\alpha^{(1)}_2+\theta^{(2)}_{p'}\alpha^{(2)}_2\\
+\vdots \\
+\eta_{p'I}=&\theta^{(1)}_{p'}\alpha^{(1)}_I+\theta^{(2)}_{p'}\alpha^{(2)}_I
+\end{align*}
+$$
+
+This set of equations can be concisely expressed in matrix format as $\boldsymbol{\eta_{p'}}=\mathbf{A}\btheta_{p'}$ and for all $P$ persons as $\boldsymbol{\eta}=\mathbf{A}\btheta$ where $\mathbf{A}$ here is an $I\times D$ \emph{discrimination matrix} and $\btheta$ is $D\times P$ matrix of \emph{propensity scores}. 
+
+The likelihood for the corresponding model is invariant under rotation because we can find an orthogonal rotation matrix \ $\textbf{R}$, where $\textbf{R}^{\intercal}\textbf{R}=\textbf{I}$, such that when we rotate $\mathbf{A}$ and $\btheta$, we obtain two rotated matrices $\mathbf{A}^{\ast}=\mathbf{A}\textbf{R}^{\intercal}$ and $\btheta^{\ast}=\textbf{R}\btheta$ whose product gives us back the original matrices
+
+$$
+\begin{align*}
+\mathbf{A}^{\ast}\btheta^{\ast}=\mathbf{A}\textbf{R}^{\intercal}\textbf{R}\btheta=\mathbf{A}\btheta
+\end{align*} 
+$$
+ 
+***
+This webpage was created using the *R Markdown* authoring format and was generated using *knitr* dynamic report engine.
+
+(C\) 2015 Rick Farouni 
+
+***
+
+### References

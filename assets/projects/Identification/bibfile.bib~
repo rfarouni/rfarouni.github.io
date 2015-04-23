@@ -1,0 +1,62 @@
+@book{Gelman2014,
+        author={Gelman, Andrew  and Carlin, John B. and Stern, Hal Steven and Rubin, Donald B.},
+        year={2014},
+        title={Bayesian data analysis}, 
+        publisher={Chapman & Hall/CRC},
+}
+
+
+@article{Jackman2001,
+        author={Jackman,S.},
+        year={2001},
+        title={Multidimensional Analysis of Roll Call Data via Bayesian Simulation: Identification, Estimation, Inference, and Model Checking},
+        journal={Political Analysis Political Analysis},
+        volume={9},
+        pages={227-241},
+}
+
+
+
+@article{Gelman2006,
+author={Andrew Gelman},
+year={2006},
+title={Prior distributions for variance parameters in hierarchical models (comment on article by Browne and Draper)},
+journal={Bayesian analysis},
+volume=1
+}
+
+@book{Gelman2007,
+        author={Gelman, Andrew and Hill, Jennifer},
+        year={2007},
+        title={Data analysis using regression and multilevel/hierarchical models}, 
+        publisher={Cambridge University Press}
+}
+
+@book{McCullagh1989,
+        author={McCullagh, P. and Nelder,John A.},
+        year={1989},
+        title={Generalized linear models}, 
+        publisher={Chapman and Hall},
+}
+
+@article{Geweke1996,
+author={Geweke,John and Zhou,Guofu},
+year={1996},
+title={Measuring the pricing error of the arbitrage pricing theory},
+journal={Review of Financial Studies},
+volume={9},
+pages={557-587},
+}
+
+@article{Rivers2003,
+author={Rivers,Douglas},
+year={2003},
+title={Identification of multidimensional spatial voting models},
+journal={Typescript.Stanford University},
+}
+
+
+
+
+
+
