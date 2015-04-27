@@ -7,7 +7,7 @@ tags: [IRT,Stan]
 ---
 {% include JB/setup %}
 
-For a full page version, please click [here](/assets/projects/BayesianMIRT/BayesianMIRT.html)
+For the full page version, please click [here](/assets/projects/BayesianMIRT/BayesianMIRT.html)
 
 <div style='position: relative; width: 100%; height: 0px; padding-bottom: 95%;'>
 <iframe style='position: absolute; left: 0px; top: 0px; width: 100%; height: 100%'

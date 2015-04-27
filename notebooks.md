@@ -16,5 +16,6 @@ group: navigation
 <br>
  2. Code to fit a hierarchical Bayesian 2PL Multidimensional IRT model in stan: [Bayesian MIRT](/assets/projects/BayesianMIRT/BayesianMIRT.html)
 <br>
+ 3. Code to fit a hierarchical Bayesian Factor Analysis model in stan: [Bayesian Factor Analysis](/assets/projects/BayesianFactorAnalysis/BayesianFactorAnalysis.html)
 <br>
 <br>		

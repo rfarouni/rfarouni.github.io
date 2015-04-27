@@ -12,7 +12,7 @@ group: navigation
 
 # Code Written in R
 
- 1. Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/_pages/BayesianIRT.html)
+ 1. Code to fit a hierarchical Bayesian 2PL IRT model in stan: [Bayesian 2PL](/assets/projects/BayesianIRT/BayesianIRT.html)
 <br>
  2. Code to fit a hierarchical Bayesian 2PL Multidimensional IRT model in stan: [Bayesian MIRT](/assets/projects/BayesianMIRT/BayesianMIRT.html)
 <br>
