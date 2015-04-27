@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Bayesian Factor Analysis"
+description: "Fitting a Bayesian Factor Analysis Model in Stan"
+category: code
+tags: [factor fnalysis, stan]
+---
+{% include JB/setup %}
+
+
+
