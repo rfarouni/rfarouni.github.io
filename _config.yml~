@@ -10,8 +10,8 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Rick Farouni
-tagline: Random Measures and Invariant Representations   
+title : The Social Gadfly
+tagline:    
 author :
   name : Rick Farouni
   email : rfarouni@gmail.com
@@ -118,7 +118,6 @@ JB :
 
 exclude:
   - Rakefile
-  - assets/projects
  # - _posts/*.Rmd
  # - _posts/source
  # - build.R

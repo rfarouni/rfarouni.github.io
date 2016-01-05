@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Welcome Page
-tagline: 
+title: Rick Farouni
+tagline: The Social Gadfly
 ---
 {% include JB/setup %}
 
@@ -65,8 +65,7 @@ To find more about me, you can view my most recent resume on this [page](/CV.htm
 
 * **Substantive** 
 
-		- Neural Coding and Decoding: How information about the sensory environment becomes coded by neural activity in an increasingly abstract hierarchy of representations
-		- Object Recognition
+		- Neural Coding: How information about the sensory environment becomes coded by neural activity in an increasingly abstract hierarchy of representations
 
 ---------------
 

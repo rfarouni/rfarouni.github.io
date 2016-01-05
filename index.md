@@ -66,7 +66,6 @@ To find more about me, you can view my most recent resume on this [page](/CV.htm
 * **Substantive** 
 
 		- Neural Coding: How information about the sensory environment becomes coded by neural activity in an increasingly abstract hierarchy of representations
-		- Object Recognition
 
 ---------------
 

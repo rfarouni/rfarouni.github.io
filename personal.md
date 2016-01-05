@@ -12,12 +12,13 @@ group: navigation
 
 >“No one should approach the temple of science with the soul of a money changer" -*Sir Thomas Browne (1605-1682), English physician and writer*{: style="color: #7BD2FF"}
 
+>"Turing’s legacy for the cognitive and brain sciences can thus be summarized by observing that, just as nothing in biology makes sense except in the light of evolution . .., nothing about the mind/brain makes sense except in the light of computation." -*Shimon Edelman*{: style="color: #7BD2FF"}
+
+>"Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise." -*John Tukey*{: style="color: #7BD2FF"}
+
 > "There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened." -*Douglas Adams, The Hitchhiker's Guide to the Galaxy*{: style="color: #7BD2FF"}  
 
 >" The brain is a machine assembled not to understand itself, but to survive. Because these two ends are basically different, the mind unaided by factual knowledge from science sees the world only in little pieces. It throws a spotlight on those portions of the world it must know in order to live the next day." *E.O. Wilson*{: style="color: #7BD2FF"}
-
-
-
 ---------------
 
 
