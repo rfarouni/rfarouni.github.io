@@ -113,7 +113,7 @@ The *parfor* function distributes to the workers the *n* operations into *w* chu
 spmd, it is up to the programmer to define a work load distribution scheme, such as prange
 
 
-1) task-parallel (embarrassingly parallel) job
+1. task-parallel (embarrassingly parallel) job
 
 Multiple tasks running independently on multiple workers
 
@@ -121,35 +121,23 @@ createJob() Independent
 
 dfeval
 
-2) data-parallel job
+2. data-parallel job
 
 createCommunicatingJob
 
 A single task running concurrently on multiple workers that may communicate with each other
-
 
 Task parallel program is more efficient than a data-parallel program
 
 
 Four types of submissions
 
-1) One communicating job on 1 node
-2) One independent job on 1 node with one task for each core
-3) One independent job on 2 node with one task on each core
-4) Two communicating jobs run independently, one on each node
-
-n=10e5, 11*10e4
- area: [3.1429 3.1421 3.1430 3.1393 3.1411 3.1403]
- time: [0.0462 2.4790 9.7222 0.1325 0.1158 0.0936]
-       [0.0590 2.726 14.337  0.1790 0.1340 0.3582]
-
-       0.1542   5.7456  4.0950  0.3878  0.2428  0.8323
+1. One communicating job on 1 node
+2. One independent job on 1 node with one task for each core
+3. One independent job on 2 node with one task on each core
+4. Two communicating jobs run independently, one on each node
 
 
-      0.8912   58.9591         2.0440    1.1532    0.7308
-n=3*10e5
- area: [3.1421 3.1410 3.1418 3.1403 3.1407 3.1402]
- time: [0.1004 7.4736 118.0335 0.2965 0.2481 0.1280]
 
 
     

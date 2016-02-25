@@ -18,7 +18,10 @@ group: navigation
 
 > "There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened." -*Douglas Adams, The Hitchhiker's Guide to the Galaxy*{: style="color: #7BD2FF"}  
 
->" The brain is a machine assembled not to understand itself, but to survive. Because these two ends are basically different, the mind unaided by factual knowledge from science sees the world only in little pieces. It throws a spotlight on those portions of the world it must know in order to live the next day." *E.O. Wilson*{: style="color: #7BD2FF"}
+> " The brain is a machine assembled not to understand itself, but to survive. Because these two ends are basically different, the mind unaided by factual knowledge from science sees the world only in little pieces. It throws a spotlight on those portions of the world it must know in order to live the next day." -*E.O. Wilson*{: style="color: #7BD2FF"}
+
+> " Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." -*David Donoho, Plenary Address at ICM 2012*{: style="color: #7BD2FF"}  
+
 ---------------
 
 
@@ -62,13 +65,25 @@ group: navigation
 
 ----------
 
+
+[*Candidacy Reading List*](https://www.mendeley.com/groups/7412311/candidacy-reading-list/papers/){:target="_blank"}
+---------------
+
+
+
+<iframe src="///www.mendeley.com/groups/7423331/dr-cudeck-s-reading-list/widget/0/10/" frameborder="0" allowTransparency="true" style="padding-right: 10px;padding-left: 15px;width:360px;height:850px;"></iframe> <iframe src="//www.mendeley.com/groups/7423341/dr-maceachern-s-reading-list/widget/0/10/" frameborder="0" allowTransparency="true" style="padding-right: 10px;width:360px;height:850px;"></iframe><iframe src="//www.mendeley.com/groups/7510241/dr-lu-s-reading-list/widget/0/10/" frameborder="0" allowTransparency="true" style="padding-right: 10px;width:360px;height:850px;"></iframe>
+
+
+----------
+
+
+
+
 ## Music Playlists
 
 <section>
 <div class="padded">
 <iframe src="https://embed.spotify.com/?uri=spotify:user:rfarouni:playlist:0sBuqTo0MfAVRzTWhruh4z" width="300" height="380" frameborder="0" allowtransparency="true" ></iframe>
-
-<iframe src="https://embed.spotify.com/?uri=spotify:user:rfarouni:playlist:2lidZ15NALn7e7VUvK4JVL" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 <iframe src="https://embed.spotify.com/?uri=spotify:user:rfarouni:playlist:16mqd3pAWfJI1hPvGif7f8" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
@@ -85,7 +100,56 @@ group: navigation
 
 ----------
 
+Reproducible Research
+=======================
 
+
+* [Github](https://github.com/){:target="_blank"} is a repository hosting service that offers distributed revision control and source code hosting.
+
+* [Figshare](http://figshare.com){:target="_blank"} is a repository where users can make all of their research outputs available in a citable, shareable and discoverable manner.
+
+* [Mendeley](https://www.mendeley.com/){:target="_blank"} is a desktop and web program for managing and sharing research papers.
+
+* [Impact Story](https://impactstory.org){:target="_blank"} provides altmetrics to help researchers measure the impact of their research output.
+
+* [Science Exchange](https://www.scienceexchange.com/){:target="_blank"} is a marketplace for scientific collaboration.
+
+* [PLOS](http://www.plos.org/){:target="_blank"} is a nonprofit open access scientific publishing project. 
+
+* [ORCID](http://orcid.org/){:target="_blank"} (Open Researcher and Contributor ID) is a nonproprietary alphanumeric code to uniquely identify scientific and other academic authors.
+
+* [rOpenSci](http://ropensci.org/){:target="_blank"} a collaborative project to develop R-based tools for facilitating Open Science.
+
+* [knitr](http://yihui.name/knitr/){:target="_blank"} Reproducible code execution
+
+-----------------------------------------------------------------------------
+
+Research Tools
+====================================
+* [D3.js](http://d3js.org/){:target="_blank"} is a JavaScript library for producing dynamic, interactive data visualizations in web browsers. 
+
+* [Overleaf](https://www.overleaf.com/){:target="_blank"} is a web-based collaborative Latex writing and publishing system. 
+
+* [Journal TOC](http://www.journaltocs.hw.ac.uk){:target="_blank"}  is a current awareness service that provides journal tables of contents via email for your top journals. 
+
+* [Greycite](http://greycite.knowledgeblog.org/){:target="_blank"} is an online
+tool that can generate a citation for any webpage from the URL.
+
+-----------------------------------------------------
+
+Predcitive Analytics and Machine Learning
+====================================
+
+* [Kaggle](http://www.kaggle.com/){:target="_blank"}  is a crowdsourcing platform for predictive modelling and analytics competitions.
+
+* [Databricks](http://databricks.com/){:target="_blank"}  is platform for big data processing based on Apache Spark, an open-source cluster computing framework. 
+
+* [H2O](http://0xdata.com/){:target="_blank"} is an open source predictive analytics platform for high performance parallel processing and support for R and Python.
+
+* [Revolution R Open](http://www.revolutionanalytics.com/revolution-r-open){:target="_blank"}  is an enhanced distribution of R with a high-performance R language engine (multi-threaded processing with Intel® Math Kernel Library).
+
+
+---------------------------------------------------------------------------------------
 
 
 

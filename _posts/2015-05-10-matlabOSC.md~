@@ -25,7 +25,6 @@ function [results] = montecarlo(n)
 
 % This function outputs a Monte Carlo approximation of pi by first calculating the
 % area of circular sector enclosed in the first quadrant, then multiplying it by 4
-
 % n = the number of draws
 % z(j) is a randomly sampled complex number on [0,1]x[0,1]
 
@@ -33,7 +32,6 @@ tic;
 for j=1:n
     z(j) = rand(1, 1) + i*rand(1, 1);
 end
-
 k = sum(abs(z) < 1);
 results.area(1)= 4*k/n;
 results.time(1)=toc;
@@ -43,12 +41,9 @@ end
 {% endhighlight %}
 
 
-
-
 ### Implicit Parallelism (Multithreading)
 
 Parallism is initiated without coding modifications. A vector operation is  necessary to  trigger multithreading. For example, a function evaluation using a for loop might take 120 seconds, whereas a vectorized implemention on one core might take 6 second and on 8 threads (logical cores), the time can drop to 1 second or less, depending on the version of the Basic Linear Algebra Subprograms (BLAS) implementation installed on the system.
-
 
 
 {% highlight matlab %}
@@ -58,24 +53,17 @@ function [results] = montecarlo(n)
 % inefficient for-loop
 
 tic;
-
 for j=1:n
     z(j) = rand(1, 1) + i*rand(1, 1);
 end
-
 k = sum(abs(z) < 1);
 results.area(1)= 4*k/n;
 results.time(1)=toc;
 clear k; clear z;
 
-
-
 % vectorized version
-
 tic;
-
 z = rand(n, 1) + i*rand(n, 1);
-
 k=sum(abs(z) < 1);
 results.area(2)= 4*k/n
 results.time(2)=toc
@@ -95,7 +83,6 @@ job= createJob(myCluster,'AttachedFiles',...
     {'/Documents/TempProjects/tests/montecarlo.m'});
 
 ncores = 4;
-
 for i = 1:ncores
     task = createTask(job, @montecarlo, 1,{10e5});
 end
@@ -106,15 +93,12 @@ wait(job)
 %get(job, 'State')
 
 results = fetchOutputs(job);
-
 for i = 1:ncores
     [results{i}.area; results{i}.time]
 end
-
 delete(job)
 
 {% endhighlight %}
-
 
 
 ### Explicit Parallelism

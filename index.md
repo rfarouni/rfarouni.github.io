@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Welcome Page
-tagline: 
+tagline: Dedicated to Rigorous Science in the Public Interest
 ---
 {% include JB/setup %}
 
@@ -24,7 +24,7 @@ tagline:
                   </a> <iframe src="http://figshare.com/badges/1/702195"         frameborder="0" width="140" height="23"></iframe></td>
 </tr>
 </table>
-I am currently a fourth-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in multivariate statistical analysis of psychological research data, with a special emphasis on hierarchical and nonparametric Bayesian modeling of neuroimaging data. I am also a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in science. This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
+I am currently a fourth-year PhD student in [quantitative psychology](http://en.wikipedia.org/wiki/Quantitative_psychology){:target="_blank"} at the Ohio State University. I am mainly interested in multivariate statistical analysis of psychological research data, in general, and neuroimaging data, in particular.  This website contains posts, code, and links to several resources that I hope you might find useful and interesting.
 To find more about me, you can view my most recent resume on this [page](/CV.html){:target="_blank"}.
 
 ><div class="row" ><br>
@@ -55,17 +55,17 @@ To find more about me, you can view my most recent resume on this [page](/CV.htm
 
 * **Quantitative Methods**
 
-		- Multivariate Statistics and Latent Variable Models 
+		- Multivariate Statistics and Machine Learning
 		- Hierarchical and Nonparametric Bayesian Models 
+		- Deep Neural Networks and Probabilistic Programming 
 
 * **Methodological**
 
-		- Statistical Analysis of fMRI Activation Patterns: Bayesian Modeling, Classification and Predictive Modeling, Multivariate Modeling
-		- Analysis of Neural Time Series Data
+		- Statistical Analysis of fMRI data: Bayesian Modeling, Classification and Predictive Modeling, Multivariate Modeling
+		- Statistical Analysis of Longitudinal Data: Mixed Effects Modeling, Latent Variable Modeling 
+		- Analysis of Neural Activation Patterns: How sensory information becomes coded by neural activity in an increasingly abstract hierarchy of representations
 
-* **Substantive** 
 
-		- Neural Coding: How information about the sensory environment becomes coded by neural activity in an increasingly abstract hierarchy of representations
 
 ---------------
 
@@ -83,6 +83,6 @@ Click on this [link](README.html){:target="_blank"} for information about how th
 
 
 
-
+%I am a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in %%science.
 
 
