@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Welcome Page
-tagline: Dedication to Rigorous Science in the Public Interest
+tagline: Dedicated to Rigorous Science in the Public Interest
 ---
 {% include JB/setup %}
 
