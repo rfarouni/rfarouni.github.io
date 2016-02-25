@@ -5,13 +5,13 @@ permalink: /:categories/:year/:month/:day/:title
 include: ['_pages']
 relative_permalinks: false
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-highlighter: pygments
+highlighter: rouge
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : The Social Gadfly
-tagline:    
+title : Rick Farouni
+tagline: The Social Gadfly   
 author :
   name : Rick Farouni
   email : rfarouni@gmail.com

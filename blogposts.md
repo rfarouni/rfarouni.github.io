@@ -183,7 +183,7 @@ search_field.addEventListener('blur', function (ev) {
 <br>
  3. Code to fit a hierarchical Bayesian Factor Analysis model in stan: [Bayesian Factor Analysis](/assets/projects/BayesianFactorAnalysis/BayesianFactorAnalysis.html)
 <br>
-<br>		
+<br>
 
 # Posters
 
