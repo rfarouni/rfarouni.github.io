@@ -75,7 +75,7 @@ A list of all pages and posts can be accessed [here](archive.html){:target="_bla
 
 ---------------
 
-##About the Website
+## About the Website
 
 
 Click on this [link](README.html){:target="_blank"} for information about how the website was created.

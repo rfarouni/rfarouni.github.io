@@ -83,6 +83,4 @@ Click on this [link](README.html){:target="_blank"} for information about how th
 
 
 
-%I am a supporter of [open access](http://sciencecodemanifesto.org/){:target="_blank"} and [reproducible research](http://en.wikipedia.org/wiki/Reproducibility#Reproducible_research){:target="_blank"} in %%science.
-
 
