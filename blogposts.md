@@ -4,8 +4,6 @@ title : Blog Posts and Publications
 header : Posts
 group: navigation
 ---
-
-
 <div class="page-header-wrapper">
 	<div class="page-header">
 <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
@@ -41,7 +39,6 @@ search_field.addEventListener('blur', function (ev) {
 </script> -->
 </div >
 </div >
-
 
 <div class="posts">
   <div class="content.b full-bleed" id="recent-posts">
