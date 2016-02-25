@@ -6,7 +6,7 @@ description: "Julia Code for a Particle Filter implementation of the Dirichlet M
 ---
 {% include JB/setup %}
 
-~~~ julia
+~~~ matlab
 
 function update_posterior(n,ȳ =0,ỹỹᵀ=0)
  # Gelman's Bayesian Data Analysis 3rd Edition Page 73

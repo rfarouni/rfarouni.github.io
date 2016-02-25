@@ -19,7 +19,7 @@ To illustrate the types of parallelism, we will work with this function that cal
 
 ### Example Function
 
-{% highlight matlab %}
+~~~ m
 
 function [results] = montecarlo(n)
 
@@ -38,7 +38,7 @@ results.time(1)=toc;
 clear k; clear z;
 
 end
-{% endhighlight %}
+~~~
 
 
 ### Implicit Parallelism (Multithreading)
@@ -46,7 +46,7 @@ end
 Parallism is initiated without coding modifications. A vector operation is  necessary to  trigger multithreading. For example, a function evaluation using a for loop might take 120 seconds, whereas a vectorized implemention on one core might take 6 second and on 8 threads (logical cores), the time can drop to 1 second or less, depending on the version of the Basic Linear Algebra Subprograms (BLAS) implementation installed on the system.
 
 
-{% highlight matlab %}
+~~~ matlab
 
 function [results] = montecarlo(n)
 
@@ -70,12 +70,12 @@ results.time(2)=toc
 clear k; clear z;
 
 end
-{% endhighlight %}
+~~~
 
 
 ### Job Submission Script
 
-{% highlight matlab %}
+~~~ matlab
 
 myCluster = parcluster('local');
 
@@ -98,7 +98,7 @@ for i = 1:ncores
 end
 delete(job)
 
-{% endhighlight %}
+~~~
 
 
 ### Explicit Parallelism
@@ -117,9 +117,6 @@ spmd, it is up to the programmer to define a work load distribution scheme, such
 
 Multiple tasks running independently on multiple workers
 
-createJob() Independent
-
-dfeval
 
 2. data-parallel job
 
