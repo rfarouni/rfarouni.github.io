@@ -6,7 +6,7 @@ description: "Julia Code for a Particle Filter implementation of the Dirichlet M
 ---
 {% include JB/setup %}
 
-~~~ 
+~~~ julia
 
 function update_posterior(n,ȳ =0,ỹỹᵀ=0)
  # Gelman's Bayesian Data Analysis 3rd Edition Page 73
@@ -279,7 +279,7 @@ draw(PDF("Estimation2.pdf", 6inch, 9inch),#write to file
         hstack(vstack(p1["1"],p1["2"],p1["3"]),vstack(p2["1"],p2["2"],p2["3"])))
 
 ~~~ 
-{: .language-ruby}
+
 
 
 
