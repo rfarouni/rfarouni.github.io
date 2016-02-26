@@ -25,7 +25,7 @@ group: navigation
 ---------------
 
 
-##Bookshelf
+## Bookshelf
 
 <section>
 <style type="text/css" media="screen">
@@ -78,7 +78,6 @@ group: navigation
 
 
 
-
 ## Music Playlists
 
 <section>
@@ -99,6 +98,7 @@ group: navigation
 </section>
 
 ----------
+
 
 Reproducible Research
 =======================
