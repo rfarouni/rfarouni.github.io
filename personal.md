@@ -8,7 +8,8 @@ group: navigation
 {% include JB/setup %}
 
 
-## Favorite Quotes 
+Favorite Quotes 
+=======================
 
 >“No one should approach the temple of science with the soul of a money changer" -*Sir Thomas Browne (1605-1682), English physician and writer*{: style="color: #7BD2FF"}
 
@@ -22,9 +23,10 @@ group: navigation
 
 > " Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." -*David Donoho, Plenary Address at ICM 2012*{: style="color: #7BD2FF"}  
 
-
-Open Access Journals
+Links
 =======================
+
+## Open Access Journals
 
 * [PLOS](http://www.plos.org/){:target="_blank"} is a nonprofit open access scientific publishing project. 
 
@@ -36,17 +38,15 @@ Open Access Journals
 
 -----------------------------------------------------------------------------
 
-Reproducible Research
-=======================
+## Reproducible Research
 
-* [rOpenScience Reproducibility Guide] (http://ropensci.github.io/reproducibility-guide/){:target="_blank"} reproducibility guide for facilitating Open Science.
+* [rOpenScience Reproducibility Guide](http://ropensci.github.io/reproducibility-guide/){:target="_blank"} reproducibility guide for facilitating Open Science.
 
 * [The Center for Open Science](https://cos.io/){:target="_blank"} aims to increase openness, integrity, and reproducibility of scientific research.
 
 -----------------------------------------------------------------------------
 
-Research Tools
-====================================
+## Research Tools
 
 * [ORCID](http://orcid.org/){:target="_blank"} (Open Researcher and Contributor ID) is a nonproprietary alphanumeric code to uniquely identify scientific and other academic authors.
 
@@ -58,8 +58,8 @@ Research Tools
 
 -----------------------------------------------------
 
-
-## Bookshelf
+Bookshelf
+=======================
 
 <section>
 <style type="text/css" media="screen">
@@ -110,10 +110,8 @@ Research Tools
 
 ----------
 
-
-
-## Music Playlists
-
+Music Playlists
+=======================
 <section>
 <div class="padded">
 <iframe src="https://embed.spotify.com/?uri=spotify:user:rfarouni:playlist:0sBuqTo0MfAVRzTWhruh4z" width="300" height="380" frameborder="0" allowtransparency="true" ></iframe>
@@ -130,9 +128,7 @@ Research Tools
     }  
 </style>  
 </section>
-
-----------
-
+----------------------------------------
 
 
 
