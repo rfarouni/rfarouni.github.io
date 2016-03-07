@@ -1,61 +1,51 @@
 ---
 layout: default
 ---
-{% include JB/setup %}
 
-<div class="page-header">
-  <h1>
-    {{ page.title }} 
-    {% if page.tagline %}
-      <small>{{ page.tagline }}</small>
-    {% endif %}
-  </h1>
-</div>
+<header class="header-post">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="post-heading">
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}
+        <h2 class="post-subheading">{{ page.subtitle }}</h2>
+        {% endif %}
+        <span class="post-meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
+      </div>
+     </div>
+  </div>
+</header>
+
+<article>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	  {{ content }}
+	</div>
+  </div>
+</article>
 
 <div class="row">
-  <div class="span11">
-    {{ content }}
-    <hr>
-    <div class="pagination btn-group">
-      {% if page.previous %}
-        <a class="btn prev" href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a>
-      {% else %}
-        <a class="btn disabled prev">&larr; Previous</a>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <ul class="pager blog-pager">
+      {% if page.previous.url %}
+      <li class="previous">
+        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
+      </li>
       {% endif %}
-        <a class="btn" href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a>
-      {% if page.next %}
-        <a class="btn next" href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &rarr;</a>
-      {% else %}
-        <a class="btn next disabled">Next &rarr;</a>
+      {% if page.next.url %}
+      <li class="next">
+        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
+      </li>
       {% endif %}
-    </div>
-    <hr>
-  </div>
-  
-  <div class="span1">
-    <section>
-      <h4>Published</h4>
-      <div class="date"><span>{{ page.date | date_to_long_string }}</span></div>
-    </section>
-    {% if page.category %}
-      <section>
-        <h4>Category</h4>
-        <span class="category">
-          {{ page.category }}
-        </span>
-      </section>
-    {% endif %}     
-    {% unless page.tags == empty %}
-      <section>
-        <h4>Tags</h4>
-        <ul class="tag_box">
-          {% assign tags_list = page.tags %}
-          {% include JB/tags_list %}
-        </ul>
-      </section>
-    {% endunless %}         
+    </ul>
   </div>
 </div>
 
-{% include disqus.html %}
 
+{% if page.comments %}
+<div class="row disqus-comments">
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    {% include disqus.html %}
+  </div>
+</div>
+{% endif %}

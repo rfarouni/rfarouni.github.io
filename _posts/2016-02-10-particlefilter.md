@@ -4,7 +4,7 @@ layout: post
 tags: [Julia]
 description: "Julia Code for a Particle Filter implementation of the Dirichlet Mixture Model" 
 ---
-{% include JB/setup %}
+
 
 ~~~ matlab
 

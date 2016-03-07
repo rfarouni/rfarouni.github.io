@@ -2,9 +2,8 @@
 layout: post
 title: "Model Identification"
 description: " An Overview of Model Identifiability in IRT and Factor Analysis Models"
-tags: [IRT]
 ---
-{% include JB/setup %}
+
 
 For the full page version, please click [here](/assets/projects/Identification/Identification.html)
 

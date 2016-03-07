@@ -1,11 +1,9 @@
 ---
 layout: post
 title: "Matlab on the OSC"
-category: code
-tags: [Matlab]
 description: "Submitting Batch Jobs from a Matlab Client to the Ohio Supercomputer Oakely Cluster" 
 ---
-{% include JB/setup %}
+
 
 ## The Oakley Cluster
 
@@ -19,7 +17,7 @@ To illustrate the types of parallelism, we will work with this function that cal
 
 ### Example Function
 
-~~~ m
+~~~ matlab
 
 function [results] = montecarlo(n)
 
