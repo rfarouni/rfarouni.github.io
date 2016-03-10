@@ -11,6 +11,8 @@ title: Publications
 <br>
  3. Code to fit a hierarchical Bayesian Factor Analysis model in stan: [Bayesian Factor Analysis](/assets/projects/BayesianFactorAnalysis/BayesianFactorAnalysis.html)
 <br>
+ 4. Code to fit a Dirichlet Process Mixture of Normals Model using a particle filter implemented in Julia: [Particle Filter](/assets/projects/ParticleFilter/ParticleFitler.html)
+<br>
 <br>
 
 # Posters

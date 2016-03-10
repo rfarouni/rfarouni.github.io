@@ -29,7 +29,6 @@ I am currently a fourth-year PhD student in quantitative psychology at the Ohio 
   {% for post in site.posts limit:25 %}<a
     href="{{ post.url }}" class="post-excerpt{% if post.photo_url %} photo{% endif %}">
       <div class="padded-content">
-        <div class="title">{{ post.title }}</div>
       {% if post.photo_url %}
         <div class="image" style="background-image:url('{{ post.photo_url }}')"></div>
       {% else %}
