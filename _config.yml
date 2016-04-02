@@ -29,7 +29,7 @@ avatar: "/img/avatar.jpg"
 navbar-links:
   Home: "index"
   CV: "CV"
-  Publications: "blogposts"
+# Publications: "blogposts"
   Links: "links"
 
   
