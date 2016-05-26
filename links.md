@@ -56,6 +56,9 @@ Favorite Quotes
 > " Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." -*David Donoho, Plenary Address at ICM 2012*{: style="color: #7BD2FF"}  
 
 
+> " The P vs. NP problem has been called "one of the most important problems in contemporary mathematics and theoretical computer science" .... That is an understatement. Not only is P vs. NP the defining question of our field; it's one of the deepest questions ever asked for which we'd know how to recognize an answer...If P=NP, then the world would be a profoundly different place than we usually assume it to be. There would be no special value in "creative leaps," no fundamental gap between solving a problem and recognizing the solution once it's found. Everyone who could appreciate a symphony would be Mozart; everyone who could follow a step-by-step argument would be Gauss." -*Scott Aaronson*{: style="color: #7BD2FF"}  
+
+
 -----------------------------------------------------
 
 
