@@ -1,11 +1,11 @@
 ---
 layout: page
 title: Curriculum Vitae
-subtitle: last updated 03/10/2015
+subtitle: last updated 08/03/2016
 ---
 <div>
 <body>
-<p></i><a href="/assets/files/CV.pdf"  
+<p><a href="/assets/files/CV.pdf"  
        onclick="var that=this;
        _gaq.push(['_trackEvent','Download','PDF',this.href]); 
        setTimeout(function(){location.href=that.href;},200);
