@@ -28,7 +28,7 @@ avatar: "/img/avatar.jpg"
 # List of links in the navigation bar
 navbar-links:
   Home: "index"
-  CV: "CV"
+#  CV: "CV"
 # Publications: "blogposts"
   Links: "links"
 
