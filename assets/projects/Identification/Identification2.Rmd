@@ -46,7 +46,7 @@ $$
 \boldsymbol \Sigma_{yy}= \boldsymbol\Lambda\boldsymbol \Psi \boldsymbol\Lambda^{T} +  \boldsymbol \Theta
 $$
 
-is not identified if there are two or more distinct parameter points that can generate the same joint probability distribution. For example, in factor analysis if we can find a matrix $\textbf{T}$ not equal to $\textbf{I}$, such that the two distinct set of parameters $(\bLambda,\bPhi)$ and $(\bLambda^\bigstar,\bPhi^\bigstar)$ can produce the same matrix decomposition.
+is not identified if there are two or more distinct parameter points that can generate the same joint probability distribution. More conceretly, if we can find a matrix $\textbf{T}$ not equal to $\textbf{I}$, such that the two distinct set of parameters $(\bLambda,\bPhi)$ and $(\bLambda^\bigstar,\bPhi^\bigstar)$ can produce the same matrix decomposition
 
 $$
 \begin{align}
@@ -62,8 +62,7 @@ then it follows then that the model is not identified. Conceptually, think of th
 
 To specify a metric of measurement, we need to set the location and scale of the latent variables in the model. The location and scale  of $\boldsymbol\eta$ can be determined by setting its mean to zero and its variance to 1. 
 
-Now to show that Model \ref{eq:CFA} is identified, we need to determine that the matrix decomposition of \textbf{R} is unique. More specifically, since $\mathbf{I}$ is constant and $\mathbf{S}$ depends on $\bPhi$ and $\bLambda$, the problem reduces to showing that the decomposition of $\bLambda\bPhi\bLambda^{\intercal}$ is unique. 
-
+Now to show that Model \ref{eq:CFA} is identified, we need to determine that the matrix decomposition of \textbf{R} is unique. More specifically, the problem reduces to showing that the decomposition of $\bLambda\bPhi\bLambda^{\intercal}$ is unique. 
 
 ### Rotation Invariance
 

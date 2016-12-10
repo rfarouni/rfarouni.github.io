@@ -117,7 +117,7 @@ where \ Cov(\boldsymbol \epsilon_i) &amp;= \boldsymbol \Theta,
 \]</span> with population covariance structure <span class="math display">\[
 \boldsymbol \Sigma_{yy}= \boldsymbol\Lambda\boldsymbol \Psi \boldsymbol\Lambda^{T} +  \boldsymbol \Theta
 \]</span></p>
-<p>is not identified if there are two or more distinct parameter points that can generate the same joint probability distribution. For example, in factor analysis if we can find a matrix <span class="math inline">\(\textbf{T}\)</span> not equal to <span class="math inline">\(\textbf{I}\)</span>, such that the two distinct set of parameters <span class="math inline">\(({\boldsymbol{\Lambda}},{\boldsymbol{\Phi}})\)</span> and <span class="math inline">\(({\boldsymbol{\Lambda}}^\bigstar,{\boldsymbol{\Phi}}^\bigstar)\)</span> can produce the same matrix decomposition.</p>
+<p>is not identified if there are two or more distinct parameter points that can generate the same joint probability distribution. More conceretly, if we can find a matrix <span class="math inline">\(\textbf{T}\)</span> not equal to <span class="math inline">\(\textbf{I}\)</span>, such that the two distinct set of parameters <span class="math inline">\(({\boldsymbol{\Lambda}},{\boldsymbol{\Phi}})\)</span> and <span class="math inline">\(({\boldsymbol{\Lambda}}^\bigstar,{\boldsymbol{\Phi}}^\bigstar)\)</span> can produce the same matrix decomposition</p>
 <p><span class="math display">\[
 \begin{align}
 {\boldsymbol{\Sigma}}_{yy} &amp;= {\boldsymbol{\Lambda}}{\boldsymbol{\Phi}}{\boldsymbol{\Lambda}}^{\intercal}+{\boldsymbol{\Psi}}\\
@@ -128,7 +128,7 @@ where \ Cov(\boldsymbol \epsilon_i) &amp;= \boldsymbol \Theta,
 <div id="resolving-the-invariance-of-scale-and-location" class="section level3">
 <h3>Resolving the Invariance of Scale and Location</h3>
 <p>To specify a metric of measurement, we need to set the location and scale of the latent variables in the model. The location and scale of <span class="math inline">\(\boldsymbol\eta\)</span> can be determined by setting its mean to zero and its variance to 1.</p>
-<p>Now to show that Model  is identified, we need to determine that the matrix decomposition of  is unique. More specifically, since <span class="math inline">\(\mathbf{I}\)</span> is constant and <span class="math inline">\(\mathbf{S}\)</span> depends on <span class="math inline">\({\boldsymbol{\Phi}}\)</span> and <span class="math inline">\({\boldsymbol{\Lambda}}\)</span>, the problem reduces to showing that the decomposition of <span class="math inline">\({\boldsymbol{\Lambda}}{\boldsymbol{\Phi}}{\boldsymbol{\Lambda}}^{\intercal}\)</span> is unique.</p>
+<p>Now to show that Model  is identified, we need to determine that the matrix decomposition of  is unique. More specifically, the problem reduces to showing that the decomposition of <span class="math inline">\({\boldsymbol{\Lambda}}{\boldsymbol{\Phi}}{\boldsymbol{\Lambda}}^{\intercal}\)</span> is unique.</p>
 </div>
 <div id="rotation-invariance" class="section level3">
 <h3>Rotation Invariance</h3>
