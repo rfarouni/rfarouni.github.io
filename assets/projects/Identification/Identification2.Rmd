@@ -1,0 +1,114 @@
+---
+title: "Identification Constraints in Factor Analysis"
+author: "Rick Farouni"
+date: "December 10, 2016"
+output: 
+  html_document:
+    theme: united
+    highlight: pygments
+bibliography: bibfile.bib
+---
+
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bsY}{\boldsymbol{Y}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bsX}{\boldsymbol{X}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bvtheta}{\boldsymbol{\vartheta}}
+\newcommand{\Btheta}{\boldsymbol{\Theta}}
+\newcommand{\bepsilon}{\boldsymbol{\varepsilon}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bmu}{\boldsymbol{\mu}} 
+\newcommand{\balpha}{\boldsymbol{\alpha}} 
+\newcommand{\bbeta}{\boldsymbol{\beta}} 
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\Var}{\mathrm{Var}}
+\DeclareMathOperator*{\Cov}{\mathrm{Cov}}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\Diag}{Diag}
+
+
+We say that a factor model
+$$\begin{aligned}
+\mathbf y_i &=\boldsymbol \Lambda \boldsymbol \eta_i + \boldsymbol \epsilon_i  \ \  for \   i=1, ..., I. \\
+where \ Cov(\boldsymbol \epsilon_i) &= \boldsymbol \Theta,
+\ Cov(\boldsymbol \eta_i) = \boldsymbol \Psi, \ \ \boldsymbol \epsilon_i \perp \boldsymbol \eta_i
+\end{aligned} 
+$$
+with population covariance structure 
+$$
+\boldsymbol \Sigma_{yy}= \boldsymbol\Lambda\boldsymbol \Psi \boldsymbol\Lambda^{T} +  \boldsymbol \Theta
+$$
+
+is not identified if there are two or more distinct parameter points that can generate the same joint probability distribution. For example, in factor analysis if we can find a matrix $\textbf{T}$ not equal to $\textbf{I}$, such that the two distinct set of parameters $(\bLambda,\bPhi)$ and $(\bLambda^\bigstar,\bPhi^\bigstar)$ can produce the same matrix decomposition.
+
+$$
+\begin{align}
+\bSigma_{yy} &= \bLambda\bPhi\bLambda^{\intercal}+\bPsi\\
+ &=(\bLambda\textbf{T}) ({\textbf{T}}^{-1}\bigl(\bPhi\bigr){{\textbf{T}}^{\intercal^{-1}}})({\textbf{T}}^{\intercal}\bLambda^{\intercal})+\bPsi\\
+ &=\bLambda^\bigstar\bPhi^\bigstar\bLambda^{\bigstar^\intercal}+\bPsi
+\end{align}
+$$
+
+then it follows then that the model is not identified. Conceptually, think of the latent variables $\boldsymbol\eta$ as spanning a $D$-dimensional space, *the latent space*, and any combination of the traits that define a particular person $i$ can be represented by a point residing in that space. However, since $\boldsymbol\eta$ is latent, it has no frame of reference. To establish a frame, we need to specify a point of origin, a unit of measurement or scale, that is a set of $D$ basis vectors that define the coordinates and the direction. These indeterminacies correspond to location, scale, rotation, and reflection invariance and to label switching if the basis vectors are not ordered.    
+
+### Resolving the Invariance of Scale and Location
+
+To specify a metric of measurement, we need to set the location and scale of the latent variables in the model. The location and scale  of $\boldsymbol\eta$ can be determined by setting its mean to zero and its variance to 1. 
+
+Now to show that Model \ref{eq:CFA} is identified, we need to determine that the matrix decomposition of \textbf{R} is unique. More specifically, since $\mathbf{I}$ is constant and $\mathbf{S}$ depends on $\bPhi$ and $\bLambda$, the problem reduces to showing that the decomposition of $\bLambda\bPhi\bLambda^{\intercal}$ is unique. 
+
+
+### Rotation Invariance
+
+Parameters are said to be invariant under rotation when we can find an orthogonal rotation matrix $\textbf{T}$, where $\textbf{T}^{\intercal}\textbf{T}=\bPhi=\mathbf{I}$, such that when we rotate $\bLambda$ and $\bvtheta$, we obtain two rotated matrices $\bLambda^{\ast}=\bLambda\textbf{T}^{\intercal}$ and $\bvtheta^{\ast}=\textbf{T}\bvtheta$ whose product gives us back the original matrices
+$$
+\begin{align*}
+\bLambda^{\ast}\bvtheta^{\ast}=\bLambda\textbf{T}^{\intercal}\textbf{T}\bvtheta=\bLambda\bvtheta
+\end{align*}
+$$
+ 
+In factor analysis, there are two approaches to deal with rotational invariance. In Exploratory Factor Analysis [@Thurstone1947], we set $\bPhi=\textbf{I}$ to make $\bLambda\bLambda^{\intercal}$ identifiable and  chose $\bLambda$ such that it meets certain criteria for interpretability. For example, one criterion, the VARIMAX criterion [@Kaiser1958], finds a simple interpretable solution by rotating the factors so that each factor has a large number of loadings with values near zero and small number of loadings with large values. Note that, the resulting rotated matrix is not unique. For a $D$-dimensional model, there are still $2^D \times D!$ matrices in its equivalence class. We should add that, that label switching (i.e., column permutations) and sign reversals are not considered a problem in the frequentist framework because inference can be restricted to one likelihood mode with the proper choice of initial values. Moreover, after applying a rotation criterion, the common practice is that the researcher usually flips the signs and orders the $D$ columns of the orthogonally rotated loading matrix to obtain the most interpretable solution among the $2^D \times D!$ possible matrices that satisfy the rotation criterion used.  In a two-dimensional model, we have $2^2$ possible column sign changes and $2!$ column permutations, for a total 8 matrices in the equivalence class. 
+
+In the second approach, Confirmatory Factor Analysis [@Joreskog73], the off-diagonal elements of $\bPhi$ are allowed to be unconstrained and the rotational invariance of $\bLambda$ and $\bPhi$ is resolved by imposing theoretically informed constraints on $\bLambda$. If no constraints are imposed on $\bLambda$, then we can find a transformation matrix $\textbf{T}$ with the constraint $\Diag(\bPhi)=\Diag({\textbf{T}}^{-1}{\textbf{T}}^{\intercal^{-1}})=\mathbf{I}$ such that
+
+$$
+\begin{align*}
+\bLambda\bPhi\bLambda^{\intercal}=(\bLambda\textbf{T}) ({\textbf{T}}^{-1}\bPhi{\textbf{T}}^{\intercal^{-1}})({\textbf{T}}^{\intercal}\bLambda^{\intercal})
+\end{align*}
+$$
+
+Note that although the transformation matrix \textbf{T} is referred in the literature as an oblique rotation matrix [@Browne2001], it is not necessarily orthogonal and therefore not exactly a rotation matrix. 
+
+#### Identification Conditions
+
+@Anderson1956 suggested that model identification can be achieved by imposing at least $D^2$ restrictions on $(\bLambda,\bPhi)$. @Howe55 stated three sufficient conditions for local uniqueness of $\bLambda$  and recently @Peeters2012 added a fourth condition to insure global rotational uniqueness. To ensure uniqueness according to the four conditions, we need to 
+
+1. Make $\bPhi$ a positive definite correlation matrix such that $\Diag(\bPhi)= \mathbf{I}$
+2. Fix at least $D-1$ zeros in every column of $\bLambda$ 
+3. Check that the submatrix $\mathbf{\Lambda_{d}}$ has rank $D-1$, where $\mathbf{\Lambda_{d}}$ is the matrix remaining after keeping the rows that have zero fixed entries in column $d$, for all columns $d=1,..., D$.
+4. Constrain one parameter in each column of $\bLambda$ to take only positive or negative values. 
+
+Note that the first condition imposes $D$ restrictions and the second condition imposes another$D(D-1)$ constraints for a total of $D^2$ constraints. Jointly, the first three conditions reduce the number of possible modes from infinitely many to just the $2^D$ modes produced by sign reversals. The fourth condition further reduces that number to 1 so that the resulting parameter space is unimodal on the condition that the remaining parameters in the model are identified. Therefore, to identify our two-dimensional model, we need to fix one of the crossloadings  to zero while making sure that the second condition is satisfied. At any rate, if we are not sure whether our specified constraints make the parameters locally identifiable, we can check for local identification algebraically by using the Wald Rank Rule that evaluates the rank of the Jacobian [@Bekker1989] or if we are conducting maximum likelihood based analysis, we can empirically assess local identification from the quality of the information matrix produced by the computer model fit.
+
+## The Problematic Consequences of Imposing Constraints
+
+Although some parameter constraints can guarantee a unimodal likelihood, they can have the unintended consequence of impacting the shape of the likelihood. In particular, the constraints can induce local modes in the likelihood and make estimation problematic. For example, @Millsap01 has shown that some common constraint choices can produce a discrimination or loading matrix that lies outside the true equivalence class. Moreover, in maximum likelihood estimation, fixing the $\frac{D(D-1)}{2}$ elements to nonzero constants renders the large sample normal approximation inappropriate [@Loken2005]. But that is not all. Another consequence is that since the constraints are placed on particular elements of the parameter matrix, both estimation and inference will depend on the ordering of the variables in data matrix. Sometimes however, restricted confirmatory model estimation is not so problematic. For example, if our data is very informative and we restrict the factors to be orthogonal and we constrain $\frac{D(D-1)}{2}$ elements of $(\bLambda)$ to zero while observing the rank condition [@Algina1980], then the modes will most likely be separated, allowing us to obtain valid estimates of the standard errors of the loadings based on a unimodal normal approximation [@Dolan1991]. 
+
+***
+This webpage was created using the *R Markdown* authoring format and was generated using *knitr* dynamic report engine.
+
+(C\) 2016 Rick Farouni 
+
+***
+
+# References
+
+
+
