@@ -1,0 +1,16 @@
+## Parameter file for Bowtie2 
+## Values in <...> reference column titles in targets file
+PairSet	Name	Value
+software	NA	bowtie2
+cores	-p	8
+other	NA	--no-unal --score-min L,0,-0.24 --rdg 50,50 --rfg 50,50 
+reference	-x	./data/genome_data/hg19/bowtie2_index/hg19_genome
+infile1	-U	<FileName1>
+infile1	path	NA
+infile2	NA	<FileName2>
+infile2	path	NA
+outfile1	-S	<FileName1>
+outfile1	path	./results/aligned/genome
+outfile1	remove	.fq.gz
+outfile1	append	.sam
+outfile1	outextension	.bam

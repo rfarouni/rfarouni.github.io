@@ -1,0 +1,5 @@
+FileName1	SampleName	Factor
+./data/genome_data/hg19/fasta/hg19_genome.fa	hg19_genome	M1
+./data/genome_data/hg19/fasta/hg19_ribosomal.fa	hg19_ribosomal	M1
+./data/genome_data/hg19/fasta/hg19_junctions_reg.fa	hg19_junctions_reg	M1
+./data/genome_data/hg19/fasta/hg19_junctions_scrambled.fa	hg19_junctions_scrambled	M1

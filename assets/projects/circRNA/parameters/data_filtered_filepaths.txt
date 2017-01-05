@@ -1,0 +1,7 @@
+FileName1	SampleName	Factor
+./results/trimmed/SRR1027187_1.fq.gz	SRR1027187_1	A
+./results/trimmed/SRR1027187_2.fq.gz	SRR1027187_2	A
+
+
+
+

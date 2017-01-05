@@ -1,0 +1,689 @@
+---
+title: "Identification and quantification of circular RNA from RNA-Seq data"
+author: "Rick Farouni"
+date: "January 4, 2017"
+output: html_document
+bibliography: bibfile.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE, comment = "", width = 140 )
+```
+
+Here we run an analysis pipeline in R for the identification of circRNA. The pipeline attempts to recreate parts of the [KNIFE pipeline](<https://github.com/lindaszabo/KNIFE) described in the paper by @Szabo2015. The code provided here uses the *systemPipeR* package with functions designed to run the pipleline on a local desktop. Consult the *systemPipeR* documentation to modify the code so it can be run on a cluster.
+
+
+## Prepartory steps
+
+To install and resolve bioinformatics software dependecies, you can use the [Bioconda](http://bioconda.github.io/) package manager. First download [Miniconda](http://conda.pydata.org/miniconda.html), then create an environment, activate it, add bioconda channels, and install the required software. For example, here we create a local environment named *rnaseq* and install *bowtie2* and *trim-galore*.
+
+```
+conda create -n rnaseq python=2 anaconda
+source activate rnaseq
+conda config --add channels conda-forge
+conda config --add channels defaults
+conda config --add channels r
+conda config --add channels bioconda
+conda install bowtie2
+conda install trim-galore
+```
+### 1. Create project directories 
+
+First start a project and create subdirectories under the project's working directory
+
+```{r , eval=FALSE}
+folders <- c(
+  "parameters", "src",
+  "data/genome_data/hg19/fasta",
+  "data/genome_data/hg19/bowtie2_index",
+  "data/biosamples",
+  "results/trimmed",
+  "results/aligned/genome",
+  "results/aligned/ribosomal",
+  "results/aligned/junctions_reg",
+  "results/aligned/junctions_scrambled",
+  "/results/analysis/reports"
+) 
+
+for (i in 1:length(folders))  { 
+  dir.create(paste(getwd(), folders[i], sep = "/"), recursive = TRUE) 
+}
+
+```
+
+### 2. Download genome data
+
+To get started, we need to download the *hg19_fastas.tar.gz* archive that contains fasta files for the ribosome, the linear junctions, the scrambled junctions, and the reference genome. The compressed tar file is available at this [link](https://mega.nz/#F!RtsCHCQb!fyxYNWjoCef5Ie361vUxiA!J4dH1bqL)
+
+### 3. Build index files
+
+We first load the *systemPipeR* package and other required packages. We also create external files for the command-line software. These are the *param* files that specify the parameters and the *target* files that contain the relative path locations of any required data files.
+
+```{r , message=FALSE} 
+#source("http://bioconductor.org/biocLite.R")
+#biocLite("tgirke/systemPipeR", dependencies = TRUE)
+library(systemPipeR)
+library(dplyr)
+library(pander)
+```
+
+The index files are large and might take a long time to download on a regular connection. It could be faster to just run the Bowtie index builder to create the index files. These two lines build the indices. The param and target files are available [here](https://github.com/rfarouni/rfarouni.github.io/tree/master/assets/projects/circRNA).
+
+```{r , eval=FALSE} 
+args_bowtie2_index <- systemArgs(sysma = "./parameters/bowtie2_index.param", 
+                                 mytargets = "./parameters/hg19_fasta_filepaths.txt")
+runCommandline(args = args_bowtie2_index)
+```
+
+### 4. Download sample data
+
+We use the same HER2 Positive Breast Tumor dataset used in the KNIFE as sample data. The data is made up of paired-end reads from a total RNA rRNA-depleted RNA-seq library. More details about the experiment can be found [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1261032). To ensure reproducibility and data provenance, we download the SRA data files directly from the GEO database. 
+
+```{r , eval=FALSE}
+download.file("ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX/SRX374/SRX374866/SRR1027187/SRR1027187.sra", "./data/biosamples/SRR1027187.sra")
+```
+
+Next we convert the SRA file to fastq using *fastq-dump*. The options provided specify the following: split the paired reads into two files, dump the biological reads only, and compress the output using gzip. We also keep the defaults by not adding read ids and leaving the quality encoding as ASCII+33.
+
+```{r , eval=FALSE}
+system("fastq-dump --split-files --skip-technical --gzip ./data/biosamples/SRR1027187.sra --outdir ./data/biosamples/")
+```
+
+### 5. Trim data
+
+Reads in the raw data can contain low quality bases and partial adapter sequences that needs to be removed. Trimmed reads that are too short should also be filtered in order to obtain good alignment.    
+
+```{r }
+
+args_trim <- systemArgs(sysma = "./parameters/trim_galore.param", 
+                           mytargets = "./parameters/data_filepaths.txt")
+trim_command <- paste(sysargs(args_trim)[1], 
+                      unlist(strsplit(sysargs(args_trim)[2], " "))[8],
+                      sep = " ")
+(trim_command)
+```
+
+Although we are treating each paired end read independently, we add the the *--paired* option argument in the trim_galore command to peform a validation test that ensures that both sequence pairs have a certain minimum length specified by the option -*-length*. To run trim-galore we use the *system* function 
+
+```{r , eval=FALSE}
+system(trim_command)
+```
+
+### 6. Run data quality control checks
+
+Lastly, we generate and plot FASTQ quality summary statistics.  The [fastqc manual](https://biof-edu.colorado.edu/videos/dowell-short-read-class/day-4/fastqc-manual) provides a good explantion of the fastqc plots. First we define a helper function
+
+```{r , eval=FALSE}
+runFastqPlots <- function(file_list, report_name) {
+  fqlist <- bplapply(seq_along(file_list),
+                     function(x)
+                       seeFastq(
+                         fastq = file_list[x],
+                         batchsize = 100000,
+                         klength = 8
+                       ),
+                     BPPARAM = MulticoreParam(workers = 4))
+  png(
+    sprintf(
+      "./results/analysis/reports/fastq_report_%s.png",
+      report_name
+    ),
+    height = 800,
+    width = 200* length(fqlist),
+  )
+  seeFastqPlot(unlist(fqlist, recursive = FALSE))
+  dev.off()
+}
+```
+
+then we run it on the raw data
+
+```{r , eval=FALSE} 
+runFastqPlots(file_list = infile1(args_trim),
+              report_name = "SRR1027187")
+```
+
+and on the trimmed data
+
+```{r , eval=FALSE}
+data_trimmed_filepaths <- paste0(outfile1(args_trim),
+                                 SampleName(args_trim), 
+                                 c("_val_1.fq.gz", "_val_2.fq.gz"))
+names(data_trimmed_filepaths) <- paste0(SampleName(args_trim),"_trimmed")
+
+runFastqPlots(file_list = data_trimmed_filepaths,
+              report_name = "SRR1027187_trimmed")
+```
+
+Next we plot the reports side by side
+
+![fastqcplots](./results/analysis/reports/fastq_report_SRR1027187.png) ![fastqc_trimmed_plots](./results/analysis/reports/fastq_report_SRR1027187_trimmed.png)
+
+The plots for the trimmed data look much better. Although the mean quality distribution for the reads is bimodal, there are no low quality peaks. 
+
+## Alignment Steps
+
+Now we independently align each paired-end read dataset to four separate Bowtie2 indices: for the genome, ribosomal RNA, linear exon–exon junctions, and scrambled exon–exon junctions. First we load Bowtie2 parameter files and filepaths 
+
+```{r } 
+args_align_genome <- systemArgs(sysma = "./parameters/bowtie2_align_genome.param",
+                                mytargets = "./parameters/data_trimmed_filepaths.txt")
+args_align_ribo <- systemArgs(sysma = "./parameters/bowtie2_align_ribosomal.param",
+                              mytargets = "./parameters/data_trimmed_filepaths.txt")
+args_align_juncts_reg <- systemArgs(sysma = "./parameters/bowtie2_align_junctions_reg.param",
+                                    mytargets = "./parameters/data_trimmed_filepaths.txt")
+args_align_juncts_scram <- systemArgs(sysma = "./parameters/bowtie2_align_junctions_scrambled.param",
+                                      mytargets = "./parameters/data_trimmed_filepaths.txt")
+```
+
+then we run the Bowtie2 alignment commands through *systemPipeR*
+```{r , eval=FALSE} 
+# align to genome
+genome_bam_files <- runCommandline(args = args_align_genome)
+# align to ribosome
+ribo_bam_files <- runCommandline(args = args_align_ribo)
+# align to linear junctions
+juncts_reg_bam_files <- runCommandline(args = args_align_juncts_reg)
+# align to srambled junctions
+juncts_scram_files <- runCommandline(args = args_align_juncts_scram)
+```
+
+We can open "submitargs01_log" for each alignment to display the alignment summary and the system command used. For the genome alignment, we can open the file inside R like this
+```{r, size='footnotesize'}
+readLines(file.path("./results/aligned/genome","submitargs01_log"))
+```
+## Preprocessing steps
+
+The previous alignment step produced 8 BAM files. Two paired-end BAM files for each of the genome, ribosome, linear junctions, and scrambled junctions alignments. We are interested in junctional reads, those reads from the 8 files that align to a scrambled or linear junctions. Since the majority of the reads in the genome and ribosome BAM files are not junctional, we need to filter them out.
+
+```{r, echo=FALSE}
+ptm <- proc.time()
+```
+
+###  1. Get read IDs for genomic mate pairs
+
+Since the next preprocessing steps are memory intensive, we can intially filter out reads in which both pair mates align to the genome or ribosome. We can also filter out unaligned reads and return lists of read IDs in which both pairs align to the indicies, or in which one pair mate aligns but the other doesn't. To proceed we need to get the names of those reads that are found in both R1 and R2  genomic alignment files. 
+
+```{r } 
+
+getReadIds <- function(bamfile) {
+  scanBam(bamfile,
+          param = ScanBamParam(flag = scanBamFlag(isUnmappedQuery = FALSE),
+                               what = "qname"))[[1]][[1]]
+  }
+
+getCommonGenomicPairedReads <- function(genome_bamfiles, ribo_bamfiles) {
+  
+  genome_reads <- bplapply(genome_bamfiles,
+                           getReadIds,
+                           BPPARAM = MulticoreParam(workers = 2))
+  ribosomal_reads <- bplapply(ribo_bamfiles,
+                              getReadIds,
+                              BPPARAM = MulticoreParam(workers = 2))
+  
+  genomic_reads_1 <- union(genome_reads[[1]], ribosomal_reads[[1]])
+  genomic_reads_2 <- union(genome_reads[[2]], ribosomal_reads[[2]])
+  common_reads <- intersect(genomic_reads_1, genomic_reads_2)
+  r1_not_r2 <- setdiff(genomic_reads_1, genomic_reads_2)
+  r2_not_r1 <- setdiff(genomic_reads_2, genomic_reads_1)
+  
+  return(
+    list(
+      common_reads = common_reads,
+      r1_not_r2 = r1_not_r2,
+      r1_not_r2 = r2_not_r1
+    )
+  )
+}
+```  
+
+Note that code above uses the parallel lapply function *bplapply*. If you system has less than 32G RAM, you can modify the code to run with one worker or use *lapply* instead. Here we retrieve the location of the aligned files and feed them into the function defined above.
+
+```{r } 
+genome_aligned <- outpaths(args_align_genome)
+ribo_aligned <- outpaths(args_align_ribo)
+
+reads_to_ignore <- getCommonGenomicPairedReads(genome_aligned, ribo_aligned)
+```
+
+###  2. Read alignment data and run initial filtering
+
+Now we use these read IDs to create two filters. The first one filters out genomic reads in which both mates (R1 and R2) align. The second one is a junctional filter that keeps only junctional reads that overlap a particular junction by at least 8 nucleotides and that also satify the first filter. 
+
+ 
+```{r}
+genomic_reads_filter <-
+  FilterRules(list(
+    include = function(x) !(mcols(x)$qname %in% reads_to_ignore$common_reads)
+  ))
+
+MIDPOINT <- 150
+JUNC_OVERLAP <- 8
+
+junction_reads_filter <-
+  FilterRules(list(
+    include = function(x)
+      (
+        (MIDPOINT + JUNC_OVERLAP + 1 - width(x) <= start(x)) &
+        (start(x) <= MIDPOINT - JUNC_OVERLAP + 1) &
+        !(mcols(x)$qname %in% reads_to_ignore$common_reads)
+      )
+  ))
+```
+
+As part of the filtering step, we also update the alignment score for the junction reads such that the N-penalty is corrected.
+
+```{r}
+
+countAmbigousBases <- function(align_obj) {
+  sapply(gregexpr("N0|0N", mcols(align_obj)$MD), 
+         function(x) 
+           if (attributes(x)$match.length[1] == -1) 
+             return(0) 
+         else 
+           return(length(x))
+  )
+}
+
+#MD and XN do agree 
+filterAlignments <-
+  function(bamfile, param, filter, updateScore = TRUE) {
+    x <- readGAlignments(file = bamfile, param = param)
+    x <- subsetByFilter(x, filter)
+    seqlevels(x) <- seqlevelsInUse(x)
+    # correct for N-penalty in junction alignments and update alignment score
+    if (updateScore) {
+      mcols(x)$AS <- mcols(x)$AS + countAmbigousBases(x)
+    }
+    return(x)
+  }
+
+# get file paths
+linear_junctions_aligned <- outpaths(args_align_juncts_reg)
+scrambled_junctions_aligned <- outpaths(args_align_juncts_scram)
+
+# run filters
+
+param <-
+  ScanBamParam(
+    what = c("qname","mapq"), # get the read name and the mapping quality 
+    flag = scanBamFlag(isUnmappedQuery = FALSE),
+    tag = c("AS", "XS", "XN", "MD") # get tags
+  )
+
+genomic_filtered <- bplapply(
+  genome_aligned,
+  filterAlignments,
+  param = param,
+  filter = genomic_reads_filter,
+  updateScore = FALSE,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+
+linear_junctions_filtered <- bplapply(
+  linear_junctions_aligned,
+  filterAlignments,
+  param = param,
+  filter = junction_reads_filter,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+
+scrambled_junctions_filtered <- bplapply(
+  scrambled_junctions_aligned,
+  filterAlignments,
+  param = param,
+  filter = junction_reads_filter,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+```
+
+Let's take a look at first few rows of the GAlignment object for the linear junctions R1 aligned reads
+```{r}
+linear_junctions_filtered[[1]][1:3,] %>% as.data.frame() %>% pander()
+```
+We can also examine the frequency of the cigar strings 
+```{r} 
+linear_junctions_filtered[[1]] %>% 
+  cigar() %>% 
+  table %>% 
+  sort(decreasing = TRUE) %>% 
+  head() 
+```
+
+###  3. Convert GAlignment objects into dataframes
+
+
+```{r}
+toDataFrame <- function(x) {
+  x <- as.data.frame(x)
+  x$seqnames <- as.character(x$seqnames)
+  x$strand <- as.character(x$strand)
+  x <- subset(x, select = -c(cigar, qwidth, njunc, XS, XN, MD))
+  return(x)
+}
+
+appendJunctionTags <- function(x) {
+  df <- data.frame(do.call(rbind, 
+                           lapply(as.character(seqnames(x)), 
+                                  function(x) unlist(strsplit(x, "[:]|[|]")))),
+                   stringsAsFactors = FALSE)
+  colnames(df) <- c("g_chrom", "g_gene1", "g_pos1", "g_gene2", 
+                    "g_pos2", "junc_type", "junc_strand")
+  df$g_pos1 <- as.integer(df$g_pos1)
+  df$g_pos2 <- as.integer(df$g_pos2)
+  mcols(x) <- cbind(mcols(x), df)
+  return(toDataFrame(x))
+}
+
+genomic_filtered_dt <- bplapply(
+  genomic_filtered,
+  toDataFrame,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+
+linear_junctions_filtered_dt <- bplapply(
+  linear_junctions_filtered,
+  appendJunctionTags,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+
+scrambled_junctions_filtered_dt <- bplapply(
+  scrambled_junctions_filtered,
+  appendJunctionTags,
+  BPPARAM = MulticoreParam(workers = 2)
+)
+
+```
+
+Let's take a look at the dataframe for the linear junctions R1 aligned reads
+```{r}
+panderOptions("table.style", "simple")
+panderOptions("table.split.table", 140)
+linear_junctions_filtered_dt[[1]][1:3,] %>% pander()
+```
+
+
+###  4.  Filter R1 junctional reads and pair them with R2 mates
+
+A read (R1) is a linear junction read if it aligns to a linear junction and does not align to the genome or ribosome. In the code these reads are stored in *linear_1*. A read R1 is a scrambled junction read if it aligns to a scrambled junction and does not align to the genome or ribosome or to the linear junction. Scrambled junction reads are stored in *scrambled_1*. The read mate R2 can be a genomic, linear junction, or a scrambled junction read as determined by whehter the read name can be found in the R2 aligned reads. An R1 read can have a single or multiple R2 mates. Some have none at all. These are the unmapped reads.
+
+```{r}
+createJunctionsReadsDF <- function(genomic,
+                                   linear,
+                                   scrambled,
+                                   r1_not_r2,
+                                   suffixes = c(".r1", ".r2g", ".r2lin", ".r2scram")) {
+ 
+  linear_1 <- linear[[1]][!(linear[[1]]$qname %in% r1_not_r2), ]
+  scrambled_1 <- scrambled[[1]][!(scrambled[[1]]$qname %in% c(r1_not_r2, linear_1$qname)), ]
+  
+  genomic_mate <- genomic[[2]][(genomic[[2]]$qname %in% c(linear_1$qname,scrambled_1$qname)), ]
+  linear_mate <- linear[[2]][(linear[[2]]$qname %in% c(linear_1$qname,scrambled_1$qname)), ]
+  scrambled_mate <- scrambled[[2]][(scrambled[[2]]$qname %in% c(linear_1$qname, scrambled_1$qname)), ]
+  
+  linear_genomic <- left_join(linear_1,
+                              genomic_mate,
+                              by = "qname", 
+                              suffix = suffixes[c(1, 2)])
+  
+  linear_linear <- left_join(linear_1,
+                             linear_mate ,
+                             by = "qname",
+                             suffix = suffixes[c(1, 3)])
+  
+  linear_scrambled <- left_join(linear_1, 
+                                scrambled_mate,
+                                by = "qname",
+                                suffix = suffixes[c(1, 4)])
+  
+  scrambled_genomic <- left_join(scrambled_1, 
+                                 genomic_mate,
+                                 by = "qname",
+                                 suffix = suffixes[c(1, 2)])
+  
+  scrambled_linear <- left_join(scrambled_1,
+                                linear_mate ,
+                                by = "qname",
+                                suffix = suffixes[c(1, 3)])
+  
+  scrambled_scrambled <- left_join(scrambled_1,
+                                   scrambled_mate,
+                                   by = "qname",
+                                   suffix = suffixes[c(1, 4)])
+  
+  linear_df <- cbind(linear_linear[, 1:15], 
+                     linear_genomic[, 16:22],
+                     linear_linear[, 16:29], 
+                     linear_scrambled[, 16:29])
+  
+  scrambled_df <- cbind(scrambled_linear[, 1:15],
+                        scrambled_genomic[, 16:22],
+                        scrambled_linear[, 16:29],
+                        scrambled_scrambled[, 16:29])
+  
+  return(list(linear_df = linear_df, scrambled_df = scrambled_df))
+}
+
+R1R2MatesJunctionReads <- createJunctionsReadsDF(genomic_filtered_dt,
+                                                 linear_junctions_filtered_dt,
+                                                 scrambled_junctions_filtered_dt,
+                                                 reads_to_ignore$r1_not_r2)
+```
+
+
+###  5.  Classify Mate Reads
+
+Here we classify mate reads based on alignment score. We also create a new variable *ascore* that averages the alignment scores of the two matched reads.
+
+```{r}
+classsifyMateReads <- function(df, suffixes = c(".r1", ".r2g", ".r2lin", ".r2scram")) {
+    
+    scores_df <- df[, paste0("AS", suffixes)]
+    map_categ <- apply(scores_df[, 2:4] , 1, function(x) sum(!is.na(x)))
+    max_score <- apply(scores_df[, 2:4] , 1, which.max)
+      
+    mate_categ <- sapply(max_score, function(x) 
+      if (is.null(attributes(x))) 
+        {return(0)} 
+      else 
+        {return(as.integer(x))}
+      )
+    
+    matescore <- scores_df[cbind(1:nrow(scores_df), (mate_categ + 1))]
+    ascore <- 0.5 * (scores_df$AS.r1 + matescore)
+    df <- cbind(df, 
+                mate_categ = mate_categ,
+                ascore = ascore,
+                map_categ = map_categ)
+    return(df)
+  }
+
+linear_df <- R1R2MatesJunctionReads$linear_df %>% classsifyMateReads()
+scrambled_df <- R1R2MatesJunctionReads$scrambled_df %>% classsifyMateReads()
+
+cat( " number of linear junction reads",
+     NROW(linear_df), "\n",
+     "number of scrambled junction reads",
+     NROW(scrambled_df), "\n",
+  "total number of junctional reads:", 
+    NROW(linear_df) + NROW(scrambled_df), "\n",
+    "number of junctions with aligned reads:",
+    length(unique(linear_df$seqnames.r1)) +
+      length(unique(scrambled_df$seqnames.r1)))
+
+```    
+      
+Let's take a look at the dataframe for the linear junctions R1 aligned reads
+```{r}
+panderOptions("table.style", "simple")
+panderOptions("table.split.table", 140)
+scrambled_df[1:3,]  %>% pander()
+```
+
+Let's also output the frequency of R1 reads that have 0, 1, 2, or 3 potential paired-end mate reads (R2)
+```{r}
+linear_junction_mapcateg <- linear_df$map_categ %>%  table  %>% as.data.frame()
+rownames(linear_junction_mapcateg) <- c("Unmapped","OneMateMatch", "TwoMateMatchs", "ThreeMateMatchs")
+scrambled_junction_mapcateg <- scrambled_df$map_categ %>%  table %>%  as.data.frame() 
+rownames(scrambled_junction_mapcateg) <- c("Unmapped","OneMateMatch", "TwoMateMatchs", "ThreeMateMatchs")
+linear_junction_mapcateg 
+scrambled_junction_mapcateg 
+```
+
+###  6.  Classify Junction Reads
+
+We split the reads into reads that have a mapped mate R2 and those that do not. We intially assign all reads as uncategorized (i.e. read_categ=0).
+
+```{r}                    
+linear_reads_split <- split(linear_df, linear_df$map_categ == 0)
+scrambled_reads_split <- split(scrambled_df, scrambled_df$map_categ == 0)
+unmapped_reads <- rbind(linear_reads_split[[2]], scrambled_reads_split[[2]])[,1:15]
+
+linear_reads_mapped <- cbind(linear_reads_split[[1]] , read_categ = 0)
+scrambled_reads_mapped <- cbind(scrambled_reads_split[[1]] , read_categ = 0)
+```
+
+Let's take a look at the unmapped reads
+```{r}
+panderOptions("table.style", "simple")
+panderOptions("table.split.table", 140)
+unmapped_reads[1:3,] %>% pander()
+```
+
+Now we proceed to classify scrambled junctional reads as circular or decoy and linear junctional reads as linear or anomalous.
+
+```{r}
+classifyDecoyOrAnomalous <- function(x) {
+  
+  cond1 <- x$strand.r1 != x[, c("strand.r2g", "strand.r2lin", "strand.r2scram")][cbind(1:nrow(x), x$mate_categ)]
+  cond2 <- x$g_chrom.r1 == x[, c("seqnames.r2g", "g_chrom.r2lin", "g_chrom.r2scram")][cbind(1:nrow(x), x$mate_categ)]
+  x$read_categ[!(cond1 & cond2)] <- 1 #(decoy)
+  
+  return(x)
+}
+
+classifyCircularPairedMates <- function(x) {
+  
+  cond1 <- x$mate_categ == 3 
+  cond2 <- x$seqnames.r1 == x$seqnames.r2scram
+  cond3 <- !(x$read_categ == 1)
+  x$read_categ[(cond1 & cond2 & cond3)] <- 2 #(circ)
+  
+  return(x)
+}
+
+classifyCircularLinearMates <- function(x, BUFFER = 15, MIDPOINT = 150) {
+  
+  r1_start <- pmin(x$g_pos1.r1, x$g_pos2.r1) 
+  r1_end <- pmax(x$g_pos1.r1, x$g_pos2.r1) 
+  r2_start <- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$start.r2lin
+  r2_end <- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$end.r2lin
+  
+  cond1 <- r2_start >=  r1_start - BUFFER
+  cond2 <- r2_start <=  r1_end + BUFFER
+  cond3 <- r2_end >= r1_start - BUFFER
+  cond4 <- r2_end <= r1_end + BUFFER 
+  cond5 <- x$mate_categ == 2 
+  cond6 <- !(x$read_categ %in% c(1,2))
+  
+  x$read_categ[(cond1 & cond2 & cond3 & cond4 & cond5 & cond6 )] <- 3 #(circ_lin)
+  return(x)
+}
+
+classifyCircularGenomicMates <- function(x, BUFFER = 15, MIDPOINT = 150) {
+  
+  r1_start <- pmin(x$start.r1, x$g_pos2.r1) 
+  r1_end <- pmax(x$g_pos1.r1, x$g_pos2.r1) 
+  r2_start <- x$start.r2g
+  r2_end <- x$end.r2g
+  
+  cond1 <- r2_start >=  r1_start - BUFFER
+  cond2 <- r2_start <=  r1_end + BUFFER
+  cond3 <- r2_end >= r1_start - BUFFER
+  cond4 <- r2_end <= r1_end + BUFFER
+  cond5 <- x$mate_categ == 1 
+  cond6 <- !(x$read_categ %in% c(1,2,3))
+  
+  x$read_categ[(cond1 & cond2 & cond3 & cond4 & cond5 & cond6 )] <- 4 #(circ_gen)
+  return(x)
+}
+
+classifyLinearPairedMates <- function(x, BUFFER = 15, MIDPOINT = 150) {
+  
+  r1_start <- pmin(x$g_pos1.r1, x$g_pos2.r1) - MIDPOINT + x$start.r1
+  r2_start <- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$start.r2lin
+  
+  cond1_p <- r2_start >= r1_start - BUFFER
+  cond1_m <- r1_start >= r2_start - BUFFER
+  cond1 <- ifelse(x$strand.r1 == "+", cond1_p, cond1_m)
+  cond2 <- x$mate_categ == 2 
+  cond3 <- !(x$read_categ == 1)
+  x$read_categ[(cond1 & cond2 & cond3)] <- 2 #(circ)
+  return(x)
+  
+}
+
+classifyLinearGenomicdMates <- function(x, BUFFER = 15, MIDPOINT = 150) {
+  
+  r1_start <- pmin(x$g_pos1.r1, x$g_pos2.r1) - MIDPOINT + x$start.r1
+  r2_start <- x$start.r2g
+  
+  cond1_p <- r2_start >= r1_start - BUFFER
+  cond1_m <- r1_start >= r2_start - BUFFER
+  cond1 <- ifelse(x$strand.r1 == "+", cond1_p, cond1_m)
+  cond2 <- x$mate_categ == 1 
+  cond3 <- !(x$read_categ %in% c(1,2))
+  x$read_categ[(cond1 & cond2 & cond3)] <- 3 
+  return(x)
+}
+
+classifyLinearIgnore <- function(x) {
+  cond1 <- x$mate_categ == 3 
+  cond2 <- !(x$read_categ %in% c(1))
+  x$read_categ[(cond1 & cond2 )] <- 4 
+  return(x)
+}
+
+linear_reads_mapped <-  
+  linear_reads_mapped %>% 
+  classifyDecoyOrAnomalous() %>% 
+  classifyLinearPairedMates() %>%
+  classifyLinearGenomicdMates() %>%
+  classifyLinearIgnore
+
+scrambled_reads_mapped <-  
+  scrambled_reads_mapped %>% 
+  classifyDecoyOrAnomalous() %>% 
+  classifyCircularPairedMates() %>%
+  classifyCircularLinearMates() %>%
+  classifyCircularGenomicMates
+
+``` 
+
+The frequency of read categories are as follows:
+
+```{r}
+linear_junction_reads <- linear_reads_mapped$read_categ %>%  table  %>% as.data.frame()
+rownames(linear_junction_reads) <- c("Uncategorized","Anomaly", "LinearLinear", "linearGenome" ,"Ignore")
+scrambled_junction_reads <- scrambled_reads_mapped$read_categ %>%  table %>%  as.data.frame() 
+rownames(scrambled_junction_reads) <- c("Uncategorized","Decoy", "CircularCircular", "CircularLinear" ,"CircularGenome")
+linear_junction_reads 
+scrambled_junction_reads
+```
+
+The total running time for the 6 preprocessing steps
+
+```{r}
+proc.time() - ptm
+sessionInfo()
+```
+
+# References
+
+
+
+
+
+
+
+

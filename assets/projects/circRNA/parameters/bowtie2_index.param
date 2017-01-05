@@ -1,0 +1,11 @@
+## Parameter file for Bowtie2-build 
+## Values in <...> reference column titles in targets file
+PairSet	Name	Value
+software	NA	bowtie2-build
+infile1	NA	<FileName1>
+infile1	path	NA
+outfile1	NA	<SampleName>
+outfile1	path	./data/genome_data/hg19/bowtie2_index
+outfile1	remove	NA
+outfile1	append	NA
+reference	NA	NA

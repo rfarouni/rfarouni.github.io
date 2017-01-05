@@ -1,0 +1,3 @@
+FileName1	SampleName	Factor	FolderDir
+./data/biosamples/SRR1027187_1.fastq.gz	SRR1027187_1	A	/
+./data/biosamples/SRR1027187_2.fastq.gz	SRR1027187_2	A	/
