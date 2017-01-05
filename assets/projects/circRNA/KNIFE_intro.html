@@ -123,10 +123,10 @@ $(document).ready(function () {
 </div>
 
 
-<p>Here we run an analysis pipeline in R for the identification of circRNA. The pipeline attempts to recreate parts of the <a href="%3Chttps://github.com/lindaszabo/KNIFE">KNIFE pipeline</a> described in the paper by <span class="citation">Szabo et al. (2015)</span>. The code provided here uses the <em>systemPipeR</em> package with functions designed to run the pipleline on a local desktop. Consult the <em>systemPipeR</em> documentation to modify the code so it can be run on a cluster.</p>
+<p>Here we run an analysis pipeline in R for the identification of circRNA. The pipeline attempts to recreate parts of the <a href="https://github.com/lindaszabo/KNIFE" target="_blank">KNIFE pipeline</a> described in the paper by <span class="citation">Szabo et al. (2015)</span>. The code provided here uses the <em>systemPipeR</em> package with functions designed to run the pipleline on a local desktop. Consult the <em>systemPipeR</em> documentation to modify the code so it can be run on a cluster.</p>
 <div id="prepartory-steps" class="section level2">
 <h2>Prepartory steps</h2>
-<p>To install and resolve bioinformatics software dependecies, you can use the <a href="http://bioconda.github.io/">Bioconda</a> package manager. First download <a href="http://conda.pydata.org/miniconda.html">Miniconda</a>, then create an environment, activate it, add bioconda channels, and install the required software. For example, here we create a local environment named <em>rnaseq</em> and install <em>bowtie2</em> and <em>trim-galore</em>.</p>
+<p>To install and resolve bioinformatics software dependecies, you can use the <a href="http://bioconda.github.io/" target="_blank">Bioconda</a> package manager. First download <a href="http://conda.pydata.org/miniconda.html" target="_blank">Miniconda</a>, then create an environment, activate it, add bioconda channels, and install the required software. For example, here we create a local environment named <em>rnaseq</em> and install <em>bowtie2</em> and <em>trim-galore</em>.</p>
 <pre><code>conda create -n rnaseq python=2 anaconda
 source activate rnaseq
 conda config --add channels conda-forge
@@ -149,15 +149,15 @@ conda install trim-galore</code></pre>
   &quot;results/aligned/junctions_reg&quot;,
   &quot;results/aligned/junctions_scrambled&quot;,
   &quot;/results/analysis/reports&quot;
-) 
+)
 
-for (i in 1:length(folders))  { 
-  dir.create(paste(getwd(), folders[i], sep = &quot;/&quot;), recursive = TRUE) 
+for (i in 1:length(folders))  {
+  dir.create(paste(getwd(), folders[i], sep = &quot;/&quot;), recursive = TRUE)
 }</code></pre>
 </div>
 <div id="download-genome-data" class="section level3">
 <h3>2. Download genome data</h3>
-<p>To get started, we need to download the <em>hg19_fastas.tar.gz</em> archive that contains fasta files for the ribosome, the linear junctions, the scrambled junctions, and the reference genome. The compressed tar file is available at this <a href="https://mega.nz/#F!RtsCHCQb!fyxYNWjoCef5Ie361vUxiA!J4dH1bqL">link</a></p>
+<p>To get started, we need to download the <em>hg19_fastas.tar.gz</em> archive that contains fasta files for the ribosome, the linear junctions, the scrambled junctions, and the reference genome. The compressed tar file is available at this <a href="https://mega.nz/#F!RtsCHCQb!fyxYNWjoCef5Ie361vUxiA!J4dH1bqL" target="_blank">link</a></p>
 </div>
 <div id="build-index-files" class="section level3">
 <h3>3. Build index files</h3>
@@ -167,14 +167,14 @@ for (i in 1:length(folders))  {
 library(systemPipeR)
 library(dplyr)
 library(pander)</code></pre>
-<p>The index files are large and might take a long time to download on a regular connection. It could be faster to just run the Bowtie index builder to create the index files. These two lines build the indices. The param and target files are available <a href="https://github.com/rfarouni/rfarouni.github.io/tree/master/assets/projects/circRNA">here</a>.</p>
-<pre class="r"><code>args_bowtie2_index &lt;- systemArgs(sysma = &quot;./parameters/bowtie2_index.param&quot;, 
+<p>The index files are large and might take a long time to download on a regular connection. It could be faster to just run the Bowtie index builder to create the index files. These two lines build the indices. The param and target files are available <a href="https://github.com/rfarouni/rfarouni.github.io/tree/master/assets/projects/circRNA" target="_blank">here</a>.</p>
+<pre class="r"><code>args_bowtie2_index &lt;- systemArgs(sysma = &quot;./parameters/bowtie2_index.param&quot;,
                                  mytargets = &quot;./parameters/hg19_fasta_filepaths.txt&quot;)
 runCommandline(args = args_bowtie2_index)</code></pre>
 </div>
 <div id="download-sample-data" class="section level3">
 <h3>4. Download sample data</h3>
-<p>We use the same HER2 Positive Breast Tumor dataset used in the KNIFE as sample data. The data is made up of paired-end reads from a total RNA rRNA-depleted RNA-seq library. More details about the experiment can be found <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1261032">here</a>. To ensure reproducibility and data provenance, we download the SRA data files directly from the GEO database.</p>
+<p>We use the same HER2 Positive Breast Tumor dataset used in the KNIFE as sample data. The data is made up of paired-end reads from a total RNA rRNA-depleted RNA-seq library. More details about the experiment can be found <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1261032" target="_blank">here</a>. To ensure reproducibility and data provenance, we download the SRA data files directly from the GEO database.</p>
 <pre class="r"><code>download.file(&quot;ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX/SRX374/SRX374866/SRR1027187/SRR1027187.sra&quot;, &quot;./data/biosamples/SRR1027187.sra&quot;)</code></pre>
 <p>Next we convert the SRA file to fastq using <em>fastq-dump</em>. The options provided specify the following: split the paired reads into two files, dump the biological reads only, and compress the output using gzip. We also keep the defaults by not adding read ids and leaving the quality encoding as ASCII+33.</p>
 <pre class="r"><code>system(&quot;fastq-dump --split-files --skip-technical --gzip ./data/biosamples/SRR1027187.sra --outdir ./data/biosamples/&quot;)</code></pre>
@@ -182,9 +182,9 @@ runCommandline(args = args_bowtie2_index)</code></pre>
 <div id="trim-data" class="section level3">
 <h3>5. Trim data</h3>
 <p>Reads in the raw data can contain low quality bases and partial adapter sequences that needs to be removed. Trimmed reads that are too short should also be filtered in order to obtain good alignment.</p>
-<pre class="r"><code>args_trim &lt;- systemArgs(sysma = &quot;./parameters/trim_galore.param&quot;, 
+<pre class="r"><code>args_trim &lt;- systemArgs(sysma = &quot;./parameters/trim_galore.param&quot;,
                            mytargets = &quot;./parameters/data_filepaths.txt&quot;)
-trim_command &lt;- paste(sysargs(args_trim)[1], 
+trim_command &lt;- paste(sysargs(args_trim)[1],
                       unlist(strsplit(sysargs(args_trim)[2], &quot; &quot;))[8],
                       sep = &quot; &quot;)
 (trim_command)</code></pre>
@@ -194,7 +194,7 @@ trim_command &lt;- paste(sysargs(args_trim)[1],
 </div>
 <div id="run-data-quality-control-checks" class="section level3">
 <h3>6. Run data quality control checks</h3>
-<p>Lastly, we generate and plot FASTQ quality summary statistics. The <a href="https://biof-edu.colorado.edu/videos/dowell-short-read-class/day-4/fastqc-manual">fastqc manual</a> provides a good explantion of the fastqc plots. First we define a helper function</p>
+<p>Lastly, we generate and plot FASTQ quality summary statistics. The <a href="https://biof-edu.colorado.edu/videos/dowell-short-read-class/day-4/fastqc-manual" target="_blank">fastqc manual</a> provides a good explantion of the fastqc plots. First we define a helper function</p>
 <pre class="r"><code>runFastqPlots &lt;- function(file_list, report_name) {
   fqlist &lt;- bplapply(seq_along(file_list),
                      function(x)
@@ -220,7 +220,7 @@ trim_command &lt;- paste(sysargs(args_trim)[1],
               report_name = &quot;SRR1027187&quot;)</code></pre>
 <p>and on the trimmed data</p>
 <pre class="r"><code>data_trimmed_filepaths &lt;- paste0(outfile1(args_trim),
-                                 SampleName(args_trim), 
+                                 SampleName(args_trim),
                                  c(&quot;_val_1.fq.gz&quot;, &quot;_val_2.fq.gz&quot;))
 names(data_trimmed_filepaths) &lt;- paste0(SampleName(args_trim),&quot;_trimmed&quot;)
 
@@ -254,18 +254,18 @@ juncts_scram_files &lt;- runCommandline(args = args_align_juncts_scram)</code></
 <p>We can open “submitargs01_log” for each alignment to display the alignment summary and the system command used. For the genome alignment, we can open the file inside R like this</p>
 <pre class="r"><code>readLines(file.path(&quot;./results/aligned/genome&quot;,&quot;submitargs01_log&quot;))</code></pre>
 <pre><code> [1] &quot;bowtie2 -p 8 --no-unal --score-min L,0,-0.24 --rdg 50,50 --rfg 50,50 -x /hd2/KNIFE_project_01/data/genome_data/hg19/bowtie2_index/hg19_genome -U /hd2/KNIFE_project_01/results/trimmed/SRR1027187_1_val_1.fq.gz  -S /hd2/KNIFE_project_01/results/aligned/genome/SRR1027187_1_val_1.sam&quot;
- [2] &quot;19308315 reads; of these:&quot;                                                                                                                                                                                                                                                              
- [3] &quot;  19308315 (100.00%) were unpaired; of these:&quot;                                                                                                                                                                                                                                          
- [4] &quot;    6692805 (34.66%) aligned 0 times&quot;                                                                                                                                                                                                                                                   
- [5] &quot;    8628824 (44.69%) aligned exactly 1 time&quot;                                                                                                                                                                                                                                            
- [6] &quot;    3986686 (20.65%) aligned &gt;1 times&quot;                                                                                                                                                                                                                                                  
- [7] &quot;65.34% overall alignment rate&quot;                                                                                                                                                                                                                                                          
+ [2] &quot;19308315 reads; of these:&quot;
+ [3] &quot;  19308315 (100.00%) were unpaired; of these:&quot;
+ [4] &quot;    6692805 (34.66%) aligned 0 times&quot;
+ [5] &quot;    8628824 (44.69%) aligned exactly 1 time&quot;
+ [6] &quot;    3986686 (20.65%) aligned &gt;1 times&quot;
+ [7] &quot;65.34% overall alignment rate&quot;
  [8] &quot;bowtie2 -p 8 --no-unal --score-min L,0,-0.24 --rdg 50,50 --rfg 50,50 -x /hd2/KNIFE_project_01/data/genome_data/hg19/bowtie2_index/hg19_genome -U /hd2/KNIFE_project_01/results/trimmed/SRR1027187_2_val_2.fq.gz  -S /hd2/KNIFE_project_01/results/aligned/genome/SRR1027187_2_val_2.sam&quot;
- [9] &quot;19308315 reads; of these:&quot;                                                                                                                                                                                                                                                              
-[10] &quot;  19308315 (100.00%) were unpaired; of these:&quot;                                                                                                                                                                                                                                          
-[11] &quot;    6753734 (34.98%) aligned 0 times&quot;                                                                                                                                                                                                                                                   
-[12] &quot;    8563704 (44.35%) aligned exactly 1 time&quot;                                                                                                                                                                                                                                            
-[13] &quot;    3990877 (20.67%) aligned &gt;1 times&quot;                                                                                                                                                                                                                                                  
+ [9] &quot;19308315 reads; of these:&quot;
+[10] &quot;  19308315 (100.00%) were unpaired; of these:&quot;
+[11] &quot;    6753734 (34.98%) aligned 0 times&quot;
+[12] &quot;    8563704 (44.35%) aligned exactly 1 time&quot;
+[13] &quot;    3990877 (20.67%) aligned &gt;1 times&quot;
 [14] &quot;65.02% overall alignment rate&quot;                                                                                                                                                                                                                                                          </code></pre>
 </div>
 <div id="preprocessing-steps" class="section level2">
@@ -281,20 +281,20 @@ juncts_scram_files &lt;- runCommandline(args = args_align_juncts_scram)</code></
   }
 
 getCommonGenomicPairedReads &lt;- function(genome_bamfiles, ribo_bamfiles) {
-  
+
   genome_reads &lt;- bplapply(genome_bamfiles,
                            getReadIds,
                            BPPARAM = MulticoreParam(workers = 2))
   ribosomal_reads &lt;- bplapply(ribo_bamfiles,
                               getReadIds,
                               BPPARAM = MulticoreParam(workers = 2))
-  
+
   genomic_reads_1 &lt;- union(genome_reads[[1]], ribosomal_reads[[1]])
   genomic_reads_2 &lt;- union(genome_reads[[2]], ribosomal_reads[[2]])
   common_reads &lt;- intersect(genomic_reads_1, genomic_reads_2)
   r1_not_r2 &lt;- setdiff(genomic_reads_1, genomic_reads_2)
   r2_not_r1 &lt;- setdiff(genomic_reads_2, genomic_reads_1)
-  
+
   return(
     list(
       common_reads = common_reads,
@@ -331,16 +331,16 @@ junction_reads_filter &lt;-
   ))</code></pre>
 <p>As part of the filtering step, we also update the alignment score for the junction reads such that the N-penalty is corrected.</p>
 <pre class="r"><code>countAmbigousBases &lt;- function(align_obj) {
-  sapply(gregexpr(&quot;N0|0N&quot;, mcols(align_obj)$MD), 
-         function(x) 
-           if (attributes(x)$match.length[1] == -1) 
-             return(0) 
-         else 
+  sapply(gregexpr(&quot;N0|0N&quot;, mcols(align_obj)$MD),
+         function(x)
+           if (attributes(x)$match.length[1] == -1)
+             return(0)
+         else
            return(length(x))
   )
 }
 
-#MD and XN do agree 
+#MD and XN do agree
 filterAlignments &lt;-
   function(bamfile, param, filter, updateScore = TRUE) {
     x &lt;- readGAlignments(file = bamfile, param = param)
@@ -361,7 +361,7 @@ scrambled_junctions_aligned &lt;- outpaths(args_align_juncts_scram)
 
 param &lt;-
   ScanBamParam(
-    what = c(&quot;qname&quot;,&quot;mapq&quot;), # get the read name and the mapping quality 
+    what = c(&quot;qname&quot;,&quot;mapq&quot;), # get the read name and the mapping quality
     flag = scanBamFlag(isUnmappedQuery = FALSE),
     tag = c(&quot;AS&quot;, &quot;XS&quot;, &quot;XN&quot;, &quot;MD&quot;) # get tags
   )
@@ -496,13 +496,13 @@ scrambled_junctions_filtered &lt;- bplapply(
 </tbody>
 </table>
 <p>We can also examine the frequency of the cigar strings</p>
-<pre class="r"><code>linear_junctions_filtered[[1]] %&gt;% 
-  cigar() %&gt;% 
-  table %&gt;% 
-  sort(decreasing = TRUE) %&gt;% 
+<pre class="r"><code>linear_junctions_filtered[[1]] %&gt;%
+  cigar() %&gt;%
+  table %&gt;%
+  sort(decreasing = TRUE) %&gt;%
   head() </code></pre>
 <pre><code>.
-   60M    59M    58M    57M    56M    55M 
+   60M    59M    58M    57M    56M    55M
 397762 138477  45942  13278   3761   3041 </code></pre>
 </div>
 <div id="convert-galignment-objects-into-dataframes" class="section level3">
@@ -516,11 +516,11 @@ scrambled_junctions_filtered &lt;- bplapply(
 }
 
 appendJunctionTags &lt;- function(x) {
-  df &lt;- data.frame(do.call(rbind, 
-                           lapply(as.character(seqnames(x)), 
+  df &lt;- data.frame(do.call(rbind,
+                           lapply(as.character(seqnames(x)),
                                   function(x) unlist(strsplit(x, &quot;[:]|[|]&quot;)))),
                    stringsAsFactors = FALSE)
-  colnames(df) &lt;- c(&quot;g_chrom&quot;, &quot;g_gene1&quot;, &quot;g_pos1&quot;, &quot;g_gene2&quot;, 
+  colnames(df) &lt;- c(&quot;g_chrom&quot;, &quot;g_gene1&quot;, &quot;g_pos1&quot;, &quot;g_gene2&quot;,
                     &quot;g_pos2&quot;, &quot;junc_type&quot;, &quot;junc_strand&quot;)
   df$g_pos1 &lt;- as.integer(df$g_pos1)
   df$g_pos2 &lt;- as.integer(df$g_pos2)
@@ -647,54 +647,54 @@ linear_junctions_filtered_dt[[1]][1:3,] %&gt;% pander()</code></pre>
                                    scrambled,
                                    r1_not_r2,
                                    suffixes = c(&quot;.r1&quot;, &quot;.r2g&quot;, &quot;.r2lin&quot;, &quot;.r2scram&quot;)) {
- 
+
   linear_1 &lt;- linear[[1]][!(linear[[1]]$qname %in% r1_not_r2), ]
   scrambled_1 &lt;- scrambled[[1]][!(scrambled[[1]]$qname %in% c(r1_not_r2, linear_1$qname)), ]
-  
+
   genomic_mate &lt;- genomic[[2]][(genomic[[2]]$qname %in% c(linear_1$qname,scrambled_1$qname)), ]
   linear_mate &lt;- linear[[2]][(linear[[2]]$qname %in% c(linear_1$qname,scrambled_1$qname)), ]
   scrambled_mate &lt;- scrambled[[2]][(scrambled[[2]]$qname %in% c(linear_1$qname, scrambled_1$qname)), ]
-  
+
   linear_genomic &lt;- left_join(linear_1,
                               genomic_mate,
-                              by = &quot;qname&quot;, 
+                              by = &quot;qname&quot;,
                               suffix = suffixes[c(1, 2)])
-  
+
   linear_linear &lt;- left_join(linear_1,
                              linear_mate ,
                              by = &quot;qname&quot;,
                              suffix = suffixes[c(1, 3)])
-  
-  linear_scrambled &lt;- left_join(linear_1, 
+
+  linear_scrambled &lt;- left_join(linear_1,
                                 scrambled_mate,
                                 by = &quot;qname&quot;,
                                 suffix = suffixes[c(1, 4)])
-  
-  scrambled_genomic &lt;- left_join(scrambled_1, 
+
+  scrambled_genomic &lt;- left_join(scrambled_1,
                                  genomic_mate,
                                  by = &quot;qname&quot;,
                                  suffix = suffixes[c(1, 2)])
-  
+
   scrambled_linear &lt;- left_join(scrambled_1,
                                 linear_mate ,
                                 by = &quot;qname&quot;,
                                 suffix = suffixes[c(1, 3)])
-  
+
   scrambled_scrambled &lt;- left_join(scrambled_1,
                                    scrambled_mate,
                                    by = &quot;qname&quot;,
                                    suffix = suffixes[c(1, 4)])
-  
-  linear_df &lt;- cbind(linear_linear[, 1:15], 
+
+  linear_df &lt;- cbind(linear_linear[, 1:15],
                      linear_genomic[, 16:22],
-                     linear_linear[, 16:29], 
+                     linear_linear[, 16:29],
                      linear_scrambled[, 16:29])
-  
+
   scrambled_df &lt;- cbind(scrambled_linear[, 1:15],
                         scrambled_genomic[, 16:22],
                         scrambled_linear[, 16:29],
                         scrambled_scrambled[, 16:29])
-  
+
   return(list(linear_df = linear_df, scrambled_df = scrambled_df))
 }
 
@@ -707,21 +707,21 @@ R1R2MatesJunctionReads &lt;- createJunctionsReadsDF(genomic_filtered_dt,
 <h3>5. Classify Mate Reads</h3>
 <p>Here we classify mate reads based on alignment score. We also create a new variable <em>ascore</em> that averages the alignment scores of the two matched reads.</p>
 <pre class="r"><code>classsifyMateReads &lt;- function(df, suffixes = c(&quot;.r1&quot;, &quot;.r2g&quot;, &quot;.r2lin&quot;, &quot;.r2scram&quot;)) {
-    
+
     scores_df &lt;- df[, paste0(&quot;AS&quot;, suffixes)]
     map_categ &lt;- apply(scores_df[, 2:4] , 1, function(x) sum(!is.na(x)))
     max_score &lt;- apply(scores_df[, 2:4] , 1, which.max)
-      
-    mate_categ &lt;- sapply(max_score, function(x) 
-      if (is.null(attributes(x))) 
-        {return(0)} 
-      else 
+
+    mate_categ &lt;- sapply(max_score, function(x)
+      if (is.null(attributes(x)))
+        {return(0)}
+      else
         {return(as.integer(x))}
       )
-    
+
     matescore &lt;- scores_df[cbind(1:nrow(scores_df), (mate_categ + 1))]
     ascore &lt;- 0.5 * (scores_df$AS.r1 + matescore)
-    df &lt;- cbind(df, 
+    df &lt;- cbind(df,
                 mate_categ = mate_categ,
                 ascore = ascore,
                 map_categ = map_categ)
@@ -735,14 +735,14 @@ cat( &quot; number of linear junction reads&quot;,
      NROW(linear_df), &quot;\n&quot;,
      &quot;number of scrambled junction reads&quot;,
      NROW(scrambled_df), &quot;\n&quot;,
-  &quot;total number of junctional reads:&quot;, 
+  &quot;total number of junctional reads:&quot;,
     NROW(linear_df) + NROW(scrambled_df), &quot;\n&quot;,
     &quot;number of junctions with aligned reads:&quot;,
     length(unique(linear_df$seqnames.r1)) +
       length(unique(scrambled_df$seqnames.r1)))</code></pre>
-<pre><code> number of linear junction reads 600658 
- number of scrambled junction reads 1599 
- total number of junctional reads: 602257 
+<pre><code> number of linear junction reads 600658
+ number of scrambled junction reads 1599
+ total number of junctional reads: 602257
  number of junctions with aligned reads: 108949</code></pre>
 <p>Let’s take a look at the dataframe for the linear junctions R1 aligned reads</p>
 <pre class="r"><code>panderOptions(&quot;table.style&quot;, &quot;simple&quot;)
@@ -1067,7 +1067,7 @@ scrambled_df[1:3,]  %&gt;% pander()</code></pre>
 <p>Let’s also output the frequency of R1 reads that have 0, 1, 2, or 3 potential paired-end mate reads (R2)</p>
 <pre class="r"><code>linear_junction_mapcateg &lt;- linear_df$map_categ %&gt;%  table  %&gt;% as.data.frame()
 rownames(linear_junction_mapcateg) &lt;- c(&quot;Unmapped&quot;,&quot;OneMateMatch&quot;, &quot;TwoMateMatchs&quot;, &quot;ThreeMateMatchs&quot;)
-scrambled_junction_mapcateg &lt;- scrambled_df$map_categ %&gt;%  table %&gt;%  as.data.frame() 
+scrambled_junction_mapcateg &lt;- scrambled_df$map_categ %&gt;%  table %&gt;%  as.data.frame()
 rownames(scrambled_junction_mapcateg) &lt;- c(&quot;Unmapped&quot;,&quot;OneMateMatch&quot;, &quot;TwoMateMatchs&quot;, &quot;ThreeMateMatchs&quot;)
 linear_junction_mapcateg </code></pre>
 <pre><code>                .   Freq
@@ -1194,113 +1194,113 @@ unmapped_reads[1:3,] %&gt;% pander()</code></pre>
 </table>
 <p>Now we proceed to classify scrambled junctional reads as circular or decoy and linear junctional reads as linear or anomalous.</p>
 <pre class="r"><code>classifyDecoyOrAnomalous &lt;- function(x) {
-  
+
   cond1 &lt;- x$strand.r1 != x[, c(&quot;strand.r2g&quot;, &quot;strand.r2lin&quot;, &quot;strand.r2scram&quot;)][cbind(1:nrow(x), x$mate_categ)]
   cond2 &lt;- x$g_chrom.r1 == x[, c(&quot;seqnames.r2g&quot;, &quot;g_chrom.r2lin&quot;, &quot;g_chrom.r2scram&quot;)][cbind(1:nrow(x), x$mate_categ)]
   x$read_categ[!(cond1 &amp; cond2)] &lt;- 1 #(decoy)
-  
+
   return(x)
 }
 
 classifyCircularPairedMates &lt;- function(x) {
-  
-  cond1 &lt;- x$mate_categ == 3 
+
+  cond1 &lt;- x$mate_categ == 3
   cond2 &lt;- x$seqnames.r1 == x$seqnames.r2scram
   cond3 &lt;- !(x$read_categ == 1)
   x$read_categ[(cond1 &amp; cond2 &amp; cond3)] &lt;- 2 #(circ)
-  
+
   return(x)
 }
 
 classifyCircularLinearMates &lt;- function(x, BUFFER = 15, MIDPOINT = 150) {
-  
-  r1_start &lt;- pmin(x$g_pos1.r1, x$g_pos2.r1) 
-  r1_end &lt;- pmax(x$g_pos1.r1, x$g_pos2.r1) 
+
+  r1_start &lt;- pmin(x$g_pos1.r1, x$g_pos2.r1)
+  r1_end &lt;- pmax(x$g_pos1.r1, x$g_pos2.r1)
   r2_start &lt;- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$start.r2lin
   r2_end &lt;- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$end.r2lin
-  
+
   cond1 &lt;- r2_start &gt;=  r1_start - BUFFER
   cond2 &lt;- r2_start &lt;=  r1_end + BUFFER
   cond3 &lt;- r2_end &gt;= r1_start - BUFFER
-  cond4 &lt;- r2_end &lt;= r1_end + BUFFER 
-  cond5 &lt;- x$mate_categ == 2 
+  cond4 &lt;- r2_end &lt;= r1_end + BUFFER
+  cond5 &lt;- x$mate_categ == 2
   cond6 &lt;- !(x$read_categ %in% c(1,2))
-  
+
   x$read_categ[(cond1 &amp; cond2 &amp; cond3 &amp; cond4 &amp; cond5 &amp; cond6 )] &lt;- 3 #(circ_lin)
   return(x)
 }
 
 classifyCircularGenomicMates &lt;- function(x, BUFFER = 15, MIDPOINT = 150) {
-  
-  r1_start &lt;- pmin(x$start.r1, x$g_pos2.r1) 
-  r1_end &lt;- pmax(x$g_pos1.r1, x$g_pos2.r1) 
+
+  r1_start &lt;- pmin(x$start.r1, x$g_pos2.r1)
+  r1_end &lt;- pmax(x$g_pos1.r1, x$g_pos2.r1)
   r2_start &lt;- x$start.r2g
   r2_end &lt;- x$end.r2g
-  
+
   cond1 &lt;- r2_start &gt;=  r1_start - BUFFER
   cond2 &lt;- r2_start &lt;=  r1_end + BUFFER
   cond3 &lt;- r2_end &gt;= r1_start - BUFFER
   cond4 &lt;- r2_end &lt;= r1_end + BUFFER
-  cond5 &lt;- x$mate_categ == 1 
+  cond5 &lt;- x$mate_categ == 1
   cond6 &lt;- !(x$read_categ %in% c(1,2,3))
-  
+
   x$read_categ[(cond1 &amp; cond2 &amp; cond3 &amp; cond4 &amp; cond5 &amp; cond6 )] &lt;- 4 #(circ_gen)
   return(x)
 }
 
 classifyLinearPairedMates &lt;- function(x, BUFFER = 15, MIDPOINT = 150) {
-  
+
   r1_start &lt;- pmin(x$g_pos1.r1, x$g_pos2.r1) - MIDPOINT + x$start.r1
   r2_start &lt;- pmin(x$g_pos1.r2lin, x$g_pos2.r2lin)  - MIDPOINT +  x$start.r2lin
-  
+
   cond1_p &lt;- r2_start &gt;= r1_start - BUFFER
   cond1_m &lt;- r1_start &gt;= r2_start - BUFFER
   cond1 &lt;- ifelse(x$strand.r1 == &quot;+&quot;, cond1_p, cond1_m)
-  cond2 &lt;- x$mate_categ == 2 
+  cond2 &lt;- x$mate_categ == 2
   cond3 &lt;- !(x$read_categ == 1)
   x$read_categ[(cond1 &amp; cond2 &amp; cond3)] &lt;- 2 #(circ)
   return(x)
-  
+
 }
 
 classifyLinearGenomicdMates &lt;- function(x, BUFFER = 15, MIDPOINT = 150) {
-  
+
   r1_start &lt;- pmin(x$g_pos1.r1, x$g_pos2.r1) - MIDPOINT + x$start.r1
   r2_start &lt;- x$start.r2g
-  
+
   cond1_p &lt;- r2_start &gt;= r1_start - BUFFER
   cond1_m &lt;- r1_start &gt;= r2_start - BUFFER
   cond1 &lt;- ifelse(x$strand.r1 == &quot;+&quot;, cond1_p, cond1_m)
-  cond2 &lt;- x$mate_categ == 1 
+  cond2 &lt;- x$mate_categ == 1
   cond3 &lt;- !(x$read_categ %in% c(1,2))
-  x$read_categ[(cond1 &amp; cond2 &amp; cond3)] &lt;- 3 
+  x$read_categ[(cond1 &amp; cond2 &amp; cond3)] &lt;- 3
   return(x)
 }
 
 classifyLinearIgnore &lt;- function(x) {
-  cond1 &lt;- x$mate_categ == 3 
+  cond1 &lt;- x$mate_categ == 3
   cond2 &lt;- !(x$read_categ %in% c(1))
-  x$read_categ[(cond1 &amp; cond2 )] &lt;- 4 
+  x$read_categ[(cond1 &amp; cond2 )] &lt;- 4
   return(x)
 }
 
-linear_reads_mapped &lt;-  
-  linear_reads_mapped %&gt;% 
-  classifyDecoyOrAnomalous() %&gt;% 
+linear_reads_mapped &lt;-
+  linear_reads_mapped %&gt;%
+  classifyDecoyOrAnomalous() %&gt;%
   classifyLinearPairedMates() %&gt;%
   classifyLinearGenomicdMates() %&gt;%
   classifyLinearIgnore
 
-scrambled_reads_mapped &lt;-  
-  scrambled_reads_mapped %&gt;% 
-  classifyDecoyOrAnomalous() %&gt;% 
+scrambled_reads_mapped &lt;-
+  scrambled_reads_mapped %&gt;%
+  classifyDecoyOrAnomalous() %&gt;%
   classifyCircularPairedMates() %&gt;%
   classifyCircularLinearMates() %&gt;%
   classifyCircularGenomicMates</code></pre>
 <p>The frequency of read categories are as follows:</p>
 <pre class="r"><code>linear_junction_reads &lt;- linear_reads_mapped$read_categ %&gt;%  table  %&gt;% as.data.frame()
 rownames(linear_junction_reads) &lt;- c(&quot;Uncategorized&quot;,&quot;Anomaly&quot;, &quot;LinearLinear&quot;, &quot;linearGenome&quot; ,&quot;Ignore&quot;)
-scrambled_junction_reads &lt;- scrambled_reads_mapped$read_categ %&gt;%  table %&gt;%  as.data.frame() 
+scrambled_junction_reads &lt;- scrambled_reads_mapped$read_categ %&gt;%  table %&gt;%  as.data.frame()
 rownames(scrambled_junction_reads) &lt;- c(&quot;Uncategorized&quot;,&quot;Decoy&quot;, &quot;CircularCircular&quot;, &quot;CircularLinear&quot; ,&quot;CircularGenome&quot;)
 linear_junction_reads </code></pre>
 <pre><code>              .   Freq
@@ -1318,7 +1318,7 @@ CircularLinear   3  356
 CircularGenome   4  857</code></pre>
 <p>The total running time for the 6 preprocessing steps</p>
 <pre class="r"><code>proc.time() - ptm</code></pre>
-<pre><code>   user  system elapsed 
+<pre><code>   user  system elapsed
 104.764   2.000 684.007 </code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.3.2 (2016-10-31)
@@ -1326,49 +1326,49 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 16.04.1 LTS
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
 
 attached base packages:
-[1] stats4    parallel  stats     graphics  grDevices utils     datasets 
-[8] methods   base     
+[1] stats4    parallel  stats     graphics  grDevices utils     datasets
+[8] methods   base
 
 other attached packages:
- [1] pander_0.6.0               dplyr_0.5.0               
- [3] systemPipeR_1.9.2          ShortRead_1.32.0          
+ [1] pander_0.6.0               dplyr_0.5.0
+ [3] systemPipeR_1.9.2          ShortRead_1.32.0
  [5] GenomicAlignments_1.10.0   SummarizedExperiment_1.4.0
- [7] Biobase_2.34.0             BiocParallel_1.8.1        
- [9] Rsamtools_1.26.1           Biostrings_2.42.1         
-[11] XVector_0.14.0             GenomicRanges_1.26.1      
-[13] GenomeInfoDb_1.10.2        IRanges_2.8.1             
-[15] S4Vectors_0.12.1           BiocGenerics_0.20.0       
+ [7] Biobase_2.34.0             BiocParallel_1.8.1
+ [9] Rsamtools_1.26.1           Biostrings_2.42.1
+[11] XVector_0.14.0             GenomicRanges_1.26.1
+[13] GenomeInfoDb_1.10.2        IRanges_2.8.1
+[15] S4Vectors_0.12.1           BiocGenerics_0.20.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.8            locfit_1.5-9.1         lattice_0.20-34       
- [4] GO.db_3.4.0            assertthat_0.1         rprojroot_1.1         
- [7] digest_0.6.10          R6_2.2.0               plyr_1.8.4            
-[10] BatchJobs_1.6          backports_1.0.4        RSQLite_1.1-1         
-[13] evaluate_0.10          ggplot2_2.2.1          zlibbioc_1.20.0       
-[16] GenomicFeatures_1.26.2 lazyeval_0.2.0         annotate_1.52.1       
-[19] Matrix_1.2-7.1         checkmate_1.8.2        rmarkdown_1.3         
-[22] GOstats_2.40.0         splines_3.3.2          stringr_1.1.0         
-[25] pheatmap_1.0.8         RCurl_1.95-4.8         biomaRt_2.30.0        
-[28] munsell_0.4.3          sendmailR_1.2-1        rtracklayer_1.34.1    
-[31] base64enc_0.1-3        BBmisc_1.10            htmltools_0.3.5       
-[34] fail_1.3               tibble_1.2             edgeR_3.16.5          
-[37] XML_3.98-1.5           AnnotationForge_1.16.0 bitops_1.0-6          
-[40] grid_3.3.2             RBGL_1.50.0            xtable_1.8-2          
-[43] GSEABase_1.36.0        gtable_0.2.0           DBI_0.5-1             
-[46] magrittr_1.5           scales_0.4.1           graph_1.52.0          
-[49] stringi_1.1.2          hwriter_1.3.2          genefilter_1.56.0     
-[52] limma_3.30.7           latticeExtra_0.6-28    brew_1.0-6            
-[55] rjson_0.2.15           RColorBrewer_1.1-2     tools_3.3.2           
-[58] Category_2.40.0        survival_2.40-1        yaml_2.1.14           
-[61] AnnotationDbi_1.36.0   colorspace_1.3-2       memoise_1.0.0         
+ [1] Rcpp_0.12.8            locfit_1.5-9.1         lattice_0.20-34
+ [4] GO.db_3.4.0            assertthat_0.1         rprojroot_1.1
+ [7] digest_0.6.10          R6_2.2.0               plyr_1.8.4
+[10] BatchJobs_1.6          backports_1.0.4        RSQLite_1.1-1
+[13] evaluate_0.10          ggplot2_2.2.1          zlibbioc_1.20.0
+[16] GenomicFeatures_1.26.2 lazyeval_0.2.0         annotate_1.52.1
+[19] Matrix_1.2-7.1         checkmate_1.8.2        rmarkdown_1.3
+[22] GOstats_2.40.0         splines_3.3.2          stringr_1.1.0
+[25] pheatmap_1.0.8         RCurl_1.95-4.8         biomaRt_2.30.0
+[28] munsell_0.4.3          sendmailR_1.2-1        rtracklayer_1.34.1
+[31] base64enc_0.1-3        BBmisc_1.10            htmltools_0.3.5
+[34] fail_1.3               tibble_1.2             edgeR_3.16.5
+[37] XML_3.98-1.5           AnnotationForge_1.16.0 bitops_1.0-6
+[40] grid_3.3.2             RBGL_1.50.0            xtable_1.8-2
+[43] GSEABase_1.36.0        gtable_0.2.0           DBI_0.5-1
+[46] magrittr_1.5           scales_0.4.1           graph_1.52.0
+[49] stringi_1.1.2          hwriter_1.3.2          genefilter_1.56.0
+[52] limma_3.30.7           latticeExtra_0.6-28    brew_1.0-6
+[55] rjson_0.2.15           RColorBrewer_1.1-2     tools_3.3.2
+[58] Category_2.40.0        survival_2.40-1        yaml_2.1.14
+[61] AnnotationDbi_1.36.0   colorspace_1.3-2       memoise_1.0.0
 [64] knitr_1.15.1          </code></pre>
 </div>
 </div>
