@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Curriculum Vitae
-subtitle: last updated 09/21/2016
+subtitle: last updated 02/12/2017
 ---
 <div>
 <body>
