@@ -1,0 +1,391 @@
+---
+title: "Quantitative Psychology Seminar Presentation"
+author:
+- "Rick Farouni"
+date: March 20, 2017
+output:
+  revealjs::revealjs_presentation:
+    theme: sky
+    transition: slide
+    center: true
+    mathjax: local
+    highlight: pygments
+    fig_caption: true
+    fig_width: 7
+    fig_height: 6
+    css: styles.css
+    self_contained: false
+    reveal_plugins: ["chalkboard", "notes", "zoom"]
+    reveal_options:
+      slideNumber: true
+      previewLinks: true
+---
+
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bW}{\mathbf{W}}
+\DeclareMathOperator{\Diag}{Diag}
+\newcommand{\sN}{\mathcal{N}}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# A Contemporary Overview of Latent Generative Models from a Probabilistic Perspective
+
+***
+
+## What is a Latent Variable?
+
+![](lv.jpg)
+
+
+
+## What is a Latent Variable Model?
+
+$$p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)$$
+
+
+![](lvm.jpg)
+
+***
+
+### Latent Variable Models as a General Class of Models
+
+>- Matrix factorization models (e.g. PCA, Factor Analysis)
+>- Multilevel regression models (e.g. random effects model)
+>- Time series models (e.g. Hidden Markov Model)
+>- Dirichlet process mixture models
+>- Deep latent variable models (e.g. VAE)
+>- And others ...
+
+***
+### Multivariate Models
+
+$$p(\by_1,\cdots, \by_N, \bx_1,\cdots, \bx_N, \theta)$$
+
+$$\prod_{n=1}^Np(\by_n \mid f_{\theta}(\bx_n),\theta^{Y})p(\theta^{Y})\prod_{n=1}^N p( \bx_n \mid \theta^{X})  p(\theta^X)$$
+
+### Multivariate Regression
+
+$$\prod_{n=1}^N  \sN_p( \by_{n} \mid \bB \bx_n, \ \bSigma)$$
+
+***
+
+### From Reduced Rank Regression ...
+
+$$\textit{Let } \overset{p\times m}{\mathbf{B}}=\overset{p\times d}{\mathbf{W}}\ \overset{d\times m}{\mathbf{D}}\\
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bD\by_n, \ \bSigma)
+$$
+
+###  ... to Latent Variable Models
+$$\textit{Let } {\bz_n}=\overset{d\times m}{\mathbf{D}}\overset{m\times 1}{\by_n}\\
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \bSigma)
+$$
+
+
+## Examples of Common Latent Variable Models
+
+
+## Principle Component Analysis (PCA)
+
+$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \sigma^2\mathbf{I}) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+
+### As a generative model 
+
+$$
+\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad  n=1,\cdots,N \\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\, \sigma^2\mathbf{I})
+$$
+
+## Factor Analysis
+
+$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+
+### As a generative model 
+
+$$
+\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\,\Diag(\sigma^2) )
+$$
+
+
+## Independent Component Analysis (ICA)
+
+$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d < 2 
+$$ 
+
+### As a generative model 
+
+$$
+\alpha_d < 2;\quad n=1,\cdots,N \\
+z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
+\by_n \mid  \bz_n\sim\ \mathcal{N}_p(\bW\bz_n,\, \Diag(\sigma^2))
+$$
+
+## Canonical Correlation Analysis (CCA)
+
+$$
+\bz_n \sim \mathcal{N}_d\left(\boldsymbol{0},\mathbf{I}\right) \quad n=1, \cdots,N\\
+\begin{bmatrix}
+    {\by_n}^{(1)}\mid \bz_n\\
+    {\by_n}^{(2)}\mid \bz_n
+\end{bmatrix} \sim \mathcal{N}_{(p1+p2)}\left(\begin{bmatrix}
+    \mathbf{W}^{(1)}\\
+    \mathbf{W}^{(2)} 
+\end{bmatrix} \bz_n,\begin{bmatrix}
+    \bSigma^{(1)} & \boldsymbol{0}\\
+   \boldsymbol{0} & \bSigma^{(2)}
+\end{bmatrix}\right) 
+$$
+
+## Deep Latent Gaussian Models (DLGM)
+
+$$\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
+    \bz_n^{(l)}\ \sim\ \mathcal{N}_{d_{(l)}}(\bz_n^{(l)} \mid \mathbf{NN}^{(l)}(\bz_n^{(l+1)};\btheta^{(l)}),\, \Sigma^{(l)} )\quad l=1, \cdots,L-1\\
+\by_n \mid  \bz_n \sim\ \mathbf{Expon}_p(\by_n \mid \mathbf{NN}^{(0)}(\bz_n^{(1)};\btheta^{(0)}))\\
+$$
+$$ 
+\textit{where } \quad
+\mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
+ \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
+ \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
+$$
+
+***
+
+### Variational Autoencoder (VAE)
+
+$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
+$$
+
+***
+
+### Recent Extensions
+
+<small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small>
+<small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small>
+<small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
+<div style="width:800px; height:400px; margin:auto">
+![Taken from Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
+</div>
+
+
+# Application of a Deep Latent Gaussian Model to the Unsupervised Learning of Chromatin States
+
+## Background
+
+***
+
+### The General Problem 
+
+*Molecular phenotype* = $\Phi$( *genome, environment*)
+
+
+<div style="width:1000px; height:400px; margin:auto">
+![ ](phenotype.jpg)</div>
+
+***
+
+### Brief History 
+
+>- Human Genome Project (2001) <small>Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small>
+>- ENCODE project (2012)  <small>Determine the functional role of the remaining 98.5% </small>
+>- PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small>
+>- Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition </small>
+
+***
+
+### The Specific Computational Problem
+
+*TF binding* = $\Phi_1$(*regulatory DNA*)
+
+*Gene Expression* = $\Phi_2$(*TF binding*)
+
+<div style="width:600px; height:250px; margin:auto">
+![Central Dogma of Molecular Biology 2.0](DNAtoProtein.png)
+</div>
+
+##  Data 
+
+- A total of 100  ENCODE epigenomic datasets were used 
+     - 10 ENCODE cell types
+     - 10 genome-wide signal coverage tracks ChIP-seq DNA binding assays (1 Control)
+
+
+
+
+***
+
+<div style="width:900px; height:600px; margin:auto">
+![Chromatin Architecture and the Functional Genome](chromatin.jpg)
+</div>
+
+***
+
+<div style="width:900px; height:600px; margin:auto">
+![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
+</div>
+
+
+***
+
+<div style="width:900px; height:600px; margin:auto">
+![UCSC Genome Browser Tracks for all 9 marks for the GM12878 and H1-hESC cell types](9marks2cells.png)
+</div>
+
+
+***
+
+##  Preprocessing 
+
+(1) Creating a blacklist file of excludable genomic regions
+(2) Segment the human reference genome into 200bp bins
+(3) Discard regions that overlap the blacklist
+(4) Combine 100 bigWig signals into one data-frame
+(5) Average the signal over the 200bp segments
+(6) Subtract control signal from other 9 signals for each cell-type
+(7) Normalize the signals
+(8) Create labels from available functional annotation data
+
+## Model
+
+***
+
+## Variational Autoencoder (VAE)
+
+$$
+p(\by,\bz) =\prod_{n=1}^N  \mathbf{Bernoulli}_p(\by_n \mid \mathbf{NN}(\bz_n;\btheta))\mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+$$ 
+\textit{where } \quad
+\mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
+ \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
+ \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
+$$
+<small> is a deterministic nonlinear function parameterized by a deep neural network. </small>
+<div style="width:800px; height:220px; margin:auto">
+![VAE Model](vae.jpg)</div>
+
+
+***
+
+## Variational Inference for VAE
+
+</br>
+
+ > “Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” - **John Tukey**
+    
+***
+
+Since the true posterior is intractable 
+$$p_\theta(\mathbf{z} \mid \mathbf{y}) = \frac{p(\by \mid \bz)p(\bz)}{p(\by)}\\$$
+
+We introduce an approximate posterior distribution
+$$q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}(\bz_n;\nu)))\\$$
+
+***
+
+And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior
+
+<div style="width:1000px; height:600px; margin:auto">
+![Taken from Blei et. al. NIPS 2016 Tutorial Slides](var_infer.jpg)
+</div>
+
+***
+
+
+
+
+<div style="width:600px; height:600px; margin:auto">
+![Learning the VAE Latent Space](vae.gif)
+</div>
+
+***
+
+<div style="width:600px; height:600px; margin:auto">
+![VAE's Approximate Posterior Latent Space (MNIST)](vae.png)
+</div>
+
+***
+
+<div style="width:800px; height:800px; margin:auto">
+![VAE's Approximate Posterior Latent Space (Faces)](vaefaces.jpg)
+</div>
+
+
+***
+
+## Inference
+
+
+### Deep learning Models
+
+$$\Phi(x, \Theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(x))\cdots)$$
+
+<small> where $W_l$ is a linear operator and $\rho$ is a pointwise nonlinearity </small> 
+
+<div style="width:900px; height:500px; margin:auto">
+![Deep convolutional neural network (Mallat, 2016)](CNN.jpg)
+</div>
+
+
+
+***
+### Why is Deep Learning succussful?
+
+</br>
+**Beats the curse of dimensionality!**
+</br>
+</br>
+
+### How?
+
+> 1. **Linearizes** intra-class variability while preserving inter-class variability 
+> 2. **Regularizes** and incorporates prior information 
+ <small> </br> ***Example***: A convolutional layer in a CNN imposes an infinitely strong prior that interactions are only local and equivariant to translation </small> 
+ 
+ ***
+ 
+### Learned Representations
+
+ <div style="width:500px; height:400px; margin:auto">
+![Linearization and Regularization (from ConvnetJS)](circleCNN.png)
+</div>
+
+***
+ 
+
+
+
+
+## Better Unsupervised Learning Methods? 
+
+- **ChromHMM** (Ernst J. and Kellis M, 2012): Hidden Markov Model
+- **Segway** (Hoffman et al., 2012): Dynamic Bayesian Network
+
+***
+
+
+
+## Thank You!
+
+</br>
+
+
+> “There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened.” -**Douglas Adams, The Hitchhiker’s Guide to the Galaxy**
+
+
+
+
+

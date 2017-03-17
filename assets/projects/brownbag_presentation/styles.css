@@ -1,0 +1,43 @@
+/*body {
+  background: #A6DCDD;
+}
+
+::selection {
+  color: #fff;
+  background: #134674;
+  text-shadow: none; }
+
+
+.reveal h6 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+}
+
+
+
+.reveal {
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
+  font-weight: normal;
+  color: #ffffff; }
+
+*/
+.reveal figcaption { font-size: 50%; }
+
+.reveal blockquote {
+	text-align: left;
+ 	font-size: 70%; 
+	font-style: italic;
+}
+
+
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  text-transform:  capitalize; }
+
+
