@@ -223,7 +223,7 @@ $$
 </div>
 
 
-# Application of a Deep Latent Gaussian Model to the Unsupervised Learning of Chromatin States
+# Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States
 
 ## Background
 
@@ -286,7 +286,7 @@ $$
 
 ###  Epigenetic Marks
 
-<div style="width:500px; height:340px; margin:auto">
+<div style="width:450px; height:340px; margin:auto">
 ![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
 </div>
 
@@ -414,13 +414,11 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
     - Nesterov Accelerated Adaptive Moment Estimation
     - Batch Size: 256
     - Number of Updates Per Epoch: 36,713
-- Computational Cost: ~1 GFLOP per update  
+    - Computational Cost: ~1 GFLOP per update  
 <hr>
-<div style="width:380px; height:280px; margin:auto">
-![Learning Dynamics. Image credit: Alec Radford](opt2.gif)
+<div style="width:370px; height:280px; margin:auto">
+![Image credit: Alec Radford](opt2.gif)
 </div>
-
-
 
 ***
 
