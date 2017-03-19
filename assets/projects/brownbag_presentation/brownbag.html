@@ -92,12 +92,17 @@
 </figure>
 </section><section id="what-is-a-latent-variable-model" class="slide level2">
 <h1>What is a Latent Variable Model?</h1>
-<p><span class="math display">\[
+<span class="math display">\[
 p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\boldsymbol{\theta}}) = p({\boldsymbol{\theta}})\prod_{n=1}^N\ p({\mathbf{y}}_n\mid{\mathbf{z}}_n,{\boldsymbol{\theta}})p({\mathbf{z}}_n\mid{\boldsymbol{\theta}})\\
-{\mathbf{Y}}\in \mathbb{R}^{N \times P }; {\mathbf{y}}_n \in \mathbb{R}^{P}; {\mathbf{z}}_n \in \mathbb{R}^{D}; {\boldsymbol{\theta}}\in \mathbb{R}^{M}\]</span> <img src="lvm.jpg" /></p>
-</section><section class="slide level2">
-
-<h3 id="the-class-of-latent-variable-models"><strong>The Class of Latent Variable Models</strong></h3>
+{\mathbf{y}}\in \mathbb{R}^{N \times P }; {\mathbf{y}}_n \in \mathbb{R}^{P}; {\mathbf{z}}_n \in \mathbb{R}^{D}; {\boldsymbol{\theta}}\in \mathbb{R}^{M}\]</span>
+<hr>
+<div style="width:600px; height:250px; margin:auto">
+<figure>
+<img src="lvm.jpg" alt="Graphical Model Representation" /><figcaption>Graphical Model Representation</figcaption>
+</figure>
+</div>
+</section><section id="class-of-latent-variable-models" class="slide level2">
+<h1>Class of Latent Variable Models</h1>
 <ul>
 <li class="fragment">Matrix factorization models (e.g. PCA, Factor Analysis)</li>
 <li class="fragment">Multilevel regression models (e.g. random effects model)</li>
@@ -113,16 +118,17 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 </section><section id="multivariate-regression" class="slide level2">
 <h1>Multivariate Regression</h1>
 <p><span class="math display">\[\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_{n} \mid {\mathbf{B}}{\mathbf{x}}_n, \ {\boldsymbol{\Sigma}})\]</span></p>
-</section><section class="slide level2">
-
-<h3 id="from-reduced-rank-regression">From Reduced Rank Regression …</h3>
+</section><section id="reduced-rank-regression" class="slide level2">
+<h1>Reduced Rank Regression</h1>
 <p><span class="math display">\[\textit{Let } \overset{p\times m}{\mathbf{B}}=\overset{p\times d}{\mathbf{W}}\ \overset{d\times m}{\mathbf{D}}\\
-\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{D}}{\mathbf{y}}_n, \ {\boldsymbol{\Sigma}})
-\]</span></p>
-<h3 id="to-latent-variable-models">… to Latent Variable Models</h3>
+\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{D}}{\mathbf{y}}_n, \ {\boldsymbol{\Sigma}})\]</span></p>
+<br> <br>
+<hr>
+<p><small> <span class="citation" data-cites="izenman2008">Izenman (2008)</span> </small></p>
+</section><section id="latent-variable-models" class="slide level2">
+<h1>Latent Variable Models</h1>
 <p><span class="math display">\[\textit{Let } {{\mathbf{z}}_n}=\overset{d\times m}{\mathbf{D}}\overset{m\times 1}{{\mathbf{y}}_n}\\
-\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ {\boldsymbol{\Sigma}})
-\]</span></p>
+\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ {\boldsymbol{\Sigma}})\]</span></p>
 </section><section id="examples-of-common-latent-variable-models" class="slide level2">
 <h1>Examples of Common Latent Variable Models</h1>
 </section><section id="principle-component-analysis-pca" class="slide level2">
@@ -135,8 +141,11 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 {\mathbf{z}}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad  n=1,\cdots,N \\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\, \sigma^2\mathbf{I})
 \]</span></p>
-</section><section id="factor-analysis" class="slide level2">
-<h1>Factor Analysis</h1>
+<br> <br>
+<hr>
+<p><small> <span class="citation" data-cites="tipping1999">Tipping and Bishop (1999)</span> </small></p>
+</section><section id="factor-analysis-fa" class="slide level2">
+<h1>Factor Analysis (FA)</h1>
 <p><span class="math display">\[
 \prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ \operatorname{Diag}(\sigma^2)) \mathcal{N}_d({\mathbf{z}}_n \mid \boldsymbol{0},\,\mathbf{I})
 \]</span></p>
@@ -145,17 +154,19 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 {\mathbf{z}}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\,\operatorname{Diag}(\sigma^2) )
 \]</span></p>
-</section><section id="independent-component-analysis" class="slide level2">
-<h1>Independent Component Analysis</h1>
+</section><section id="independent-component-analysis-ica" class="slide level2">
+<h1>Independent Component Analysis (ICA)</h1>
 <p><span class="math display">\[
 \prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ \operatorname{Diag}(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d &lt; 2 
 \]</span></p>
 <h3 id="as-a-generative-model-2">As a generative model</h3>
-<p><span class="math display">\[
+<span class="math display">\[
 \alpha_d &lt; 2;\quad n=1,\cdots,N \\
 z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n\sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\, \operatorname{Diag}(\sigma^2))
-\]</span></p>
+\]</span> <br>
+<hr>
+<p><small> <span class="citation" data-cites="Hyvarinen2015">Hyvärinen (2015)</span> </small></p>
 </section><section id="canonical-correlation-analysis-cca" class="slide level2">
 <h1>Canonical Correlation Analysis (CCA)</h1>
 <p><span class="math display">\[
@@ -171,27 +182,38 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
    \boldsymbol{0} &amp; {\boldsymbol{\Sigma}}^{(2)}
 \end{bmatrix}\right) 
 \]</span></p>
+<br> <br>
+<hr>
+<p><small> <span class="citation" data-cites="bach2005">Bach and Jordan (2005)</span> </small></p>
 </section><section id="deep-latent-gaussian-models-dlgm" class="slide level2">
 <h1>Deep Latent Gaussian Models (DLGM)</h1>
-<p><span class="math display">\[\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
+<span class="math display">\[\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
     {\mathbf{z}}_n^{(l)}\ \sim\ \mathcal{N}_{d_{(l)}}({\mathbf{z}}_n^{(l)} \mid \mathbf{NN}^{(l)}({\mathbf{z}}_n^{(l+1)};{\boldsymbol{\theta}}^{(l)}),\, \Sigma^{(l)} )\quad l=1, \cdots,L-1\\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathbf{Expon}_p({\mathbf{y}}_n \mid \mathbf{NN}^{(0)}({\mathbf{z}}_n^{(1)};{\boldsymbol{\theta}}^{(0)}))\\
-\]</span> <span class="math display">\[ 
+\]</span>
+<hr>
+<span class="math display">\[ 
 \textit{where } \quad
 \mathbf{NN}({\mathbf{z}};\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k({\mathbf{y}}) = \sigma_k(\mathbf{W}^{(k)} {\mathbf{y}}+\mathbf{b}^{(k)})\\  
  {\boldsymbol{\theta}}= \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
-\]</span></p>
+\]</span>
+<hr>
+<p><small> <span class="citation" data-cites="rezende2014">Rezende, Mohamed, and Wierstra (2014)</span> </small></p>
 </section><section id="variational-autoencoder-vae" class="slide level2">
 <h1>Variational Autoencoder (VAE)</h1>
+<p><br> <br></p>
 <p><span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}({\mathbf{z}}_n;{\boldsymbol{\theta}}),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;{\boldsymbol{\theta}})))
 \]</span></p>
+<br> <br>
+<hr>
+<p><small> <span class="citation" data-cites="Kingma2013">Kingma and Welling (2013)</span> </small></p>
 </section><section class="slide level2">
 
 <h3 id="recent-extensions"><strong>Recent Extensions</strong></h3>
 <small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small> <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small> <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:800px; height:300px; margin:auto">
+<div style="width:600px; height:250px; margin:auto">
 <figure>
 <img src="posteriors.png" alt="Taken from Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Taken from Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
 </figure>
@@ -213,7 +235,7 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <li class="fragment">Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small></li>
 <li class="fragment">ENCODE project (2012) <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small></li>
 <li class="fragment">PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small></li>
-<li class="fragment">Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition </small></li>
+<li class="fragment">Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition. See <span class="citation" data-cites="rajarajan2016">Rajarajan et al. (2016)</span> for a review.</small></li>
 </ul>
 </section><section class="slide level2">
 
@@ -253,7 +275,7 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 </section><section class="slide level2">
 
 <h3 id="epigenetic-marks">Epigenetic Marks</h3>
-<div style="width:500px; height:400px; margin:auto">
+<div style="width:500px; height:380px; margin:auto">
 <figure>
 <img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells</figcaption>
 </figure>
@@ -286,7 +308,7 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 \mathbf{NN}({\mathbf{z}};\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k({\mathbf{y}}) = \sigma_k(\mathbf{W}^{(k)} {\mathbf{y}}+\mathbf{b}^{(k)})\\  
  {\boldsymbol{\theta}}= \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
- \textit{is a deterministic function parameterized by a deep neural network}
+ \textit{is a function parameterized by a deep neural network}
 \]</span></p>
 </section><section id="variational-approximation-network" class="slide level2">
 <h1>Variational Approximation Network</h1>
@@ -309,19 +331,20 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </section><section id="network-architecture" class="slide level2">
 <h1>Network Architecture</h1>
 <ul>
-<li><strong>Generative Model Network</strong>
+<li class="fragment"><strong>Generative Model Network</strong>
 <ul>
-<li>Nonlinearities: <em>Input–&gt; Relu–&gt; Relu–&gt; sigmoid</em></li>
-<li>Layer Size: <em>2 –&gt; 128–&gt; 256–&gt; 90</em></li>
+<li class="fragment">Nonlinearities: <em>Input–&gt; Relu–&gt; Relu–&gt; sigmoid</em></li>
+<li class="fragment">Layer Size: <em>2 –&gt; 128–&gt; 256–&gt; 90</em></li>
 </ul></li>
-<li><strong>Variational Approximation Network</strong>
+<li class="fragment"><strong>Variational Approximation Network</strong>
 <ul>
-<li>Nonlinearities: <em>Input -&gt;Relu –&gt;Relu –&gt; (linear, softplus)</em></li>
-<li>Layer Size: <em>90 –&gt;256 –&gt;128 –&gt;(2, 2)</em></li>
+<li class="fragment">Nonlinearities: <em>Input -&gt;Relu –&gt;Relu –&gt; (linear, softplus)</em></li>
+<li class="fragment">Layer Size: <em>90 –&gt;256 –&gt;128 –&gt;(2, 2)</em></li>
 </ul></li>
 </ul>
 <hr>
-<span class="math display">\[\Phi({\mathbf{y}}, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1({\mathbf{y}}))\cdots)\]</span> <small> Where <span class="math inline">\(W_l\)</span> is a linear operator and <span class="math inline">\(\rho\)</span> is a pointwise nonlinearity </small>
+<p></br> <span class="math display">\[\Phi({\mathbf{y}}, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1({\mathbf{y}}))\cdots)\]</span></p>
+<small> where <span class="math inline">\(W_l\)</span> is a linear operator and <span class="math inline">\(\rho\)</span> is a pointwise nonlinearity </small>
 <hr>
 </section><section id="nonlinearities" class="slide level2">
 <h1>Nonlinearities</h1>
@@ -337,14 +360,15 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <li>Minibatch Stochastic Gradient Descent (SGD)
 <ul>
 <li>Nesterov Accelerated Adaptive Moment Estimation</li>
-<li>Batch Size: 128</li>
-</ul></li>
-</ul>
-<div style="width:450px; height:330px; margin:auto">
+<li>Batch Size: 128
+<hr>
+<div style="width:450px; height:320px; margin:auto">
 <figure>
 <img src="opt2.gif" alt="Learning Dynamics. Image credit: Alec Radford" /><figcaption>Learning Dynamics. Image credit: Alec Radford</figcaption>
 </figure>
-</div>
+</div></li>
+</ul></li>
+</ul>
 </section><section id="inference" class="slide level2">
 <h1>Inference</h1>
 <ul>
@@ -369,6 +393,8 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <img src="observations_enhancers.png" alt="A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)" /><figcaption>A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)</figcaption>
 </figure>
 </div>
+</section><section class="slide level2">
+
 <h3 id="projection-of-validation-data-onto-latent-space">Projection of Validation Data onto Latent Space</h3>
 <div style="width:1000px; height:800px; margin:auto">
 <figure>
@@ -385,6 +411,16 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </div>
 </section><section class="slide level2">
 
+<h3 id="functional-annotations">Functional Annotations</h3>
+<ul>
+<li>FANTOM5: Atlas of Active Enhancers</li>
+<li>GENCODE Version 19 Gene Annotations:
+<ul>
+<li>Coding DNA sequence (CDS)</li>
+<li>Promoters</li>
+</ul></li>
+<li>CpG islands</li>
+</ul>
 <h3 id="projected-validation-data-labeled-subset">Projected Validation Data (Labeled Subset)</h3>
 <div style="width:1000px; height:800px; margin:auto">
 <figure>
@@ -486,6 +522,29 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </div>
 </section><section class="slide level2">
 
+<div id="refs" class="references">
+<div id="ref-bach2005">
+<p>Bach, Francis R, and Michael I Jordan. 2005. “A probabilistic interpretation of canonical correlation analysis.” Technical report 688. Berkeley: Department of Statistics, University of California, Berkeley.</p>
+</div>
+<div id="ref-Hyvarinen2015">
+<p>Hyvärinen, Aapo. 2015. “A unified probabilistic model for independent and principal component analysis.” <em>Advances in Independent Component Analysis and Learning Machines</em>, 1–9.</p>
+</div>
+<div id="ref-izenman2008">
+<p>Izenman, Alan Julian. 2008. <em>Modern Multivariate Statistical Techniques</em>. <em>Regression, Classification and Manifold Learning</em>. Springer.</p>
+</div>
+<div id="ref-Kingma2013">
+<p>Kingma, Diederik P, and Max Welling. 2013. “Auto-Encoding Variational Bayes.” <em>ICLR</em>, no. Ml (December): 1–14.</p>
+</div>
+<div id="ref-rajarajan2016">
+<p>Rajarajan, Prashanth, Sergio Espeso Gil, Kristen J Brennand, and Schahram Akbarian. 2016. “Spatial genome organization and cognition.” <em>Nature Publishing Group</em> 17. doi:<a href="https://doi.org/10.1038/nrn.2016.124">10.1038/nrn.2016.124</a>.</p>
+</div>
+<div id="ref-rezende2014">
+<p>Rezende, Danilo Jimenez, Shakir Mohamed, and Daan Wierstra. 2014. “Stochastic Backpropagation and Approximate Inference in Deep Generative Models.” <em>ArXiv Preprint ArXiv:1401.4082</em>.</p>
+</div>
+<div id="ref-tipping1999">
+<p>Tipping, Michael E., and Christopher M. Bishop. 1999. “Probabilistic Principal Component Analysis.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 61 (3): 611–22.</p>
+</div>
+</div>
 </section></section>
     </div>
   </div>

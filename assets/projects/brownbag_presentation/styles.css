@@ -41,3 +41,12 @@
   text-transform:  capitalize; }
 
 
+.reveal bottom_aligner {
+    display: inline-block;
+    font-size: 0.6em;
+    height: 100%;
+    vertical-align: bottom;
+}
+
+
+

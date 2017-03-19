@@ -19,6 +19,7 @@ output:
     reveal_options:
       slideNumber: true
       previewLinks: true
+bibliography: bibfile.bib
 ---
 
 \newcommand{\btheta}{\boldsymbol{\theta}}
@@ -27,7 +28,6 @@ output:
 \newcommand{\bx}{\mathbf{x}}
 \newcommand{\by}{\mathbf{y}}
 \newcommand{\bz}{\mathbf{z}}
-\newcommand{\bY}{\mathbf{Y}}
 \newcommand{\bB}{\mathbf{B}}
 \newcommand{\bD}{\mathbf{D}}
 \newcommand{\bW}{\mathbf{W}}
@@ -48,12 +48,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 $$
 p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)\\
-\bY \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}$$
-![](lvm.jpg)
+\by \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}$$
+<hr>
+<div style="width:600px; height:250px; margin:auto">
+![Graphical Model Representation](lvm.jpg)
+</div>
 
 ***
 
-### **The Class of Latent Variable Models**
+## Class of Latent Variable Models
 
 >- Matrix factorization models (e.g. PCA, Factor Analysis)
 >- Multilevel regression models (e.g. random effects model)
@@ -76,19 +79,25 @@ $$\prod_{n=1}^N  \sN_p( \by_{n} \mid \bB \bx_n, \ \bSigma)$$
 
 ***
 
-### From Reduced Rank Regression ...
+## Reduced Rank Regression
 
 $$\textit{Let } \overset{p\times m}{\mathbf{B}}=\overset{p\times d}{\mathbf{W}}\ \overset{d\times m}{\mathbf{D}}\\
-\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bD\by_n, \ \bSigma)
-$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bD\by_n, \ \bSigma)$$
 
-###  ... to Latent Variable Models
+<br>
+<br>
+<hr>
+<small> @izenman2008 </small>
+
+
+## Latent Variable Models
+
 $$\textit{Let } {\bz_n}=\overset{d\times m}{\mathbf{D}}\overset{m\times 1}{\by_n}\\
-\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \bSigma)
-$$
-
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \bSigma)$$
 
 ## Examples of Common Latent Variable Models
+
+
 
 ***
 
@@ -105,8 +114,13 @@ $$
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\, \sigma^2\mathbf{I})
 $$
 
+<br>
+<br>
+<hr>
+<small> @tipping1999 </small>
 
-## Factor Analysis
+
+## Factor Analysis (FA)
 
 $$
 \prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
@@ -121,7 +135,7 @@ $$
 
 ***
 
-## Independent Component Analysis
+## Independent Component Analysis (ICA)
 
 $$
 \prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d < 2 
@@ -134,6 +148,10 @@ $$
 z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 \by_n \mid  \bz_n\sim\ \mathcal{N}_p(\bW\bz_n,\, \Diag(\sigma^2))
 $$
+<br>
+<hr>
+<small> @Hyvarinen2015 </small>
+
 
 ***
 
@@ -153,6 +171,11 @@ $$
 \end{bmatrix}\right) 
 $$
 
+<br>
+<br>
+<hr>
+<small> @bach2005 </small>
+
 ***
 
 ## Deep Latent Gaussian Models (DLGM)
@@ -161,20 +184,32 @@ $$\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))
     \bz_n^{(l)}\ \sim\ \mathcal{N}_{d_{(l)}}(\bz_n^{(l)} \mid \mathbf{NN}^{(l)}(\bz_n^{(l+1)};\btheta^{(l)}),\, \Sigma^{(l)} )\quad l=1, \cdots,L-1\\
 \by_n \mid  \bz_n \sim\ \mathbf{Expon}_p(\by_n \mid \mathbf{NN}^{(0)}(\bz_n^{(1)};\btheta^{(0)}))\\
 $$
+<hr>
 $$ 
 \textit{where } \quad
 \mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
  \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
 $$
+<hr>
+<small> @rezende2014 </small>
 
 ***
 
 ## Variational Autoencoder (VAE)
 
+<br>
+<br>
+
 $$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
 $$
+
+<br>
+<br>
+<hr>
+<small> @Kingma2013 </small>
+
 
 ***
 
@@ -183,7 +218,7 @@ $$
 <small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small>
 <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small>
 <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:800px; height:300px; margin:auto">
+<div style="width:600px; height:250px; margin:auto">
 ![Taken from Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
 </div>
 
@@ -209,7 +244,7 @@ $$
 >- Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small>
 >- ENCODE project (2012)  <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small>
 >- PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small>
->- Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition </small>
+>- Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition. See @rajarajan2016 for a review.</small>
 
 ***
 
@@ -251,7 +286,7 @@ $$
 
 ###  Epigenetic Marks
 
-<div style="width:500px; height:400px; margin:auto">
+<div style="width:500px; height:380px; margin:auto">
 ![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
 </div>
 
@@ -290,7 +325,7 @@ $$
 \mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
  \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
- \textit{is a deterministic function parameterized by a deep neural network}
+ \textit{is a function parameterized by a deep neural network}
 $$
 
 ***
@@ -324,17 +359,19 @@ And minimize Kullback–Leibler divergence between the approximate posterior and
 
 ## Network Architecture
 
-- **Generative Model Network**
-    -  Nonlinearities: *Input--> Relu--> Relu--> sigmoid*
-    -  Layer Size: *2 --> 128--> 256--> 90*
-- **Variational Approximation Network**
-    -  Nonlinearities: *Input ->Relu -->Relu --> (linear, softplus)*
-    -  Layer Size: *90 -->256 -->128 -->(2, 2)*
+>- **Generative Model Network**
+>     - Nonlinearities: *Input--> Relu--> Relu--> sigmoid*
+>     - Layer Size: *2 --> 128--> 256--> 90*
+>- **Variational Approximation Network**
+>     - Nonlinearities: *Input ->Relu -->Relu --> (linear, softplus)*
+>     - Layer Size: *90 -->256 -->128 -->(2, 2)*
+    
 
- <hr>
- 
+<hr>
+</br>
 $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
-<small> Where $W_l$ is a linear operator and $\rho$ is a pointwise nonlinearity </small> 
+
+<small> where $W_l$ is a linear operator and $\rho$ is a pointwise nonlinearity </small> 
  <hr>
  
 ## Nonlinearities
@@ -351,8 +388,8 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 - Minibatch Stochastic Gradient Descent (SGD)
     - Nesterov Accelerated Adaptive Moment Estimation
     - Batch Size: 128
-
-<div style="width:450px; height:330px; margin:auto">
+<hr>
+<div style="width:450px; height:320px; margin:auto">
 ![Learning Dynamics. Image credit: Alec Radford](opt2.gif)
 </div>
 
@@ -379,6 +416,7 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 ![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_enhancers.png)
 </div>
 
+***
 
 ### Projection of Validation Data onto Latent Space 
 
@@ -395,6 +433,15 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 </div>
 
 ***
+
+### Functional Annotations 
+
+- FANTOM5: Atlas of Active Enhancers
+- GENCODE Version 19 Gene Annotations: 
+    - Coding DNA sequence (CDS)
+    - Promoters
+- CpG islands    
+
 
 ### Projected Validation Data (Labeled Subset)
 
