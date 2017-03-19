@@ -93,8 +93,8 @@
 </section><section id="what-is-a-latent-variable-model" class="slide level2">
 <h1>What is a Latent Variable Model?</h1>
 <span class="math display">\[
-p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\boldsymbol{\theta}}) = p({\boldsymbol{\theta}})\prod_{n=1}^N\ p({\mathbf{y}}_n\mid{\mathbf{z}}_n,{\boldsymbol{\theta}})p({\mathbf{z}}_n\mid{\boldsymbol{\theta}})\\
-{\mathbf{y}}\in \mathbb{R}^{N \times P }; {\mathbf{y}}_n \in \mathbb{R}^{P}; {\mathbf{z}}_n \in \mathbb{R}^{D}; {\boldsymbol{\theta}}\in \mathbb{R}^{M}\]</span>
+{\mathbf{y}}\in \mathbb{R}^{N \times P }; {\mathbf{y}}_n \in \mathbb{R}^{P}; {\mathbf{z}}_n \in \mathbb{R}^{D}; {\boldsymbol{\theta}}\in \mathbb{R}^{M}\\
+p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\boldsymbol{\theta}}) = p({\boldsymbol{\theta}})\prod_{n=1}^N\ p({\mathbf{y}}_n\mid{\mathbf{z}}_n,{\boldsymbol{\theta}})p({\mathbf{z}}_n\mid{\boldsymbol{\theta}})\]</span>
 <hr>
 <div style="width:600px; height:250px; margin:auto">
 <figure>
@@ -215,7 +215,7 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small> <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small> <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
 <div style="width:600px; height:250px; margin:auto">
 <figure>
-<img src="posteriors.png" alt="Taken from Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Taken from Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
+<img src="posteriors.png" alt="Image Credit: Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Image Credit: Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
 </figure>
 </div>
 </section></section>
@@ -275,7 +275,7 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 </section><section class="slide level2">
 
 <h3 id="epigenetic-marks">Epigenetic Marks</h3>
-<div style="width:500px; height:380px; margin:auto">
+<div style="width:500px; height:360px; margin:auto">
 <figure>
 <img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells</figcaption>
 </figure>
@@ -421,6 +421,8 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </ul></li>
 <li>CpG islands</li>
 </ul>
+</section><section class="slide level2">
+
 <h3 id="projected-validation-data-labeled-subset">Projected Validation Data (Labeled Subset)</h3>
 <div style="width:1000px; height:800px; margin:auto">
 <figure>

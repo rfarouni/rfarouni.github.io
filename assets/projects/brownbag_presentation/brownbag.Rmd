@@ -47,8 +47,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ## What is a Latent Variable Model?
 
 $$
-p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)\\
-\by \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}$$
+\by \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}\\
+p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)$$
 <hr>
 <div style="width:600px; height:250px; margin:auto">
 ![Graphical Model Representation](lvm.jpg)
@@ -219,7 +219,7 @@ $$
 <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small>
 <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
 <div style="width:600px; height:250px; margin:auto">
-![Taken from Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
+![Image Credit: Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
 </div>
 
 
@@ -286,7 +286,7 @@ $$
 
 ###  Epigenetic Marks
 
-<div style="width:500px; height:380px; margin:auto">
+<div style="width:500px; height:360px; margin:auto">
 ![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
 </div>
 
@@ -442,6 +442,8 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
     - Promoters
 - CpG islands    
 
+
+***
 
 ### Projected Validation Data (Labeled Subset)
 
