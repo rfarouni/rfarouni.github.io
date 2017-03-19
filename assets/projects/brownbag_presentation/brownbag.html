@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Rick Farouni" />
   <meta name="dcterms.date" content="2017-03-20" />
-  <title>Quantitative Psychology Seminar Presentation</title>
+  <title>Brownbag Presentation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -80,7 +80,7 @@
     <div class="slides">
 
 <section>
-    <h1 class="title">Quantitative Psychology Seminar Presentation</h1>
+    <h1 class="title">Brownbag Presentation</h1>
     <h2 class="author">Rick Farouni</h2>
     <h3 class="date">March 20, 2017</h3>
 </section>
@@ -92,13 +92,12 @@
 </figure>
 </section><section id="what-is-a-latent-variable-model" class="slide level2">
 <h1>What is a Latent Variable Model?</h1>
-<p><span class="math display">\[p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\boldsymbol{\theta}}) = p({\boldsymbol{\theta}})\prod_{n=1}^N\ p({\mathbf{y}}_n\mid{\mathbf{z}}_n,{\boldsymbol{\theta}})p({\mathbf{z}}_n\mid{\boldsymbol{\theta}})\]</span></p>
-<figure>
-<img src="lvm.jpg" />
-</figure>
+<p><span class="math display">\[
+p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\boldsymbol{\theta}}) = p({\boldsymbol{\theta}})\prod_{n=1}^N\ p({\mathbf{y}}_n\mid{\mathbf{z}}_n,{\boldsymbol{\theta}})p({\mathbf{z}}_n\mid{\boldsymbol{\theta}})\\
+{\mathbf{Y}}\in \mathbb{R}^{N \times P }; {\mathbf{y}}_n \in \mathbb{R}^{P}; {\mathbf{z}}_n \in \mathbb{R}^{D}; {\boldsymbol{\theta}}\in \mathbb{R}^{M}\]</span> <img src="lvm.jpg" /></p>
 </section><section class="slide level2">
 
-<h3 id="latent-variable-models-as-a-general-class-of-models">Latent Variable Models as a General Class of Models</h3>
+<h3 id="the-class-of-latent-variable-models"><strong>The Class of Latent Variable Models</strong></h3>
 <ul>
 <li class="fragment">Matrix factorization models (e.g. PCA, Factor Analysis)</li>
 <li class="fragment">Multilevel regression models (e.g. random effects model)</li>
@@ -107,12 +106,12 @@
 <li class="fragment">Deep latent variable models (e.g. VAE)</li>
 <li class="fragment">And others …</li>
 </ul>
-</section><section class="slide level2">
-
-<h3 id="multivariate-models">Multivariate Models</h3>
+</section><section id="multivariate-models" class="slide level2">
+<h1>Multivariate Models</h1>
 <p><span class="math display">\[p({\mathbf{y}}_1,\cdots, {\mathbf{y}}_N, {\mathbf{x}}_1,\cdots, {\mathbf{x}}_N, \theta)\]</span></p>
 <p><span class="math display">\[\prod_{n=1}^Np({\mathbf{y}}_n \mid f_{\theta}({\mathbf{x}}_n),\theta^{Y})p(\theta^{Y})\prod_{n=1}^N p( {\mathbf{x}}_n \mid \theta^{X})  p(\theta^X)\]</span></p>
-<h3 id="multivariate-regression">Multivariate Regression</h3>
+</section><section id="multivariate-regression" class="slide level2">
+<h1>Multivariate Regression</h1>
 <p><span class="math display">\[\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_{n} \mid {\mathbf{B}}{\mathbf{x}}_n, \ {\boldsymbol{\Sigma}})\]</span></p>
 </section><section class="slide level2">
 
@@ -146,8 +145,8 @@
 {\mathbf{z}}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\,\operatorname{Diag}(\sigma^2) )
 \]</span></p>
-</section><section id="independent-component-analysis-ica" class="slide level2">
-<h1>Independent Component Analysis (ICA)</h1>
+</section><section id="independent-component-analysis" class="slide level2">
+<h1>Independent Component Analysis</h1>
 <p><span class="math display">\[
 \prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ \operatorname{Diag}(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d &lt; 2 
 \]</span></p>
@@ -183,17 +182,16 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
  \quad h_k({\mathbf{y}}) = \sigma_k(\mathbf{W}^{(k)} {\mathbf{y}}+\mathbf{b}^{(k)})\\  
  {\boldsymbol{\theta}}= \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
 \]</span></p>
-</section><section class="slide level2">
-
-<h3 id="variational-autoencoder-vae">Variational Autoencoder (VAE)</h3>
+</section><section id="variational-autoencoder-vae" class="slide level2">
+<h1>Variational Autoencoder (VAE)</h1>
 <p><span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}({\mathbf{z}}_n;{\boldsymbol{\theta}}),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;{\boldsymbol{\theta}})))
 \]</span></p>
 </section><section class="slide level2">
 
-<h3 id="recent-extensions">Recent Extensions</h3>
+<h3 id="recent-extensions"><strong>Recent Extensions</strong></h3>
 <small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small> <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small> <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:800px; height:400px; margin:auto">
+<div style="width:800px; height:300px; margin:auto">
 <figure>
 <img src="posteriors.png" alt="Taken from Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Taken from Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
 </figure>
@@ -212,8 +210,8 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 
 <h3 id="brief-history">Brief History</h3>
 <ul>
-<li class="fragment">Human Genome Project (2001) <small>Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small></li>
-<li class="fragment">ENCODE project (2012) <small>Determine the functional role of the remaining 98.5% </small></li>
+<li class="fragment">Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small></li>
+<li class="fragment">ENCODE project (2012) <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small></li>
 <li class="fragment">PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small></li>
 <li class="fragment">Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition </small></li>
 </ul>
@@ -222,9 +220,17 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <h3 id="the-specific-computational-problem">The Specific Computational Problem</h3>
 <p><em>TF binding</em> = <span class="math inline">\(\Phi_1\)</span>(<em>regulatory DNA</em>)</p>
 <p><em>Gene Expression</em> = <span class="math inline">\(\Phi_2\)</span>(<em>TF binding</em>)</p>
-<div style="width:600px; height:250px; margin:auto">
+<div style="width:400px; height:200px; margin:auto">
 <figure>
 <img src="DNAtoProtein.png" alt="Central Dogma of Molecular Biology 2.0" /><figcaption>Central Dogma of Molecular Biology 2.0</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="chromatin-architecture">Chromatin Architecture</h3>
+<div style="width:900px; height:500px; margin:auto">
+<figure>
+<img src="chromatin.jpg" alt="Chromatin Architecture and the Functional Genome" /><figcaption>Chromatin Architecture and the Functional Genome</figcaption>
 </figure>
 </div>
 </section><section id="data" class="slide level2">
@@ -233,28 +239,23 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <li>A total of 100 ENCODE epigenomic datasets were used
 <ul>
 <li>10 ENCODE cell types</li>
-<li>10 genome-wide signal coverage tracks ChIP-seq DNA binding assays (1 Control)</li>
+<li>10 ChIP-seq datasets (genome-wide signal coverage)</li>
 </ul></li>
 </ul>
 </section><section class="slide level2">
 
-<div style="width:900px; height:600px; margin:auto">
-<figure>
-<img src="chromatin.jpg" alt="Chromatin Architecture and the Functional Genome" /><figcaption>Chromatin Architecture and the Functional Genome</figcaption>
-</figure>
-</div>
-</section><section class="slide level2">
-
-<div style="width:900px; height:600px; margin:auto">
+<h3 id="cell-types">Cell Types</h3>
+<div style="width:700px; height:500px; margin:auto">
 <figure>
 <img src="1mark10cells.png" alt="UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells" /><figcaption>UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells</figcaption>
 </figure>
 </div>
 </section><section class="slide level2">
 
-<div style="width:900px; height:600px; margin:auto">
+<h3 id="epigenetic-marks">Epigenetic Marks</h3>
+<div style="width:500px; height:400px; margin:auto">
 <figure>
-<img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for the GM12878 and H1-hESC cell types" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for the GM12878 and H1-hESC cell types</figcaption>
+<img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells</figcaption>
 </figure>
 </div>
 </section><section id="preprocessing" class="slide level2">
@@ -269,20 +270,35 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <li>Normalize the signals</li>
 <li>Create labels from available functional annotation data</li>
 </ol>
-</section><section id="model" class="slide level2">
-<h1>Model</h1>
-</section><section id="variational-autoencoder-vae-1" class="slide level2">
-<h1>Variational Autoencoder (VAE)</h1>
-<span class="math display">\[
+</section><section id="model-the-variational-autoencoder" class="slide level2">
+<h1>Model: The Variational Autoencoder</h1>
+<div style="width:500px; height:360px; margin:auto">
+<figure>
+<img src="vae.jpg" alt="VAE Model" /><figcaption>VAE Model</figcaption>
+</figure>
+</div>
+</section><section id="generative-network" class="slide level2">
+<h1>Generative Network</h1>
+<p><span class="math display">\[
 p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n \mid \mathbf{NN}({\mathbf{z}}_n;{\boldsymbol{\theta}}))\mathcal{N}_d({\mathbf{z}}_n \mid \boldsymbol{0},\,\mathbf{I})
 \]</span> <span class="math display">\[ 
 \textit{where } \quad
 \mathbf{NN}({\mathbf{z}};\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k({\mathbf{y}}) = \sigma_k(\mathbf{W}^{(k)} {\mathbf{y}}+\mathbf{b}^{(k)})\\  
- {\boldsymbol{\theta}}= \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
-\]</span> <small> is a deterministic nonlinear function parameterized by a deep neural network. </small>
-<div style="width:800px; height:220px; margin:auto">
-<img src="vae.jpg" alt="VAE Model" />
+ {\boldsymbol{\theta}}= \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
+ \textit{is a deterministic function parameterized by a deep neural network}
+\]</span></p>
+</section><section id="variational-approximation-network" class="slide level2">
+<h1>Variational Approximation Network</h1>
+<p>Since the true posterior is intractable <span class="math display">\[p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p({\mathbf{y}}_n \mid {\mathbf{z}}_n)p({\mathbf{z}}_n)}{p({\mathbf{y}}_n)}\\\]</span></p>
+<p>We introduce an approximate posterior distribution <span class="math display">\[q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}({\mathbf{z}}_n;\nu)))\\\]</span></p>
+</section><section class="slide level2">
+
+<p>And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior</p>
+<div style="width:800px; height:500px; margin:auto">
+<figure>
+<img src="var_infer.jpg" alt="Image Credit: Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Image Credit: Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
+</figure>
 </div>
 </section><section id="variational-inference-for-vae" class="slide level2">
 <h1>Variational Inference for VAE</h1>
@@ -290,18 +306,138 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <blockquote>
 <p>“Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” - <strong>John Tukey</strong></p>
 </blockquote>
-</section><section class="slide level2">
-
-<p>Since the true posterior is intractable <span class="math display">\[p_\theta(\mathbf{z} \mid \mathbf{y}) = \frac{p({\mathbf{y}}\mid {\mathbf{z}})p({\mathbf{z}})}{p({\mathbf{y}})}\\\]</span></p>
-<p>We introduce an approximate posterior distribution <span class="math display">\[q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}({\mathbf{z}}_n;\nu)))\\\]</span></p>
-</section><section class="slide level2">
-
-<p>And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior</p>
-<div style="width:1000px; height:600px; margin:auto">
+</section><section id="network-architecture" class="slide level2">
+<h1>Network Architecture</h1>
+<ul>
+<li><strong>Generative Model Network</strong>
+<ul>
+<li>Nonlinearities: <em>Input–&gt; Relu–&gt; Relu–&gt; sigmoid</em></li>
+<li>Layer Size: <em>2 –&gt; 128–&gt; 256–&gt; 90</em></li>
+</ul></li>
+<li><strong>Variational Approximation Network</strong>
+<ul>
+<li>Nonlinearities: <em>Input -&gt;Relu –&gt;Relu –&gt; (linear, softplus)</em></li>
+<li>Layer Size: <em>90 –&gt;256 –&gt;128 –&gt;(2, 2)</em></li>
+</ul></li>
+</ul>
+<hr>
+<span class="math display">\[\Phi({\mathbf{y}}, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1({\mathbf{y}}))\cdots)\]</span> <small> Where <span class="math inline">\(W_l\)</span> is a linear operator and <span class="math inline">\(\rho\)</span> is a pointwise nonlinearity </small>
+<hr>
+</section><section id="nonlinearities" class="slide level2">
+<h1>Nonlinearities</h1>
+<div style="width:550px; height:500px; margin:auto">
 <figure>
-<img src="var_infer.jpg" alt="Taken from Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Taken from Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
+<img src="activations.png" alt="Activation Functions" /><figcaption>Activation Functions</figcaption>
 </figure>
 </div>
+</section><section id="optimization" class="slide level2">
+<h1>Optimization</h1>
+<ul>
+<li>Tensorflow via Python API</li>
+<li>Minibatch Stochastic Gradient Descent (SGD)
+<ul>
+<li>Nesterov Accelerated Adaptive Moment Estimation</li>
+<li>Batch Size: 128</li>
+</ul></li>
+</ul>
+<div style="width:450px; height:330px; margin:auto">
+<figure>
+<img src="opt2.gif" alt="Learning Dynamics. Image credit: Alec Radford" /><figcaption>Learning Dynamics. Image credit: Alec Radford</figcaption>
+</figure>
+</div>
+</section><section id="inference" class="slide level2">
+<h1>Inference</h1>
+<ul>
+<li>Training Data:
+<ul>
+<li>All except Chromosomes 1, 8, and 21</li>
+<li>Sample Size: 11,748,445</li>
+<li>Dimensionality: 90</li>
+<li>Validation Split: 80% Training, 20% Validation</li>
+</ul></li>
+<li>Test Data
+<ul>
+<li>Chromosomes 1, 8, and 21</li>
+<li>Sample Size: 1,946,177 Observations</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<h3 id="visualizing-the-observations">Visualizing the Observations</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="observations_enhancers.png" alt="A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)" /><figcaption>A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)</figcaption>
+</figure>
+</div>
+<h3 id="projection-of-validation-data-onto-latent-space">Projection of Validation Data onto Latent Space</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="valid_unlabeled.png" alt="Projection of 2,349,696 Observations into 2D Manifold" /><figcaption>Projection of 2,349,696 Observations into 2D Manifold</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="projection-of-test-data-onto-latent-space">Projection of Test Data onto Latent Space</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="test_unlabeled.png" alt="Projection of 1,946,177 Observations into 2D Manifold" /><figcaption>Projection of 1,946,177 Observations into 2D Manifold</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="projected-validation-data-labeled-subset">Projected Validation Data (Labeled Subset)</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="valid_labeled.png" alt="Projection of 116,851 Observations with Labels" /><figcaption>Projection of 116,851 Observations with Labels</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="projected-test-data-labeled-subset">Projected Test Data (Labeled Subset)</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="test_labeled.png" alt="Projection of 102,115 Observations with Labels" /><figcaption>Projection of 102,115 Observations with Labels</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="visualizing-the-learned-2-d-manifold">Visualizing the Learned 2-D Manifold</h3>
+<div style="width:600px; height:600px; margin:auto">
+<figure>
+<img src="2dmanifold.png" alt="16 x 16 Grid of Samples from Latent Space" /><figcaption>16 x 16 Grid of Samples from Latent Space</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="visualizing-the-learned-2-d-manifold-1">Visualizing the Learned 2-D Manifold</h3>
+<div style="width:600px; height:600px; margin:auto">
+<figure>
+<img src="2dmanifold_zoom.png" alt="3 x 3 Close-up of Right Side of the Latent Space" /><figcaption>3 x 3 Close-up of Right Side of the Latent Space</figcaption>
+</figure>
+</div>
+</section><section class="slide level2">
+
+<h3 id="reconstructing-observations">Reconstructing Observations</h3>
+<div style="width:800px; height:800px; margin:auto">
+<figure>
+<img src="reconstructions.png" alt="Reconstructions of Observations by Projection followed by Sampling from the Latent Manifold" /><figcaption>Reconstructions of Observations by Projection followed by Sampling from the Latent Manifold</figcaption>
+</figure>
+</div>
+</section><section id="application" class="slide level2">
+<h1>Application</h1>
+<p>Better Unsupervised Learning Methods?</p>
+<ul>
+<li><strong>ChromHMM</strong> (Ernst J. and Kellis M, 2012): Hidden Markov Model</li>
+<li><strong>Segway</strong> (Hoffman et al., 2012): Dynamic Bayesian Network</li>
+</ul>
+</section><section id="thank-you" class="slide level2">
+<h1>Thank You!</h1>
+<p></br></p>
+<blockquote>
+<p>“Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover.” - <strong>David Donoho, Plenary Address at ICM 2012</strong></p>
+</blockquote>
+</section><section id="extra" class="slide level2">
+<h1>Extra</h1>
 </section><section class="slide level2">
 
 <div style="width:600px; height:600px; margin:auto">
@@ -323,11 +459,9 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <img src="vaefaces.jpg" alt="VAE’s Approximate Posterior Latent Space (Faces)" /><figcaption>VAE’s Approximate Posterior Latent Space (Faces)</figcaption>
 </figure>
 </div>
-</section><section id="inference" class="slide level2">
-<h1>Inference</h1>
+</section><section class="slide level2">
+
 <h3 id="deep-learning-models">Deep learning Models</h3>
-<p><span class="math display">\[\Phi(x, \Theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(x))\cdots)\]</span></p>
-<p><small> where <span class="math inline">\(W_l\)</span> is a linear operator and <span class="math inline">\(\rho\)</span> is a pointwise nonlinearity </small></p>
 <div style="width:900px; height:500px; margin:auto">
 <figure>
 <img src="CNN.jpg" alt="Deep convolutional neural network (Mallat, 2016)" /><figcaption>Deep convolutional neural network (Mallat, 2016)</figcaption>
@@ -350,18 +484,8 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <img src="circleCNN.png" alt="Linearization and Regularization (from ConvnetJS)" /><figcaption>Linearization and Regularization (from ConvnetJS)</figcaption>
 </figure>
 </div>
-</section><section id="better-unsupervised-learning-methods" class="slide level2">
-<h1>Better Unsupervised Learning Methods?</h1>
-<ul>
-<li><strong>ChromHMM</strong> (Ernst J. and Kellis M, 2012): Hidden Markov Model</li>
-<li><strong>Segway</strong> (Hoffman et al., 2012): Dynamic Bayesian Network</li>
-</ul>
-</section><section id="thank-you" class="slide level2">
-<h1>Thank You!</h1>
-<p></br></p>
-<blockquote>
-<p>“There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened.” -<strong>Douglas Adams, The Hitchhiker’s Guide to the Galaxy</strong></p>
-</blockquote>
+</section><section class="slide level2">
+
 </section></section>
     </div>
   </div>

@@ -1,5 +1,5 @@
 ---
-title: "Quantitative Psychology Seminar Presentation"
+title: "Brownbag Presentation"
 author:
 - "Rick Farouni"
 date: March 20, 2017
@@ -27,6 +27,7 @@ output:
 \newcommand{\bx}{\mathbf{x}}
 \newcommand{\by}{\mathbf{y}}
 \newcommand{\bz}{\mathbf{z}}
+\newcommand{\bY}{\mathbf{Y}}
 \newcommand{\bB}{\mathbf{B}}
 \newcommand{\bD}{\mathbf{D}}
 \newcommand{\bW}{\mathbf{W}}
@@ -43,18 +44,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![](lv.jpg)
 
-
-
 ## What is a Latent Variable Model?
 
-$$p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)$$
-
-
+$$
+p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)\\
+\bY \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}$$
 ![](lvm.jpg)
 
 ***
 
-### Latent Variable Models as a General Class of Models
+### **The Class of Latent Variable Models**
 
 >- Matrix factorization models (e.g. PCA, Factor Analysis)
 >- Multilevel regression models (e.g. random effects model)
@@ -64,13 +63,14 @@ $$p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(
 >- And others ...
 
 ***
-### Multivariate Models
+
+## Multivariate Models
 
 $$p(\by_1,\cdots, \by_N, \bx_1,\cdots, \bx_N, \theta)$$
 
 $$\prod_{n=1}^Np(\by_n \mid f_{\theta}(\bx_n),\theta^{Y})p(\theta^{Y})\prod_{n=1}^N p( \bx_n \mid \theta^{X})  p(\theta^X)$$
 
-### Multivariate Regression
+## Multivariate Regression
 
 $$\prod_{n=1}^N  \sN_p( \by_{n} \mid \bB \bx_n, \ \bSigma)$$
 
@@ -90,6 +90,7 @@ $$
 
 ## Examples of Common Latent Variable Models
 
+***
 
 ## Principle Component Analysis (PCA)
 
@@ -104,6 +105,7 @@ $$
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\, \sigma^2\mathbf{I})
 $$
 
+
 ## Factor Analysis
 
 $$
@@ -117,8 +119,9 @@ $$
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\,\Diag(\sigma^2) )
 $$
 
+***
 
-## Independent Component Analysis (ICA)
+## Independent Component Analysis
 
 $$
 \prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d < 2 
@@ -131,6 +134,8 @@ $$
 z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 \by_n \mid  \bz_n\sim\ \mathcal{N}_p(\bW\bz_n,\, \Diag(\sigma^2))
 $$
+
+***
 
 ## Canonical Correlation Analysis (CCA)
 
@@ -148,6 +153,8 @@ $$
 \end{bmatrix}\right) 
 $$
 
+***
+
 ## Deep Latent Gaussian Models (DLGM)
 
 $$\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
@@ -163,7 +170,7 @@ $$
 
 ***
 
-### Variational Autoencoder (VAE)
+## Variational Autoencoder (VAE)
 
 $$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
@@ -171,12 +178,12 @@ $$
 
 ***
 
-### Recent Extensions
+### **Recent Extensions**
 
 <small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small>
 <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small>
 <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:800px; height:400px; margin:auto">
+<div style="width:800px; height:300px; margin:auto">
 ![Taken from Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
 </div>
 
@@ -199,8 +206,8 @@ $$
 
 ### Brief History 
 
->- Human Genome Project (2001) <small>Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small>
->- ENCODE project (2012)  <small>Determine the functional role of the remaining 98.5% </small>
+>- Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small>
+>- ENCODE project (2012)  <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small>
 >- PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small>
 >- Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition </small>
 
@@ -212,38 +219,41 @@ $$
 
 *Gene Expression* = $\Phi_2$(*TF binding*)
 
-<div style="width:600px; height:250px; margin:auto">
+<div style="width:400px; height:200px; margin:auto">
 ![Central Dogma of Molecular Biology 2.0](DNAtoProtein.png)
 </div>
 
-##  Data 
-
-- A total of 100  ENCODE epigenomic datasets were used 
-     - 10 ENCODE cell types
-     - 10 genome-wide signal coverage tracks ChIP-seq DNA binding assays (1 Control)
-
-
-
-
 ***
 
-<div style="width:900px; height:600px; margin:auto">
+###  Chromatin Architecture 
+
+<div style="width:900px; height:500px; margin:auto">
 ![Chromatin Architecture and the Functional Genome](chromatin.jpg)
 </div>
 
 ***
 
-<div style="width:900px; height:600px; margin:auto">
-![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
-</div>
+##  Data 
 
+- A total of 100  ENCODE epigenomic datasets were used 
+     - 10 ENCODE cell types
+     - 10 ChIP-seq datasets (genome-wide signal coverage) 
 
 ***
 
-<div style="width:900px; height:600px; margin:auto">
-![UCSC Genome Browser Tracks for all 9 marks for the GM12878 and H1-hESC cell types](9marks2cells.png)
+###  Cell Types 
+
+<div style="width:700px; height:500px; margin:auto">
+![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
 </div>
 
+***
+
+###  Epigenetic Marks
+
+<div style="width:500px; height:400px; margin:auto">
+![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
+</div>
 
 ***
 
@@ -258,11 +268,19 @@ $$
 (7) Normalize the signals
 (8) Create labels from available functional annotation data
 
-## Model
+***
+
+## Model: The Variational Autoencoder
+
+
+<div style="width:500px; height:360px; margin:auto">
+![VAE Model](vae.jpg)
+</div>
+
 
 ***
 
-## Variational Autoencoder (VAE)
+## Generative Network
 
 $$
 p(\by,\bz) =\prod_{n=1}^N  \mathbf{Bernoulli}_p(\by_n \mid \mathbf{NN}(\bz_n;\btheta))\mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
@@ -271,12 +289,27 @@ $$
 \textit{where } \quad
 \mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
  \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
- \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K
+ \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
+ \textit{is a deterministic function parameterized by a deep neural network}
 $$
-<small> is a deterministic nonlinear function parameterized by a deep neural network. </small>
-<div style="width:800px; height:220px; margin:auto">
-![VAE Model](vae.jpg)</div>
 
+***
+
+## Variational Approximation Network
+
+Since the true posterior is intractable 
+$$p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p(\by_n \mid \bz_n)p(\bz_n)}{p(\by_n)}\\$$
+
+We introduce an approximate posterior distribution
+$$q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}(\bz_n;\nu)))\\$$
+
+***
+
+And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior
+
+<div style="width:800px; height:500px; margin:auto">
+![Image Credit: Blei et. al. NIPS 2016 Tutorial Slides](var_infer.jpg)
+</div>
 
 ***
 
@@ -286,26 +319,162 @@ $$
 
  > “Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” - **John Tukey**
     
-***
-
-Since the true posterior is intractable 
-$$p_\theta(\mathbf{z} \mid \mathbf{y}) = \frac{p(\by \mid \bz)p(\bz)}{p(\by)}\\$$
-
-We introduce an approximate posterior distribution
-$$q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}(\bz_n;\nu)))\\$$
 
 ***
 
-And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior
+## Network Architecture
 
-<div style="width:1000px; height:600px; margin:auto">
-![Taken from Blei et. al. NIPS 2016 Tutorial Slides](var_infer.jpg)
+- **Generative Model Network**
+    -  Nonlinearities: *Input--> Relu--> Relu--> sigmoid*
+    -  Layer Size: *2 --> 128--> 256--> 90*
+- **Variational Approximation Network**
+    -  Nonlinearities: *Input ->Relu -->Relu --> (linear, softplus)*
+    -  Layer Size: *90 -->256 -->128 -->(2, 2)*
+
+ <hr>
+ 
+$$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
+<small> Where $W_l$ is a linear operator and $\rho$ is a pointwise nonlinearity </small> 
+ <hr>
+ 
+## Nonlinearities
+
+<div style="width:550px; height:500px; margin:auto">
+![Activation Functions](activations.png)
+</div>
+
+***
+
+## Optimization
+
+- Tensorflow via Python API
+- Minibatch Stochastic Gradient Descent (SGD)
+    - Nesterov Accelerated Adaptive Moment Estimation
+    - Batch Size: 128
+
+<div style="width:450px; height:330px; margin:auto">
+![Learning Dynamics. Image credit: Alec Radford](opt2.gif)
 </div>
 
 ***
 
 
+## Inference
 
+- Training Data:
+    - All except Chromosomes 1, 8, and 21
+    - Sample Size: 11,748,445
+    - Dimensionality: 90
+    - Validation Split: 80% Training, 20% Validation
+- Test Data
+    - Chromosomes 1, 8, and 21
+    - Sample Size: 1,946,177 Observations
+    
+***
+
+
+### Visualizing the Observations
+
+<div style="width:1000px; height:800px; margin:auto">
+![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_enhancers.png)
+</div>
+
+
+### Projection of Validation Data onto Latent Space 
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 2,349,696 Observations into 2D Manifold](valid_unlabeled.png)
+</div>
+
+***
+
+### Projection of Test Data onto Latent Space 
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 1,946,177 Observations into 2D Manifold](test_unlabeled.png)
+</div>
+
+***
+
+### Projected Validation Data (Labeled Subset)
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 116,851 Observations with Labels](valid_labeled.png)
+</div>
+
+
+***
+
+### Projected Test Data (Labeled Subset)
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 102,115 Observations with Labels](test_labeled.png)
+</div>
+
+***
+
+### Visualizing the Learned 2-D Manifold 
+
+<div style="width:600px; height:600px; margin:auto">
+![16 x 16 Grid of Samples from Latent Space](2dmanifold.png)
+</div>
+
+
+***
+
+
+### Visualizing the Learned 2-D Manifold 
+
+<div style="width:600px; height:600px; margin:auto">
+![3 x 3 Close-up of Right Side of the Latent Space](2dmanifold_zoom.png)
+</div>
+
+***
+
+### Reconstructing Observations
+
+<div style="width:800px; height:800px; margin:auto">
+![Reconstructions of Observations by Projection followed by Sampling from the Latent Manifold](reconstructions.png)
+</div>
+
+***
+
+
+## Application
+
+Better Unsupervised Learning Methods? 
+
+- **ChromHMM** (Ernst J. and Kellis M, 2012): Hidden Markov Model
+- **Segway** (Hoffman et al., 2012): Dynamic Bayesian Network
+
+***
+
+
+## Thank You!
+
+</br>
+
+
+> "Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." - **David Donoho, Plenary Address at ICM 2012**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Extra
+
+***
 
 <div style="width:600px; height:600px; margin:auto">
 ![Learning the VAE Latent Space](vae.gif)
@@ -326,14 +495,10 @@ And minimize Kullback–Leibler divergence between the approximate posterior and
 
 ***
 
-## Inference
 
 
 ### Deep learning Models
 
-$$\Phi(x, \Theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(x))\cdots)$$
-
-<small> where $W_l$ is a linear operator and $\rho$ is a pointwise nonlinearity </small> 
 
 <div style="width:900px; height:500px; margin:auto">
 ![Deep convolutional neural network (Mallat, 2016)](CNN.jpg)
@@ -366,24 +531,6 @@ $$\Phi(x, \Theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(x))\cdots)$$
 ***
  
 
-
-
-
-## Better Unsupervised Learning Methods? 
-
-- **ChromHMM** (Ernst J. and Kellis M, 2012): Hidden Markov Model
-- **Segway** (Hoffman et al., 2012): Dynamic Bayesian Network
-
-***
-
-
-
-## Thank You!
-
-</br>
-
-
-> “There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states that this has already happened.” -**Douglas Adams, The Hitchhiker’s Guide to the Galaxy**
 
 
 
