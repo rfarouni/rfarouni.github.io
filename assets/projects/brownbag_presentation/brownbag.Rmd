@@ -340,6 +340,13 @@ $$
 
 ***
 
+## Implicit Models
+
+<div style="width:900px; height:500px; margin:auto">
+![](tranformation.png)
+
+***
+
 ## Variational Approximation Network
 
 Since the true posterior is intractable 
