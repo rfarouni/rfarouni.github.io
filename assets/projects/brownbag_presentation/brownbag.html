@@ -275,7 +275,7 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 </section><section class="slide level2">
 
 <h3 id="epigenetic-marks">Epigenetic Marks</h3>
-<div style="width:500px; height:360px; margin:auto">
+<div style="width:500px; height:340px; margin:auto">
 <figure>
 <img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells</figcaption>
 </figure>
@@ -292,6 +292,14 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <li>Normalize the signals</li>
 <li>Create labels from available functional annotation data</li>
 </ol>
+</section><section class="slide level2">
+
+<h3 id="visualizing-the-observations">Visualizing the Observations</h3>
+<div style="width:1000px; height:800px; margin:auto">
+<figure>
+<img src="observations_enhancers.png" alt="A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)" /><figcaption>A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)</figcaption>
+</figure>
+</div>
 </section><section id="model-the-variational-autoencoder" class="slide level2">
 <h1>Model: The Variational Autoencoder</h1>
 <div style="width:500px; height:360px; margin:auto">
@@ -334,13 +342,14 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <li class="fragment"><strong>Generative Model Network</strong>
 <ul>
 <li class="fragment">Nonlinearities: <em>Input–&gt; Relu–&gt; Relu–&gt; sigmoid</em></li>
-<li class="fragment">Layer Size: <em>2 –&gt; 128–&gt; 256–&gt; 90</em></li>
+<li class="fragment">Layer Size: <em>2 –&gt; 256–&gt; 512–&gt; 90</em></li>
 </ul></li>
 <li class="fragment"><strong>Variational Approximation Network</strong>
 <ul>
 <li class="fragment">Nonlinearities: <em>Input -&gt;Relu –&gt;Relu –&gt; (linear, softplus)</em></li>
-<li class="fragment">Layer Size: <em>90 –&gt;256 –&gt;128 –&gt;(2, 2)</em></li>
+<li class="fragment">Layer Size: <em>90 –&gt;512 –&gt;256 –&gt;(2, 2)</em></li>
 </ul></li>
+<li class="fragment">Total Number of Parameters: 1,483,854</li>
 </ul>
 <hr>
 <p></br> <span class="math display">\[\Phi({\mathbf{y}}, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1({\mathbf{y}}))\cdots)\]</span></p>
@@ -353,25 +362,10 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <img src="activations.png" alt="Activation Functions" /><figcaption>Activation Functions</figcaption>
 </figure>
 </div>
-</section><section id="optimization" class="slide level2">
-<h1>Optimization</h1>
-<ul>
-<li>Tensorflow via Python API</li>
-<li>Minibatch Stochastic Gradient Descent (SGD)
-<ul>
-<li>Nesterov Accelerated Adaptive Moment Estimation</li>
-<li>Batch Size: 128
-<hr>
-<div style="width:450px; height:320px; margin:auto">
-<figure>
-<img src="opt2.gif" alt="Learning Dynamics. Image credit: Alec Radford" /><figcaption>Learning Dynamics. Image credit: Alec Radford</figcaption>
-</figure>
-</div></li>
-</ul></li>
-</ul>
 </section><section id="inference" class="slide level2">
 <h1>Inference</h1>
 <ul>
+<li>Tensorflow via Python API</li>
 <li>Training Data:
 <ul>
 <li>All except Chromosomes 1, 8, and 21</li>
@@ -385,14 +379,24 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <li>Sample Size: 1,946,177 Observations</li>
 </ul></li>
 </ul>
-</section><section class="slide level2">
+</section><section id="optimization" class="slide level2">
+<h1>Optimization</h1>
+<ul>
+<li>Minibatch Stochastic Gradient Descent (SGD)
+<ul>
+<li>Nesterov Accelerated Adaptive Moment Estimation</li>
+<li>Batch Size: 256</li>
+<li>Number of Updates Per Epoch: 36,713</li>
+</ul></li>
+<li>Computational Cost: ~1 GFLOP per update<br />
 
-<h3 id="visualizing-the-observations">Visualizing the Observations</h3>
-<div style="width:1000px; height:800px; margin:auto">
+<hr>
+<div style="width:380px; height:280px; margin:auto">
 <figure>
-<img src="observations_enhancers.png" alt="A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)" /><figcaption>A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)</figcaption>
+<img src="opt2.gif" alt="Learning Dynamics. Image credit: Alec Radford" /><figcaption>Learning Dynamics. Image credit: Alec Radford</figcaption>
 </figure>
-</div>
+</div></li>
+</ul>
 </section><section class="slide level2">
 
 <h3 id="projection-of-validation-data-onto-latent-space">Projection of Validation Data onto Latent Space</h3>
@@ -413,13 +417,13 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 
 <h3 id="functional-annotations">Functional Annotations</h3>
 <ul>
-<li>FANTOM5: Atlas of Active Enhancers</li>
+<li>FANTOM5 Atlas of Active Enhancers (43,011 regions)</li>
+<li>CpG islands (52,502 regions)</li>
 <li>GENCODE Version 19 Gene Annotations:
 <ul>
 <li>Coding DNA sequence (CDS)</li>
 <li>Promoters</li>
 </ul></li>
-<li>CpG islands</li>
 </ul>
 </section><section class="slide level2">
 

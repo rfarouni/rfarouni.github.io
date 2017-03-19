@@ -286,7 +286,7 @@ $$
 
 ###  Epigenetic Marks
 
-<div style="width:500px; height:360px; margin:auto">
+<div style="width:500px; height:340px; margin:auto">
 ![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
 </div>
 
@@ -302,6 +302,16 @@ $$
 (6) Subtract control signal from other 9 signals for each cell-type
 (7) Normalize the signals
 (8) Create labels from available functional annotation data
+
+***
+
+### Visualizing the Observations
+
+<div style="width:1000px; height:800px; margin:auto">
+![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_enhancers.png)
+</div>
+
+
 
 ***
 
@@ -361,11 +371,11 @@ And minimize Kullback–Leibler divergence between the approximate posterior and
 
 >- **Generative Model Network**
 >     - Nonlinearities: *Input--> Relu--> Relu--> sigmoid*
->     - Layer Size: *2 --> 128--> 256--> 90*
+>     - Layer Size: *2 --> 256--> 512--> 90*
 >- **Variational Approximation Network**
 >     - Nonlinearities: *Input ->Relu -->Relu --> (linear, softplus)*
->     - Layer Size: *90 -->256 -->128 -->(2, 2)*
-    
+>     - Layer Size: *90 -->512 -->256 -->(2, 2)*
+>- Total Number of Parameters: 1,483,854   
 
 <hr>
 </br>
@@ -382,22 +392,10 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 
 ***
 
-## Optimization
-
-- Tensorflow via Python API
-- Minibatch Stochastic Gradient Descent (SGD)
-    - Nesterov Accelerated Adaptive Moment Estimation
-    - Batch Size: 128
-<hr>
-<div style="width:450px; height:320px; margin:auto">
-![Learning Dynamics. Image credit: Alec Radford](opt2.gif)
-</div>
-
-***
-
 
 ## Inference
 
+- Tensorflow via Python API
 - Training Data:
     - All except Chromosomes 1, 8, and 21
     - Sample Size: 11,748,445
@@ -410,11 +408,19 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 ***
 
 
-### Visualizing the Observations
+## Optimization
 
-<div style="width:1000px; height:800px; margin:auto">
-![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_enhancers.png)
+- Minibatch Stochastic Gradient Descent (SGD)
+    - Nesterov Accelerated Adaptive Moment Estimation
+    - Batch Size: 256
+    - Number of Updates Per Epoch: 36,713
+- Computational Cost: ~1 GFLOP per update  
+<hr>
+<div style="width:380px; height:280px; margin:auto">
+![Learning Dynamics. Image credit: Alec Radford](opt2.gif)
 </div>
+
+
 
 ***
 
@@ -436,12 +442,12 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 
 ### Functional Annotations 
 
-- FANTOM5: Atlas of Active Enhancers
+- FANTOM5 Atlas of Active Enhancers (43,011 regions)
+- CpG islands (52,502  regions)
 - GENCODE Version 19 Gene Annotations: 
     - Coding DNA sequence (CDS)
     - Promoters
-- CpG islands    
-
+    
 
 ***
 
