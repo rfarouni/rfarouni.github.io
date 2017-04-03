@@ -1,8 +1,8 @@
 ---
-title: "Brownbag Presentation"
+title: "Dissertation Presentation"
 author:
 - "Rick Farouni"
-date: March 20, 2017
+date: April 3, 2017
 output:
   revealjs::revealjs_presentation:
     theme: sky
@@ -24,6 +24,7 @@ bibliography: bibfile.bib
 
 \newcommand{\btheta}{\boldsymbol{\theta}}
 \newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bnu}{\boldsymbol{\nu}}
 \newcommand{\bepsilon}{\boldsymbol{\epsilon}}
 \newcommand{\bx}{\mathbf{x}}
 \newcommand{\by}{\mathbf{y}}
@@ -36,7 +37,7 @@ bibliography: bibfile.bib
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-# A Contemporary Overview of Latent Generative Models from a Probabilistic Perspective
+# An Overview of Probabilistic Generative Latent Models
 
 ***
 
@@ -135,48 +136,20 @@ $$
 
 ***
 
-## Independent Component Analysis (ICA)
 
-$$
-\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d < 2 
-$$ 
+## Variational Autoencoder (VAE)
 
-### As a generative model 
-
-$$
-\alpha_d < 2;\quad n=1,\cdots,N \\
-z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
-\by_n \mid  \bz_n\sim\ \mathcal{N}_p(\bW\bz_n,\, \Diag(\sigma^2))
-$$
 <br>
-<hr>
-<small> @Hyvarinen2015 </small>
+<br>
 
-
-***
-
-## Canonical Correlation Analysis (CCA)
-
-$$
-\bz_n \sim \mathcal{N}_d\left(\boldsymbol{0},\mathbf{I}\right) \quad n=1, \cdots,N\\
-\begin{bmatrix}
-    {\by_n}^{(1)}\mid \bz_n\\
-    {\by_n}^{(2)}\mid \bz_n
-\end{bmatrix} \sim \mathcal{N}_{(p1+p2)}\left(\begin{bmatrix}
-    \mathbf{W}^{(1)}\\
-    \mathbf{W}^{(2)} 
-\end{bmatrix} \bz_n,\begin{bmatrix}
-    \bSigma^{(1)} & \boldsymbol{0}\\
-   \boldsymbol{0} & \bSigma^{(2)}
-\end{bmatrix}\right) 
+$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
 $$
 
 <br>
 <br>
 <hr>
-<small> @bach2005 </small>
-
-***
+<small> @Kingma2013 </small>
 
 ## Deep Latent Gaussian Models (DLGM)
 
@@ -194,34 +167,6 @@ $$
 <hr>
 <small> @rezende2014 </small>
 
-***
-
-## Variational Autoencoder (VAE)
-
-<br>
-<br>
-
-$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
-\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
-$$
-
-<br>
-<br>
-<hr>
-<small> @Kingma2013 </small>
-
-
-***
-
-### **Recent Extensions**
-
-<small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small>
-<small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small>
-<small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:600px; height:250px; margin:auto">
-![Image Credit: Blei et. al. NIPS 2016 Tutorial Slides](posteriors.png)
-</div>
-
 
 # Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States
 
@@ -236,15 +181,6 @@ $$
 
 <div style="width:1000px; height:400px; margin:auto">
 ![ ](phenotype.jpg)</div>
-
-***
-
-### Brief History 
-
->- Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small>
->- ENCODE project (2012)  <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small>
->- PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small>
->- Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition. See @rajarajan2016 for a review.</small>
 
 ***
 
@@ -278,13 +214,26 @@ $$
 
 ###  Cell Types 
 
+
+
+<div style="width:700px; height:500px; margin:auto">
+![](celltypes.png)
+</div>
+
+***
 <div style="width:700px; height:500px; margin:auto">
 ![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
 </div>
 
 ***
+###  Epigenomic Marks
 
-###  Epigenetic Marks
+<div style="width:800px; height:500px; margin:auto">
+![](epigenomic_marks.png)
+</div>
+
+
+***
 
 <div style="width:450px; height:340px; margin:auto">
 ![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
@@ -353,7 +302,9 @@ Since the true posterior is intractable
 $$p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p(\by_n \mid \bz_n)p(\bz_n)}{p(\by_n)}\\$$
 
 We introduce an approximate posterior distribution
-$$q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}(\bz_n;\nu)))\\$$
+
+
+$$q(\mathbf{z}_n \mid \mathbf{y}_n;\bnu) = \mathcal{N}_d\big(\bz_n \mid \mathbf{NN}_{\mu}(\by_n;\bnu),\, \mathbf{NN}_{\sigma}(\by_n;\bnu)\big) \\$$
 
 ***
 
@@ -379,7 +330,7 @@ And minimize Kullback–Leibler divergence between the approximate posterior and
 >- **Generative Model Network**
 >     - Nonlinearities: *Input--> Relu--> Relu--> sigmoid*
 >     - Layer Size: *2 --> 256--> 512--> 90*
->- **Variational Approximation Network**
+>- **Inference Model Network**
 >     - Nonlinearities: *Input ->Relu -->Relu --> (linear, softplus)*
 >     - Layer Size: *90 -->512 -->256 -->(2, 2)*
 >- Total Number of Parameters: 1,483,854   
@@ -488,6 +439,23 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 <div style="width:600px; height:600px; margin:auto">
 ![3 x 3 Close-up of Right Side of the Latent Space](2dmanifold_zoom.png)
 </div>
+
+***
+
+### Global patterns across cell-types
+
+>- Lower right quadrant:  H3k27ac,  H3k4me2, H3k4me3, and H3k9ac (Columns 2, 6, 7, 8) drive variation 
+>- Left hand side: H3k27me3 and  H3k36me3 (Columns 3 and 4) drive variation 
+>- Upper left and lower left quadrants: highH3k36me3 drive variation right to left
+>- Top to bottom: very small H3k27me3 dominates 
+
+***
+
+### Local patterns
+
+>- The lower right corner: the H1-hESC and HepG2 cells (Rows 3 and 5) 
+>-  HepG2: H3k27me3 is high 
+>- H1-hESC:  H3k27ac is low
 
 ***
 

@@ -4,16 +4,15 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Rick Farouni" />
-  <meta name="dcterms.date" content="2017-03-20" />
-  <title>Brownbag Presentation</title>
+  <title>Dissertation Presentation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="brownbag_files/reveal.js-3.3.0/css/reveal.css"/>
+  <link rel="stylesheet" href="dissertation_files/reveal.js-3.3.0/css/reveal.css"/>
 
 
 
-<link rel="stylesheet" href="brownbag_files/reveal.js-3.3.0/css/theme/sky.css" id="theme">
+<link rel="stylesheet" href="dissertation_files/reveal.js-3.3.0/css/theme/sky.css" id="theme">
 
 
   <!-- some tweaks to reveal css -->
@@ -66,26 +65,26 @@
       var link = document.createElement( 'link' );
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? 'brownbag_files/reveal.js-3.3.0/css/print/pdf.css' : 'brownbag_files/reveal.js-3.3.0/css/print/paper.css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'dissertation_files/reveal.js-3.3.0/css/print/pdf.css' : 'dissertation_files/reveal.js-3.3.0/css/print/paper.css';
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
     <!--[if lt IE 9]>
-    <script src="brownbag_files/reveal.js-3.3.0/lib/js/html5shiv.js"></script>
+    <script src="dissertation_files/reveal.js-3.3.0/lib/js/html5shiv.js"></script>
     <![endif]-->
 
-    <link href="brownbag_files/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="dissertation_files/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 <section>
-    <h1 class="title">Brownbag Presentation</h1>
+    <h1 class="title">Dissertation Presentation</h1>
     <h2 class="author">Rick Farouni</h2>
-    <h3 class="date">March 20, 2017</h3>
+    <h3 class="date">April 3, 2017</h3>
 </section>
 
-<section><section id="a-contemporary-overview-of-latent-generative-models-from-a-probabilistic-perspective" class="titleslide slide level1"><h1>A Contemporary Overview of Latent Generative Models from a Probabilistic Perspective</h1></section><section id="what-is-a-latent-variable" class="slide level2">
+<section><section id="an-overview-of-probabilistic-generative-latent-models" class="titleslide slide level1"><h1>An Overview of Probabilistic Generative Latent Models</h1></section><section id="what-is-a-latent-variable" class="slide level2">
 <h1>What is a Latent Variable?</h1>
 <figure>
 <img src="lv.jpg" />
@@ -154,37 +153,15 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 {\mathbf{z}}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\,\operatorname{Diag}(\sigma^2) )
 \]</span></p>
-</section><section id="independent-component-analysis-ica" class="slide level2">
-<h1>Independent Component Analysis (ICA)</h1>
-<p><span class="math display">\[
-\prod_{n=1}^N  {\mathcal{N}}_p( {\mathbf{y}}_n \mid {\mathbf{W}}{\mathbf{z}}_n, \ \operatorname{Diag}(\sigma^2)) \prod_{n=1}^N \prod_{d=1}^D \mathcal{GG}_d(z_{d,n} \mid\alpha_d) \quad \alpha_d &lt; 2 
-\]</span></p>
-<h3 id="as-a-generative-model-2">As a generative model</h3>
-<span class="math display">\[
-\alpha_d &lt; 2;\quad n=1,\cdots,N \\
-z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
-{\mathbf{y}}_n \mid  {\mathbf{z}}_n\sim\ \mathcal{N}_p({\mathbf{W}}{\mathbf{z}}_n,\, \operatorname{Diag}(\sigma^2))
-\]</span> <br>
-<hr>
-<p><small> <span class="citation" data-cites="Hyvarinen2015">Hyvärinen (2015)</span> </small></p>
-</section><section id="canonical-correlation-analysis-cca" class="slide level2">
-<h1>Canonical Correlation Analysis (CCA)</h1>
-<p><span class="math display">\[
-{\mathbf{z}}_n \sim \mathcal{N}_d\left(\boldsymbol{0},\mathbf{I}\right) \quad n=1, \cdots,N\\
-\begin{bmatrix}
-    {{\mathbf{y}}_n}^{(1)}\mid {\mathbf{z}}_n\\
-    {{\mathbf{y}}_n}^{(2)}\mid {\mathbf{z}}_n
-\end{bmatrix} \sim \mathcal{N}_{(p1+p2)}\left(\begin{bmatrix}
-    \mathbf{W}^{(1)}\\
-    \mathbf{W}^{(2)} 
-\end{bmatrix} {\mathbf{z}}_n,\begin{bmatrix}
-    {\boldsymbol{\Sigma}}^{(1)} &amp; \boldsymbol{0}\\
-   \boldsymbol{0} &amp; {\boldsymbol{\Sigma}}^{(2)}
-\end{bmatrix}\right) 
+</section><section id="variational-autoencoder-vae" class="slide level2">
+<h1>Variational Autoencoder (VAE)</h1>
+<p><br> <br></p>
+<p><span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+{\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}({\mathbf{z}}_n;{\boldsymbol{\theta}}),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;{\boldsymbol{\theta}})))
 \]</span></p>
 <br> <br>
 <hr>
-<p><small> <span class="citation" data-cites="bach2005">Bach and Jordan (2005)</span> </small></p>
+<p><small> <span class="citation" data-cites="Kingma2013">Kingma and Welling (2013)</span> </small></p>
 </section><section id="deep-latent-gaussian-models-dlgm" class="slide level2">
 <h1>Deep Latent Gaussian Models (DLGM)</h1>
 <span class="math display">\[\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
@@ -200,24 +177,6 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 \]</span>
 <hr>
 <p><small> <span class="citation" data-cites="rezende2014">Rezende, Mohamed, and Wierstra (2014)</span> </small></p>
-</section><section id="variational-autoencoder-vae" class="slide level2">
-<h1>Variational Autoencoder (VAE)</h1>
-<p><br> <br></p>
-<p><span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
-{\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}({\mathbf{z}}_n;{\boldsymbol{\theta}}),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;{\boldsymbol{\theta}})))
-\]</span></p>
-<br> <br>
-<hr>
-<p><small> <span class="citation" data-cites="Kingma2013">Kingma and Welling (2013)</span> </small></p>
-</section><section class="slide level2">
-
-<h3 id="recent-extensions"><strong>Recent Extensions</strong></h3>
-<small> - DRAW: deep recurrent attention writer (Gregor et al., 2015)</small> <small> - VRNN: Variational recurrent neural network (Chung et al., 2015)</small> <small> - DMM: Deep Markov models (Krishnan et al., 2016)</small>
-<div style="width:600px; height:250px; margin:auto">
-<figure>
-<img src="posteriors.png" alt="Image Credit: Blei et. al. NIPS 2016 Tutorial Slides" /><figcaption>Image Credit: Blei et. al. NIPS 2016 Tutorial Slides</figcaption>
-</figure>
-</div>
 </section></section>
 <section><section id="application-of-a-deep-latent-variable-model-to-the-unsupervised-learning-of-chromatin-states" class="titleslide slide level1"><h1>Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States</h1></section><section id="background" class="slide level2">
 <h1>Background</h1>
@@ -228,15 +187,6 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <div style="width:1000px; height:400px; margin:auto">
 <img src="phenotype.jpg" />
 </div>
-</section><section class="slide level2">
-
-<h3 id="brief-history">Brief History</h3>
-<ul>
-<li class="fragment">Human Genome Project (2001) <small> Sequence all 3 billion base-pairs of the human genome (1.5% protein coding) </small></li>
-<li class="fragment">ENCODE project (2012) <small> Determine the functional role of the remaining 98.5% of the non-coding genome </small></li>
-<li class="fragment">PsychENCODE project (2015) <small>How variation in functional genome is associated with psychiatric disorders </small></li>
-<li class="fragment">Others Studies <small> How variation in the neuronal functional genome is associated with learning/plasticity and normal/abnormal cognition. See <span class="citation" data-cites="rajarajan2016">Rajarajan et al. (2016)</span> for a review.</small></li>
-</ul>
 </section><section class="slide level2">
 
 <h3 id="the-specific-computational-problem">The Specific Computational Problem</h3>
@@ -269,12 +219,26 @@ z_{d,n}\ \sim\ \mathcal{GG}_d(\alpha_d) \quad d=1:D\\
 <h3 id="cell-types">Cell Types</h3>
 <div style="width:700px; height:500px; margin:auto">
 <figure>
+<img src="celltypes.png" />
+</figure>
+</div>
+</section><section class="slide level2">
+
+<div style="width:700px; height:500px; margin:auto">
+<figure>
 <img src="1mark10cells.png" alt="UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells" /><figcaption>UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells</figcaption>
 </figure>
 </div>
 </section><section class="slide level2">
 
-<h3 id="epigenetic-marks">Epigenetic Marks</h3>
+<h3 id="epigenomic-marks">Epigenomic Marks</h3>
+<div style="width:800px; height:500px; margin:auto">
+<figure>
+<img src="epigenomic_marks.png" />
+</figure>
+</div>
+</section><section class="slide level2">
+
 <div style="width:450px; height:340px; margin:auto">
 <figure>
 <img src="9marks2cells.png" alt="UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells" /><figcaption>UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells</figcaption>
@@ -327,7 +291,8 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </section><section id="variational-approximation-network" class="slide level2">
 <h1>Variational Approximation Network</h1>
 <p>Since the true posterior is intractable <span class="math display">\[p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p({\mathbf{y}}_n \mid {\mathbf{z}}_n)p({\mathbf{z}}_n)}{p({\mathbf{y}}_n)}\\\]</span></p>
-<p>We introduce an approximate posterior distribution <span class="math display">\[q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\nu) = \mathbf{Bernoulli}_p(\mathbf{NN}({\mathbf{z}}_n;\nu)))\\\]</span></p>
+<p>We introduce an approximate posterior distribution</p>
+<p><span class="math display">\[q(\mathbf{z}_n \mid \mathbf{y}_n;{\boldsymbol{\nu}}) = \mathcal{N}_d\big({\mathbf{z}}_n \mid \mathbf{NN}_{\mu}({\mathbf{y}}_n;{\boldsymbol{\nu}}),\, \mathbf{NN}_{\sigma}({\mathbf{y}}_n;{\boldsymbol{\nu}})\big) \\\]</span></p>
 </section><section class="slide level2">
 
 <p>And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior</p>
@@ -350,7 +315,7 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 <li class="fragment">Nonlinearities: <em>Input–&gt; Relu–&gt; Relu–&gt; sigmoid</em></li>
 <li class="fragment">Layer Size: <em>2 –&gt; 256–&gt; 512–&gt; 90</em></li>
 </ul></li>
-<li class="fragment"><strong>Variational Approximation Network</strong>
+<li class="fragment"><strong>Inference Model Network</strong>
 <ul>
 <li class="fragment">Nonlinearities: <em>Input -&gt;Relu –&gt;Relu –&gt; (linear, softplus)</em></li>
 <li class="fragment">Layer Size: <em>90 –&gt;512 –&gt;256 –&gt;(2, 2)</em></li>
@@ -465,6 +430,23 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </div>
 </section><section class="slide level2">
 
+<h3 id="global-patterns-across-cell-types">Global patterns across cell-types</h3>
+<ul>
+<li class="fragment">Lower right quadrant: H3k27ac, H3k4me2, H3k4me3, and H3k9ac (Columns 2, 6, 7, 8) drive variation</li>
+<li class="fragment">Left hand side: H3k27me3 and H3k36me3 (Columns 3 and 4) drive variation</li>
+<li class="fragment">Upper left and lower left quadrants: highH3k36me3 drive variation right to left</li>
+<li class="fragment">Top to bottom: very small H3k27me3 dominates</li>
+</ul>
+</section><section class="slide level2">
+
+<h3 id="local-patterns">Local patterns</h3>
+<ul>
+<li class="fragment">The lower right corner: the H1-hESC and HepG2 cells (Rows 3 and 5)</li>
+<li class="fragment">HepG2: H3k27me3 is high</li>
+<li class="fragment">H1-hESC: H3k27ac is low</li>
+</ul>
+</section><section class="slide level2">
+
 <h3 id="reconstructing-observations">Reconstructing Observations</h3>
 <div style="width:800px; height:800px; margin:auto">
 <figure>
@@ -535,20 +517,11 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 </section><section class="slide level2">
 
 <div id="refs" class="references">
-<div id="ref-bach2005">
-<p>Bach, Francis R, and Michael I Jordan. 2005. “A probabilistic interpretation of canonical correlation analysis.” Technical report 688. Berkeley: Department of Statistics, University of California, Berkeley.</p>
-</div>
-<div id="ref-Hyvarinen2015">
-<p>Hyvärinen, Aapo. 2015. “A unified probabilistic model for independent and principal component analysis.” <em>Advances in Independent Component Analysis and Learning Machines</em>, 1–9.</p>
-</div>
 <div id="ref-izenman2008">
 <p>Izenman, Alan Julian. 2008. <em>Modern Multivariate Statistical Techniques</em>. <em>Regression, Classification and Manifold Learning</em>. Springer.</p>
 </div>
 <div id="ref-Kingma2013">
 <p>Kingma, Diederik P, and Max Welling. 2013. “Auto-Encoding Variational Bayes.” <em>ICLR</em>, no. Ml (December): 1–14.</p>
-</div>
-<div id="ref-rajarajan2016">
-<p>Rajarajan, Prashanth, Sergio Espeso Gil, Kristen J Brennand, and Schahram Akbarian. 2016. “Spatial genome organization and cognition.” <em>Nature Publishing Group</em> 17. doi:<a href="https://doi.org/10.1038/nrn.2016.124">10.1038/nrn.2016.124</a>.</p>
 </div>
 <div id="ref-rezende2014">
 <p>Rezende, Danilo Jimenez, Shakir Mohamed, and Daan Wierstra. 2014. “Stochastic Backpropagation and Approximate Inference in Deep Generative Models.” <em>ArXiv Preprint ArXiv:1401.4082</em>.</p>
@@ -561,8 +534,8 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
     </div>
   </div>
 
-  <script src="brownbag_files/reveal.js-3.3.0/lib/js/head.min.js"></script>
-  <script src="brownbag_files/reveal.js-3.3.0/js/reveal.js"></script>
+  <script src="dissertation_files/reveal.js-3.3.0/lib/js/head.min.js"></script>
+  <script src="dissertation_files/reveal.js-3.3.0/js/reveal.js"></script>
 
   <script>
 
@@ -596,9 +569,9 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
 
         // Optional reveal.js plugins
         dependencies: [
-          { src: 'brownbag_files/reveal.js-3.3.0/plugin/notes/notes.js', async: true },
-          { src: 'brownbag_files/reveal.js-3.3.0/plugin/zoom-js/zoom.js', async: true },
-          { src: 'brownbag_files/reveal.js-3.3.0/plugin/chalkboard/chalkboard.js', async: true },
+          { src: 'dissertation_files/reveal.js-3.3.0/plugin/notes/notes.js', async: true },
+          { src: 'dissertation_files/reveal.js-3.3.0/plugin/zoom-js/zoom.js', async: true },
+          { src: 'dissertation_files/reveal.js-3.3.0/plugin/chalkboard/chalkboard.js', async: true },
         ]
       });
     </script>
@@ -607,7 +580,7 @@ p({\mathbf{y}},{\mathbf{z}}) =\prod_{n=1}^N  \mathbf{Bernoulli}_p({\mathbf{y}}_n
     (function () {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src  = "brownbag_files/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      script.src  = "dissertation_files/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
       document.getElementsByTagName("head")[0].appendChild(script);
     })();
   </script>
