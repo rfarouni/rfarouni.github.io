@@ -44,10 +44,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ***
 
-### A unifying overview of latent variable models (LVMs) from a *probabilistic* perpsective
+### A unifying overview of latent variable models (LVMs) from a probabilistic perpsective
 
-i. Explain what LVMs are and show how they can be constructed starting from basic assumptions.
-ii. Present a probabilistic modeling approach to formulating LVMs.
+i. Present an overview of the probabilistic modeling approach to formulating LVMs. 
+ii. Show how LVMs can be constructed from most basic assumptions.
 iii. Show how several examples of LVMs such as PCA, FA, ICA, CCA, SEM, and DGLM are related to each other. 
 
 ***
@@ -56,7 +56,7 @@ iii. Show how several examples of LVMs such as PCA, FA, ICA, CCA, SEM, and DGLM 
 ### Application of a Deep Latent Gaussian Model to functional epigenomics data
 
 i. Provide a proof of concept for applying an implicit, deep, highly nonlinear, and generative latent variable model to the unsupervised learning of a continous representation of the histone code. 
-ii. Learn a compressed two-dimensional latent representation as defined by the two hidden factors of variation are most salient in the 90-dimensional data.
+ii. Learn a compressed two-dimensional latent representation as defined by the two hidden factors of variation  that are most salient in the high-dimensional data.
 iii. Give a biological interpertation of the learned latent manifold in terms of a combinatorial code of histone modifications. 
 
 # Main Ideas
@@ -144,12 +144,10 @@ $$
 ***
 
 ## The Variational Autoencoder (VAE): Generative Model
-
 <br>
-$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I})  \quad n=1, \cdots,N\\
 \by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
 $$
-<br>
 <hr>
 $$ 
 \textit{where } \quad
@@ -196,8 +194,9 @@ And minimize Kullback–Leibler divergence between the approximate posterior and
 
 # Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States
 
+***
 
-##  Effects of  histone modification marks on gene regulation 
+###  Effects of  histone modification marks on gene regulation 
 
 <div style="width:900px; height:500px; margin:auto">
 ![Chromatin Architecture and Gene Expression](chromatin.jpg)

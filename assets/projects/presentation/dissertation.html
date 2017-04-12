@@ -86,10 +86,10 @@
 
 <section><section id="main-contributions" class="titleslide slide level1"><h1>Main Contributions</h1></section><section class="slide level2">
 
-<h3 id="a-unifying-overview-of-latent-variable-models-lvms-from-a-probabilistic-perpsective">A unifying overview of latent variable models (LVMs) from a <em>probabilistic</em> perpsective</h3>
+<h3 id="a-unifying-overview-of-latent-variable-models-lvms-from-a-probabilistic-perpsective">A unifying overview of latent variable models (LVMs) from a probabilistic perpsective</h3>
 <ol type="i">
-<li>Explain what LVMs are and show how they can be constructed starting from basic assumptions.</li>
-<li>Present a probabilistic modeling approach to formulating LVMs.</li>
+<li>Present an overview of the probabilistic modeling approach to formulating LVMs.</li>
+<li>Show how LVMs can be constructed from most basic assumptions.</li>
 <li>Show how several examples of LVMs such as PCA, FA, ICA, CCA, SEM, and DGLM are related to each other.</li>
 </ol>
 </section><section class="slide level2">
@@ -97,7 +97,7 @@
 <h3 id="application-of-a-deep-latent-gaussian-model-to-functional-epigenomics-data">Application of a Deep Latent Gaussian Model to functional epigenomics data</h3>
 <ol type="i">
 <li>Provide a proof of concept for applying an implicit, deep, highly nonlinear, and generative latent variable model to the unsupervised learning of a continous representation of the histone code.</li>
-<li>Learn a compressed two-dimensional latent representation as defined by the two hidden factors of variation are most salient in the 90-dimensional data.</li>
+<li>Learn a compressed two-dimensional latent representation as defined by the two hidden factors of variation that are most salient in the high-dimensional data.</li>
 <li>Give a biological interpertation of the learned latent manifold in terms of a combinatorial code of histone modifications.</li>
 </ol>
 </section></section>
@@ -161,9 +161,9 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 \]</span></p>
 </section><section id="the-variational-autoencoder-vae-generative-model" class="slide level2">
 <h1>The Variational Autoencoder (VAE): Generative Model</h1>
-<br> <span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+<br> <span class="math display">\[\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I})  \quad n=1, \cdots,N\\
 {\mathbf{y}}_n \mid  {\mathbf{z}}_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}({\mathbf{z}}_n;{\boldsymbol{\theta}}),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;{\boldsymbol{\theta}})))
-\]</span> <br>
+\]</span>
 <hr>
 <span class="math display">\[ 
 \textit{where } \quad
@@ -197,8 +197,9 @@ p({\mathbf{y}}_1,\cdots,{\mathbf{y}}_N,{\mathbf{z}}_1,\cdots,{\mathbf{z}}_N,{\bo
 </figure>
 </div>
 </section></section>
-<section><section id="application-of-a-deep-latent-variable-model-to-the-unsupervised-learning-of-chromatin-states" class="titleslide slide level1"><h1>Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States</h1></section><section id="effects-of-histone-modification-marks-on-gene-regulation" class="slide level2">
-<h1>Effects of histone modification marks on gene regulation</h1>
+<section><section id="application-of-a-deep-latent-variable-model-to-the-unsupervised-learning-of-chromatin-states" class="titleslide slide level1"><h1>Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States</h1></section><section class="slide level2">
+
+<h3 id="effects-of-histone-modification-marks-on-gene-regulation">Effects of histone modification marks on gene regulation</h3>
 <div style="width:900px; height:500px; margin:auto">
 <figure>
 <img src="chromatin.jpg" alt="Chromatin Architecture and Gene Expression" /><figcaption>Chromatin Architecture and Gene Expression</figcaption>
