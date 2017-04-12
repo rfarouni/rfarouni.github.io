@@ -1,5 +1,5 @@
 ---
-title: "Dissertation Presentation"
+title: " An Overview of Probabilistic Latent Variable Models with an Application to the Deep Unsupervised Learning of Chromatin States"
 author:
 - "Rick Farouni"
 date: April 3, 2017
@@ -23,6 +23,7 @@ bibliography: bibfile.bib
 ---
 
 \newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
 \newcommand{\bSigma}{\boldsymbol{\Sigma}}
 \newcommand{\bnu}{\boldsymbol{\nu}}
 \newcommand{\bepsilon}{\boldsymbol{\epsilon}}
@@ -32,12 +33,57 @@ bibliography: bibfile.bib
 \newcommand{\bB}{\mathbf{B}}
 \newcommand{\bD}{\mathbf{D}}
 \newcommand{\bW}{\mathbf{W}}
+\newcommand{\bY}{\mathbf{Y}}
 \DeclareMathOperator{\Diag}{Diag}
 \newcommand{\sN}{\mathcal{N}}
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-# An Overview of Probabilistic Generative Latent Models
+
+# Main Contributions
+
+***
+
+### A unifying overview of latent variable models (LVMs) from a *probabilistic* perpsective
+
+i. Explain what LVMs are and show how they can be constructed starting from basic assumptions.
+ii. Present a probabilistic modeling approach to formulating LVMs.
+iii. Show how several examples of LVMs such as PCA, FA, ICA, CCA, SEM, and DGLM are related to each other. 
+
+***
+
+
+### Application of a Deep Latent Gaussian Model to functional epigenomics data
+
+i. Provide a proof of concept for applying an implicit, deep, highly nonlinear, and generative latent variable model to the unsupervised learning of a continous representation of the histone code. 
+ii. Learn a compressed two-dimensional latent representation as defined by the two hidden factors of variation are most salient in the 90-dimensional data.
+iii. Give a biological interpertation of the learned latent manifold in terms of a combinatorial code of histone modifications. 
+
+# Main Ideas
+
+
+##  Algebraic Perspective 
+<hr>
+### Regression Example
+
+$N$ data points $(\mathbf{X},\mathbf{Y})=\{(\mathbf{x}_n, \by_n)\}$ $\mathbf{x}_n\in\mathbb{R}^{M}$;  $\by_n\in\mathbb{R}^{P}$
+<hr>
+$$\epsilon_{np} \sim \mathcal{N}_p(0,\, \sigma^2_p)\\
+y_{np} =\bbeta^T_{p}\bx_n + \epsilon_{np}\\
+n=1, \cdots, N; \quad p=1, \cdots, P
+$$
+
+
+
+***
+
+##  Probabilistic Perspective 
+<br>
+$$
+p(\by_1,\cdots, \by_N, \bx_1,\cdots, \bx_N, \theta)\\
+=\prod_{n=1}^Np(\by_n \mid \bx_n, \theta^{Y})\prod_{n=1}^N p( \bx_n \mid \theta^{X}) p(\theta^{Y}) p(\theta^X) \\
+=\prod_{n=1}^N  \sN_p( \by_{n} \mid \bB \bx_n, \ \bSigma) p(\bB,\bSigma)\prod_{n=1}^N\ p(\bx_n\mid \theta^{X})p(\theta^{X})
+$$
 
 ***
 
@@ -48,7 +94,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ## What is a Latent Variable Model?
 
 $$
-\by \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}\\
+\bY \in \mathbb{R}^{N \times P }; \by_n \in \mathbb{R}^{P}; \bz_n \in \mathbb{R}^{D}; \btheta \in \mathbb{R}^{M}\\
 p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\by_n\mid\bz_n,\btheta)p(\bz_n\mid\btheta)$$
 <hr>
 <div style="width:600px; height:250px; margin:auto">
@@ -56,6 +102,368 @@ p(\by_1,\cdots,\by_N,\bz_1,\cdots,\bz_N,\btheta) = p(\btheta)\prod_{n=1}^N\ p(\b
 </div>
 
 ***
+
+
+
+## Examples of Common Latent Variable Models
+
+***
+
+## Principle Component Analysis (PCA)
+
+$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \sigma^2\mathbf{I}) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+
+### As a generative model 
+
+$$
+\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad  n=1,\cdots,N \\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\, \sigma^2\mathbf{I})
+$$
+
+<br>
+<br>
+<hr>
+<small> @tipping1999 </small>
+
+
+## Factor Analysis (FA)
+
+$$
+\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+
+### As a generative model 
+
+$$
+\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\,\Diag(\sigma^2) )
+$$
+
+***
+
+## The Variational Autoencoder (VAE): Generative Model
+
+<br>
+$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
+\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
+$$
+<br>
+<hr>
+$$ 
+\textit{where } \quad
+\mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
+ \quad h_k(\bz) = \sigma_k(\mathbf{W}^{(k)} \bz+\mathbf{b}^{(k)})\\  
+ \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
+ \textit{is a function parameterized by a deep neural network}
+$$
+<hr>
+<small> @Kingma2013 </small>
+
+
+## Variational Approximation
+
+Since the true posterior is intractable 
+</br>
+</br>
+$$p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p(\by_n \mid \bz_n)p(\bz_n)}{p(\by_n)}\\$$
+
+We introduce an approximate posterior distribution 
+</br>
+</br>
+$$q(\mathbf{z}_n \mid \mathbf{y}_n;\bnu)$$
+
+## VAE: Inference Model
+
+$$q(\mathbf{z}_n \mid \mathbf{y}_n;\bnu) = \mathcal{N}_d\big(\bz_n \mid \mathbf{NN}_{\mu}(\by_n;\bnu),\, \mathbf{NN}_{\sigma}(\by_n;\bnu)\big) \\$$
+
+***
+
+And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior
+
+<div style="width:800px; height:500px; margin:auto">
+![Image Credit: Blei et. al. NIPS 2016 Tutorial Slides](var_infer.jpg)
+</div>
+
+
+***
+
+
+<div style="width:800px; height:500px; margin:auto">
+![VAE Model](vae.jpg)
+</div>
+
+# Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States
+
+
+##  Effects of  histone modification marks on gene regulation 
+
+<div style="width:900px; height:500px; margin:auto">
+![Chromatin Architecture and Gene Expression](chromatin.jpg)
+</div>
+
+***
+
+##  Data 
+
+- A total of 100  ENCODE epigenomic datasets were used 
+    - 10 ChIP-seq datasets (genome-wide signal coverage) 
+    - 10 ENCODE cell types
+
+***
+
+
+###  Epigenomic Marks
+
+<div style="width:800px; height:500px; margin:auto">
+![](epigenomic_marks.png)
+</div>
+
+***
+
+###  Cell Types 
+
+<div style="width:700px; height:500px; margin:auto">
+![](celltypes.png)
+</div>
+
+***
+
+<div style="width:700px; height:500px; margin:auto">
+![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
+</div>
+
+
+***
+
+### An Observation as an Image 
+
+<div style="width:430px; height:420px; margin:auto">
+![One 90-dimensional observation reshaped as an image representing the scaled mean signal over a 200bps window for all 90 datasets.](one_observation.png)
+</div>
+***
+
+## Inference
+
+- Tensorflow via Python API
+- Training Data:
+    - All except Chromosomes 1, 8, and 21
+    - Sample Size: 11,748,445
+    - Dimensionality: 90
+    - Validation Split: 80% Training, 20% Validation
+- Test Data
+    - Chromosomes 1, 8, and 21
+    - Sample Size: 1,946,177 Observations
+    
+***
+
+## Examining the Inference model
+
+$$
+q_\nu(\mathbf{z}_n \mid \mathbf{y}_n;\bnu) = \mathcal{N}_2\big(\bz_n \mid \mathbf{NN}_{\mu}(\by_n;\bnu),\, \mathbf{NN}_{\sigma}(\by_n;\bnu)\big)
+$$
+
+***
+
+### MNIST Digits
+
+<div style="width:1000px; height:800px; margin:auto">
+![Six Observations from MNIST data](mnistsamples.png)
+</div>
+
+***
+
+### Projected Data MNIST Digits
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of MNIST data](mnist_mean.png)
+</div>
+
+***
+
+### MNIST Latent 2-D Manifold  
+
+<div style="width:600px; height:600px; margin:auto">
+![Approximate Posterior Latent Space (MNIST)](latent_mnist.png)
+</div>
+
+***
+
+### Projection of Validation Data onto Latent Space 
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 2,349,696 Observations into $\mathbf{NN}_{\mu}(\by_n;\bnu)$](valid_unlabeled.png)
+</div>
+
+***
+
+### Projection of Test Data onto Latent Space 
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 1,946,177 Observations into $\mathbf{NN}_{\mu}(\by_n;\bnu)$](test_unlabeled.png)
+</div>
+
+***
+
+### Functional Annotations 
+
+- FANTOM5 Atlas of Active Enhancers (43,011 regions)
+- CpG islands (52,502  regions)
+- GENCODE Version 19 Gene Annotations:  Promoters
+    
+
+***
+
+### Projected Validation Data (Labeled Subset)
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 116,851 Observations with Labels](valid_labeled.png)
+</div>
+
+***
+
+### Projected Test Data (Labeled Subset)
+
+<div style="width:1000px; height:800px; margin:auto">
+![Projection of 102,115 Observations with Labels](test_labeled.png)
+</div>
+
+***
+
+### Examining the generative model
+
+<br>
+  
+$$\mathbf{z}_n\ \sim\ \mathcal{N}_2(\boldsymbol{0},\, \mathbf{I})  \quad n=1, \cdots,N\\
+\by_n \mid  \bz_n \sim \operatorname{Bernoulli} \Big(p=\mathbf{NN}(\bz_n;\btheta)\Big)\\
+$$
+
+***
+
+## Implicit Models
+
+<div style="width:900px; height:500px; margin:auto">
+![](tranformation.png)
+
+***
+
+### Visualizing the Learned 2-D Manifold 
+
+<div style="width:600px; height:600px; margin:auto">
+![A synthetic observation corresponding to  point $\bz=[5,2]$ in the latent space](sample_x5y2.png)
+</div>
+
+***
+
+<div style="width:600px; height:600px; margin:auto">
+![A synthetic observation corresponding to  point $\bz=[-3,4]$ in the latent space](sample_x-3y4.png)
+</div>
+
+***
+
+### Visualizing the Learned 2-D Manifold 
+
+<div style="width:600px; height:600px; margin:auto">
+![16 x 16 Grid of Samples from Latent Space](2dmanifold.png)
+</div>
+
+
+***
+
+### Model Checking
+
+<div style="width:800px; height:800px; margin:auto">
+![Reconstructions of Observations by Projection followed by Sampling from the Latent Manifold](reconstructions.png)
+</div>
+
+***
+
+## Scientific significance and relevance of the approach
+
+***
+
+### Histone Code model 
+
+- Histone modifications --> chromatin structure --> gene expression
+- Only a few histone marks combinations have a functional role
+
+***
+
+### Existing approaches 
+
+- Discrete Histone code
+- Functionally important histone combinations (i.e. ***chromatin states***) define regulatory elements and functionally annotate the
+human genome
+- Chromatin states learned are cell-type specific 
+
+***
+
+### Current approach
+
+- Histone code continuous but can also be discretized
+- Extensive across cell-types
+
+***
+
+## Statistical significance and relevance of the approach
+
+***
+
+### Existing approaches
+
+- Explicit, shallow, linear
+- Not scalable
+- Many are not generative
+- Supervised methods can be trained only on a very small subset of data
+
+***
+
+### Current Approach
+
+- Implicit, deep, highly nonlinear, generative, unsupervised model
+- Very scalable and flexible
+- Model checking by sampling
+- Learns compact representations and extracts the factors of variation that govern the data 
+
+***
+
+## Future Goals
+
+- Extend the approach to the problem of semi-unsupervised learning
+- Identify the cell-specific functional role of particular regulatory regions (e.g. enhancers)
+
+***
+
+### Global patterns across cell-types
+
+>- Lower right quadrant:  H3k27ac,  H3k4me2, H3k4me3, and H3k9ac (Columns 2, 6, 7, 8) drive variation 
+>- Left hand side: H3k27me3 and  H3k36me3 (Columns 3 and 4) drive variation 
+>- Upper left and lower left quadrants: highH3k36me3 drive variation right to left
+>- Top to bottom: very small H3k27me3 dominates 
+
+***
+
+### Local patterns
+
+>- The lower right corner: the H1-hESC and HepG2 cells (Rows 3 and 5) 
+>-  HepG2: H3k27me3 is high 
+>- H1-hESC:  H3k27ac is low
+
+***
+
+
+
+## Thank You!
+
+</br>
+
+
+> "Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." - **David Donoho, Plenary Address at ICM 2012**
+
+
+# Extra
+
 
 ## Class of Latent Variable Models
 
@@ -96,61 +504,6 @@ $$\textit{Let } \overset{p\times m}{\mathbf{B}}=\overset{p\times d}{\mathbf{W}}\
 $$\textit{Let } {\bz_n}=\overset{d\times m}{\mathbf{D}}\overset{m\times 1}{\by_n}\\
 \prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \bSigma)$$
 
-## Examples of Common Latent Variable Models
-
-
-
-***
-
-## Principle Component Analysis (PCA)
-
-$$
-\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \sigma^2\mathbf{I}) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
-$$
-
-### As a generative model 
-
-$$
-\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad  n=1,\cdots,N \\
-\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\, \sigma^2\mathbf{I})
-$$
-
-<br>
-<br>
-<hr>
-<small> @tipping1999 </small>
-
-
-## Factor Analysis (FA)
-
-$$
-\prod_{n=1}^N  \sN_p( \by_n \mid \bW\bz_n, \ \Diag(\sigma^2)) \mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
-$$
-
-### As a generative model 
-
-$$
-\bz_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\,\mathbf{I}) \quad n=1,\cdots,N \\
-\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\bW\bz_n,\,\Diag(\sigma^2) )
-$$
-
-***
-
-
-## Variational Autoencoder (VAE)
-
-<br>
-<br>
-
-$$\mathbf{z}_n\ \sim\ \mathcal{N}_d(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N\\
-\by_n \mid  \bz_n \sim\ \mathcal{N}_p(\mathbf{NN}_{\mu}(\bz_n;\btheta),\, \mathbf{NN}_{\sigma}(\mathbf{z}_n;\btheta)))
-$$
-
-<br>
-<br>
-<hr>
-<small> @Kingma2013 </small>
-
 ## Deep Latent Gaussian Models (DLGM)
 
 $$\mathbf{z}_n^{(L)}\ \sim\ \mathcal{N}_{d_{(L)}}(\boldsymbol{0},\, \mathbf{I}))  \quad n=1, \cdots,N \\
@@ -166,164 +519,17 @@ $$
 $$
 <hr>
 <small> @rezende2014 </small>
-
-
-# Application of a Deep Latent Variable Model to the Unsupervised Learning of Chromatin States
-
-## Background
-
 ***
 
-### The General Problem 
-
-*Molecular phenotype* = $\Phi$( *genome, environment*)
 
 
-<div style="width:1000px; height:400px; margin:auto">
-![ ](phenotype.jpg)</div>
-
-***
-
-### The Specific Computational Problem
-
-*TF binding* = $\Phi_1$(*regulatory DNA*)
-
-*Gene Expression* = $\Phi_2$(*TF binding*)
-
-<div style="width:400px; height:200px; margin:auto">
-![Central Dogma of Molecular Biology 2.0](DNAtoProtein.png)
-</div>
-
-***
-
-###  Chromatin Architecture 
-
-<div style="width:900px; height:500px; margin:auto">
-![Chromatin Architecture and the Functional Genome](chromatin.jpg)
-</div>
-
-***
-
-##  Data 
-
-- A total of 100  ENCODE epigenomic datasets were used 
-     - 10 ENCODE cell types
-     - 10 ChIP-seq datasets (genome-wide signal coverage) 
-
-***
-
-###  Cell Types 
-
-
-
-<div style="width:700px; height:500px; margin:auto">
-![](celltypes.png)
-</div>
-
-***
-<div style="width:700px; height:500px; margin:auto">
-![UCSC Genome Browser Tracks for the H3k27me3 mark for all 10 cells](1mark10cells.png)
-</div>
-
-***
-###  Epigenomic Marks
-
-<div style="width:800px; height:500px; margin:auto">
-![](epigenomic_marks.png)
+<div style="width:800px; height:800px; margin:auto">
+![VAE's Approximate Posterior Latent Space (Faces)](vaefaces.jpg)
 </div>
 
 
 ***
 
-<div style="width:450px; height:340px; margin:auto">
-![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
-</div>
-
-***
-
-##  Preprocessing 
-
-(1) Creating a blacklist file of excludable genomic regions
-(2) Segment the human reference genome into 200bp bins
-(3) Discard regions that overlap the blacklist
-(4) Combine 100 bigWig signals into one data-frame
-(5) Average the signal over the 200bp segments
-(6) Subtract control signal from other 9 signals for each cell-type
-(7) Normalize the signals
-(8) Create labels from available functional annotation data
-
-***
-
-### Visualizing the Observations
-
-<div style="width:1000px; height:800px; margin:auto">
-![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_enhancers.png)
-</div>
-
-
-
-***
-
-## Model: The Variational Autoencoder
-
-
-<div style="width:500px; height:360px; margin:auto">
-![VAE Model](vae.jpg)
-</div>
-
-
-***
-
-## Generative Network
-
-$$
-p(\by,\bz) =\prod_{n=1}^N  \mathbf{Bernoulli}_p(\by_n \mid \mathbf{NN}(\bz_n;\btheta))\mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
-$$
-$$ 
-\textit{where } \quad
-\mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
- \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
- \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
- \textit{is a function parameterized by a deep neural network}
-$$
-
-***
-
-## Implicit Models
-
-<div style="width:900px; height:500px; margin:auto">
-![](tranformation.png)
-
-***
-
-## Variational Approximation Network
-
-Since the true posterior is intractable 
-$$p_\theta(\mathbf{z}_n \mid \mathbf{y}_n) = \frac{p(\by_n \mid \bz_n)p(\bz_n)}{p(\by_n)}\\$$
-
-We introduce an approximate posterior distribution
-
-
-$$q(\mathbf{z}_n \mid \mathbf{y}_n;\bnu) = \mathcal{N}_d\big(\bz_n \mid \mathbf{NN}_{\mu}(\by_n;\bnu),\, \mathbf{NN}_{\sigma}(\by_n;\bnu)\big) \\$$
-
-***
-
-And minimize Kullback–Leibler divergence between the approximate posterior and the true posterior
-
-<div style="width:800px; height:500px; margin:auto">
-![Image Credit: Blei et. al. NIPS 2016 Tutorial Slides](var_infer.jpg)
-</div>
-
-***
-
-## Variational Inference for VAE
-
-</br>
-
- > “Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” - **John Tukey**
-    
-
-***
 
 ## Network Architecture
 
@@ -351,20 +557,78 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 ***
 
 
-## Inference
+## Generative Model
 
-- Tensorflow via Python API
-- Training Data:
-    - All except Chromosomes 1, 8, and 21
-    - Sample Size: 11,748,445
-    - Dimensionality: 90
-    - Validation Split: 80% Training, 20% Validation
-- Test Data
-    - Chromosomes 1, 8, and 21
-    - Sample Size: 1,946,177 Observations
-    
+$$
+p(\by,\bz) =\prod_{n=1}^N  \mathbf{Bernoulli}_p(\by_n \mid \mathbf{NN}(\bz_n;\btheta))\mathcal{N}_d(\bz_n \mid \boldsymbol{0},\,\mathbf{I})
+$$
+$$ 
+\textit{where } \quad
+\mathbf{NN}(\bz;\theta) = h_K \circ h_{K-1} \circ \ldots \circ h_0(\mathbf{z}) \\
+ \quad h_k(\by) = \sigma_k(\mathbf{W}^{(k)} \by+\mathbf{b}^{(k)})\\  
+ \btheta = \{ (\mathbf{W}^{(k)}, \mathbf{b}^{(k)}) \}_{k=0}^K\\
+ \textit{is a function parameterized by a deep neural network}
+$$
+
 ***
 
+### The General Problem 
+
+*Molecular phenotype* = $\Phi$( *genome, environment*)
+
+
+<div style="width:1000px; height:400px; margin:auto">
+![ ](phenotype.jpg)</div>
+
+***
+
+### The Specific Computational Problem
+
+*TF binding* = $\Phi_1$(*regulatory DNA*)
+
+*Gene Expression* = $\Phi_2$(*TF binding*)
+
+<div style="width:400px; height:200px; margin:auto">
+![Central Dogma of Molecular Biology 2.0](DNAtoProtein.png)
+</div>
+
+***
+
+
+<div style="width:450px; height:340px; margin:auto">
+![UCSC Genome Browser Tracks for all 9 marks for GM12878 and H1-hESC cells](9marks2cells.png)
+</div>
+
+***
+
+##  Preprocessing 
+
+(1) Creating a blacklist file of excludable genomic regions
+(2) Segment the human reference genome into 200bp bins
+(3) Discard regions that overlap the blacklist
+(4) Combine 100 bigWig signals into one data-frame
+(5) Average the signal over the 200bp segments
+(6) Subtract control signal from other 9 signals for each cell-type
+(7) Normalize the signals
+(8) Create labels from available functional annotation data
+
+***
+
+
+<div style="width:1000px; height:800px; margin:auto">
+![A Sample of 12 Observations from Test Data. Each has 10 cells (rows) x 9 Epigenentic Marks (columns)](observations_cpgs.png)
+</div>
+
+***
+
+## Variational Inference for VAE
+
+</br>
+
+ > “Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.” - **John Tukey**
+    
+
+***
 
 ## Optimization
 
@@ -380,159 +644,12 @@ $$\Phi(\by, \theta) = \rho(W_L(\rho(W_{L-1} \cdots \rho(W_1(\by))\cdots)$$
 
 ***
 
-### Projection of Validation Data onto Latent Space 
-
-<div style="width:1000px; height:800px; margin:auto">
-![Projection of 2,349,696 Observations into 2D Manifold](valid_unlabeled.png)
-</div>
-
-***
-
-### Projection of Test Data onto Latent Space 
-
-<div style="width:1000px; height:800px; margin:auto">
-![Projection of 1,946,177 Observations into 2D Manifold](test_unlabeled.png)
-</div>
-
-***
-
-### Functional Annotations 
-
-- FANTOM5 Atlas of Active Enhancers (43,011 regions)
-- CpG islands (52,502  regions)
-- GENCODE Version 19 Gene Annotations: 
-    - Coding DNA sequence (CDS)
-    - Promoters
-    
-
-***
-
-### Projected Validation Data (Labeled Subset)
-
-<div style="width:1000px; height:800px; margin:auto">
-![Projection of 116,851 Observations with Labels](valid_labeled.png)
-</div>
-
-
-***
-
-### Projected Test Data (Labeled Subset)
-
-<div style="width:1000px; height:800px; margin:auto">
-![Projection of 102,115 Observations with Labels](test_labeled.png)
-</div>
-
-***
-
-### Visualizing the Learned 2-D Manifold 
-
-<div style="width:600px; height:600px; margin:auto">
-![16 x 16 Grid of Samples from Latent Space](2dmanifold.png)
-</div>
-
-
-***
-
-
-### Visualizing the Learned 2-D Manifold 
-
-<div style="width:600px; height:600px; margin:auto">
-![3 x 3 Close-up of Right Side of the Latent Space](2dmanifold_zoom.png)
-</div>
-
-***
-
-### Global patterns across cell-types
-
->- Lower right quadrant:  H3k27ac,  H3k4me2, H3k4me3, and H3k9ac (Columns 2, 6, 7, 8) drive variation 
->- Left hand side: H3k27me3 and  H3k36me3 (Columns 3 and 4) drive variation 
->- Upper left and lower left quadrants: highH3k36me3 drive variation right to left
->- Top to bottom: very small H3k27me3 dominates 
-
-***
-
-### Local patterns
-
->- The lower right corner: the H1-hESC and HepG2 cells (Rows 3 and 5) 
->-  HepG2: H3k27me3 is high 
->- H1-hESC:  H3k27ac is low
-
-***
-
-### Reconstructing Observations
-
-<div style="width:800px; height:800px; margin:auto">
-![Reconstructions of Observations by Projection followed by Sampling from the Latent Manifold](reconstructions.png)
-</div>
-
-***
-
-
-## Application
-
-Better Unsupervised Learning Methods? 
-
-- **ChromHMM** (Ernst J. and Kellis M, 2012): Hidden Markov Model
-- **Segway** (Hoffman et al., 2012): Dynamic Bayesian Network
-
-***
-
-
-## Thank You!
-
-</br>
-
-
-> "Information has its own architecture. Each data source, whether imagery, sound, text, has an inner architecture which we should attempt to discover." - **David Donoho, Plenary Address at ICM 2012**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Extra
-
-***
-
-<div style="width:600px; height:600px; margin:auto">
-![Learning the VAE Latent Space](vae.gif)
-</div>
-
-***
-
-<div style="width:600px; height:600px; margin:auto">
-![VAE's Approximate Posterior Latent Space (MNIST)](vae.png)
-</div>
-
-***
-
-<div style="width:800px; height:800px; margin:auto">
-![VAE's Approximate Posterior Latent Space (Faces)](vaefaces.jpg)
-</div>
-
-
-***
-
-
-
 ### Deep learning Models
 
 
 <div style="width:900px; height:500px; margin:auto">
 ![Deep convolutional neural network (Mallat, 2016)](CNN.jpg)
 </div>
-
-
 
 ***
 ### Why is Deep Learning succussful?
@@ -557,10 +674,19 @@ Better Unsupervised Learning Methods?
 </div>
 
 ***
- 
+
+<div style="width:600px; height:600px; margin:auto">
+![Learning the VAE Latent Space](vae.gif)
+</div>
+
+***
 
 
+## Application
 
+**ChromHMM**, a Hidden Markov Model and **Segway**, a Dynamic Bayesian Network
+
+***
 
 
 
