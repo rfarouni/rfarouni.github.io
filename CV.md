@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Curriculum Vitae
-subtitle: last updated 02/12/2017
+subtitle: last updated 07/01/2017
 ---
 <div>
 <body>
@@ -11,6 +11,6 @@ subtitle: last updated 02/12/2017
        setTimeout(function(){location.href=that.href;},200);
        return false;" class = "btn btn-default"><i class="fa fa-file-text-o fa-1x"></i> Download PDF</a>
     </p>
- <img src="/assets/img/CV.jpeg" alt="CV" >
+ <img src="/assets/files/CV.pdf" alt="CV" >
 </body>
 </div>
