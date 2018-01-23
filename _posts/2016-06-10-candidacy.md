@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Written Candidacy Examination"
-description: "Questions and Answers to my Written Candidacy Examination" 
+description: "Statistical Modeling of fMRI Data; Dirichlet Process Models" 
 ---
 
 <br><br><br><br>
