@@ -1,7 +1,7 @@
 ---
 layout: page
 title: CV
-subtitle: Dedicated to Rigorous Science in the Public Interest
+subtitle: 
 ---
 
 <p></i><a href="/assets/files/CV.pdf"  
